@@ -2,9 +2,11 @@ const express = require('express');
 const middleware = require('../middleware');
 
 const router = express.Router();
+console.log('inside router');
 
 router.route('/')
    .get((req, res) => {
+     console.log('about to send index.ejs');
      res.render('index.ejs');
    });
 
@@ -35,6 +37,7 @@ router.route('/')
 
 router.route('/profile')
  .get((req, res) => {
+   console.log('about to send profile.ejs');
    res.render('profile.ejs', {
      user: {} // get the user out of session and pass to template
    });
@@ -43,6 +46,7 @@ router.route('/profile')
 
 router.route('/logout')
   .get((req, res) => {
+    console.log('about to send logout');
     req.logout();
     res.redirect('/');
   });
