@@ -1,17 +1,17 @@
-# Project Name
+# Majestic Mushrooms (REPLACE WITH APP NAME)
 
 The project description
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Bryant Huang
+- Jennifer Wang
+- Kirk Rohani
+- Soo Park
 
 ## Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://docs.google.com/document/d/1mt4K9bqHS1zIeejx9vtdj4LopGqEdqqY94ZmrbRnXQU/edit#heading=h.ihjn7e6kkht8)
 
 ## Contributing
 
@@ -27,14 +27,22 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Usage
 
-> Some usage instructions
+To use the application simply double-click on the (APP_NAME) icon from the location on your computer. After opening the application you will be asked for your username (email address) and password.
 
 ## Requirements
 
 - Node 6.9.x
-- Redis 3.2.x
 - Postgresql 9.6.x
-- etc
+- Nylas Emal API
+- pgAdmin
+- Knex
+- ElectronJS
+- Material UI
+- Bookshelf ORM or Sequelize ORM
+- React
+- Redis
+- Authentication (Google, Facebook) using Passport
+
 
 ## Development
 
@@ -42,7 +50,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ```
 brew install yarn
-brew install redis
 brew install postgresql
 ```
 
