@@ -41,7 +41,9 @@ To use the application simply double-click on the (APP_NAME) icon from the locat
 - Bookshelf ORM or Sequelize ORM
 - React
 - Redis
-- Authentication (Google, Facebook) using Passport
+- Authentication (Google) using Passport
+- Heroku/Heroku Pipelin OR Digital Ocean
+
 
 
 ## Development
