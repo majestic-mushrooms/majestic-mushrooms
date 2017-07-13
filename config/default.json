@@ -19,11 +19,11 @@
     "seeds": {
       "directory": "db/seeds"
     }
-  }
+  },
 
-  //, "passport": {
-  //   "Google": {},
-  //   "Facebook": {},
-  //   "Twitter": {}
-  // }
+  "passport": {
+    "Google": {},
+    "Facebook": {},
+    "Twitter": {}
+  }
 }
