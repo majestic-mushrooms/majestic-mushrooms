@@ -14,8 +14,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(middleware.auth.session);
-app.use(middleware.passport.initialize());
-app.use(middleware.passport.session());
 app.use(middleware.flash());
 
 app.use(express.static(path.join(__dirname, '../public')));
