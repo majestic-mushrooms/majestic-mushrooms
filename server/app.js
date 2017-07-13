@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const middleware = require('./middleware');
 const routes = require('./routes');
+const config = require('config');
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // app.use(middleware.auth.session);
-// app.use(middleware.flash());
+app.use(middleware.flash());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
