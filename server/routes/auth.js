@@ -4,9 +4,14 @@ const middleware = require('../middleware');
 const router = express.Router();
 
 router.route('/')
-  .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
-  });
+   .get((req, res) => {
+     res.render('index.ejs');
+   });
+
+// router.route('/')
+//   .get(middleware.auth.verify, (req, res) => {
+//     res.render('index.ejs');
+//   });
 
 // router.route('/login')
 //   .get((req, res) => {
@@ -29,11 +34,12 @@ router.route('/')
 //   }));
 
 router.route('/profile')
-  .get(middleware.auth.verify, (req, res) => {
-    res.render('profile.ejs', {
-      user: req.user // get the user out of session and pass to template
-    });
-  });
+ .get((req, res) => {
+   res.render('profile.ejs', {
+     user: {} // get the user out of session and pass to template
+   });
+ });
+
 
 router.route('/logout')
   .get((req, res) => {
