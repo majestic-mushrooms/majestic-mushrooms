@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "MailApp.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "electron .",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch"
   },
