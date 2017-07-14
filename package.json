@@ -4,7 +4,8 @@
   "scripts": {
     "start": "nodemon server",
     "test": "NODE_ENV=test grunt test",
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "migrate": "knex migrate:latest"
   },
   "author": "Hack Reactor",
   "license": "MIT",
