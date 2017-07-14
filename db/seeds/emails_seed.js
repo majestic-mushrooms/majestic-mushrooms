@@ -4,7 +4,7 @@ exports.seed = function (knex, Promise) {
 
   let saveObj = {};
   return models.Account.where({ email: 'eatingbird@gmail.com' }).fetch()
-    .then((account) => {
+    .then(account => {
       if (account === null) { saveObj = {method: 'insert'}; }
     }).then(() => {
       console.log('saving account!')
@@ -21,7 +21,7 @@ exports.seed = function (knex, Promise) {
       console.error('ERROR: failed to create account');
       throw err;
     })
-    .then((account) => {
+    .then(account => {
       console.log('saving message for', account.get('account_id') + '!')
       return models.Message.forge({
         message_id: 'abcde12345',
@@ -43,7 +43,7 @@ exports.seed = function (knex, Promise) {
     .error(err => {
       console.error('ERROR: failed to create message');
     })
-    .then((message) => {
+    .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
         folder_id: 'abcd1234',
@@ -55,12 +55,17 @@ exports.seed = function (knex, Promise) {
     .error(err => {
       console.error('ERROR: failed to create folder!');
     })
-    .then((folder) => {
-      console.log('saving message and folder in join table!');
-      return models.sortedMessage.forge({
-        message_id: 'abcde12345',
-        folder_id: 'abcd1234'
-      }).save(null, saveObj);
+    .then(folder => {
+      return models.sortedMessage.where({ folder_id: folder.get('folder_id') }).fetch();
+    }).then(sortedMessage => {
+      if (sortedMessage === null) {
+        console.log('saving message and folder in join table!');
+        return models.sortedMessage.forge({
+          message_id: 'abcde12345',
+          folder_id: 'abcd1234'
+        }).save(null, saveObj);
+      }
+      return;
     })
     .error(err => {
       console.error('ERROR: failed to save to join table');
