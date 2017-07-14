@@ -1,8 +1,9 @@
 {
   "name": "course.thesis",
   "version": "1.0.0",
+  "main": "MailApp.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "electron .",
     "test": "NODE_ENV=test grunt test",
     "build": "webpack --watch"
   },
@@ -29,8 +30,11 @@
     "pg": "^6.1.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
     "redis": "^2.7.1",
-    "redis-server": "^1.1.0"
+    "redis-server": "^1.1.0",
+    "semantic-ui-react": "^0.71.0"
   },
   "devDependencies": {
     "babel-loader": "^7.0.0",

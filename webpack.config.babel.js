@@ -2,9 +2,9 @@ import webpack from 'webpack';
 import path from 'path';
 
 const config = {
-  entry: './client/src/app',
+  entry: './client/src/Main',
   output: {
-    path: path.join(__dirname, 'public/dist'),
+    path: path.join(__dirname, 'client/dist'),
     filename: 'bundle.js'
   },
   module: {
