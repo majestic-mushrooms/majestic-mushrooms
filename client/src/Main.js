@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
-import { Button } from 'semantic-ui-react';
+import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
+import LeftMenu from './components/LeftMenu.jsx';
+import RightMenu from './components/RightMenu.jsx';
 import {
   BrowserRouter as Router,
   browserHistory
@@ -8,8 +10,9 @@ import {
 import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Navigation from './components/Navigation.js';
+import Body from './components/Body.jsx';
 
-class Main extends React.Component {
+class Main extends Component {
   constructor(props) {
     super(props);
 
@@ -20,19 +23,36 @@ class Main extends React.Component {
   }
 
   render() {
-    const { view } = this.state;
-    console.log('rendering main.js with view: ', view);
+    var { display } = this.state;
+    if (this.state.currentView === 'main') {
+      display = (
+        <div className="bar">
+          <Sidebar.Pushable as={Segment}>
+            <LeftMenu />
+            <Body />
+          </Sidebar.Pushable>
+        </div>
+      )
+    } else {
+      display = (
+        <div className="bar">
+          <Sidebar.Pushable as={Segment}>
+            <LeftMenu />
+            <Body />
+          </Sidebar.Pushable>
+        </div>
+      )
+    }
+
     return (
       <Router history={browserHistory} >
-        <div>
-          <div><h1>Hello from app.js</h1></div>
-          <Link to="/ReadEmail">Read Email</Link>
-          <Navigation />
-        </div>
-        </Router>
+        {display}
+      </Router>
     );
   }
 }
 
 export default Main;
 ReactDOM.render(<Main />, document.getElementById('root'));
+
+
