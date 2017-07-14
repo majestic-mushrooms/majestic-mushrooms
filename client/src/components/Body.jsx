@@ -6,7 +6,11 @@ import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui
 
 class Body extends React.Component {
   constructor(props) {
+
     super(props);
+    this.state = { 
+      visible: true
+    };
   }
 
   render() {
@@ -17,7 +21,7 @@ class Body extends React.Component {
 
           <Segment basic>
             <SearchBar />
-            
+
             <Header as='h3'>List of Mails goes here</Header>
             <Header as='h3'>List of Mails goes here</Header>
             <Header as='h3'>List of Mails goes here</Header>
@@ -42,3 +46,13 @@ class Body extends React.Component {
 
 export default Body;
 
+
+
+  // <Grid>
+  //   <Grid.Column floated='left' width={5}>
+  //     <Image src='/assets/images/wireframe/paragraph.png' />
+  //   </Grid.Column>
+  //   <Grid.Column floated='right' width={5}>
+  //     <Image src='/assets/images/wireframe/paragraph.png' />
+  //   </Grid.Column>
+  // </Grid>

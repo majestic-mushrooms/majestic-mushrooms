@@ -13,7 +13,6 @@ class RightMenu extends Component {
   }
 
   handleItemClick(e, { name }) {
-    preventDefault(e);
     this.setState({ activeItem: name })
   }
 
@@ -30,7 +29,7 @@ class RightMenu extends Component {
     }
 
     return (
-      <div>
+      <div className="folder-list">
         <Menu attached='top' tabular>
           <Menu.Item name='tab1' active={activeItem === 'tab1'} onClick={this.handleItemClick.bind(this)} />
           <Menu.Item name='tab2' active={activeItem === 'tab2'} onClick={this.handleItemClick.bind(this)} />
