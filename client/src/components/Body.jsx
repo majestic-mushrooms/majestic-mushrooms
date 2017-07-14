@@ -21,7 +21,7 @@ class Body extends React.Component {
 
           <Segment basic>
             <SearchBar />
-
+ 
             <Header as='h3'>List of Mails goes here</Header>
             <Header as='h3'>List of Mails goes here</Header>
             <Header as='h3'>List of Mails goes here</Header>
