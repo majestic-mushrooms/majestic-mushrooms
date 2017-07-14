@@ -5,7 +5,9 @@
   "scripts": {
     "start": "electron .",
     "test": "NODE_ENV=test grunt test",
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run"
   },
   "author": "Hack Reactor",
   "license": "MIT",
