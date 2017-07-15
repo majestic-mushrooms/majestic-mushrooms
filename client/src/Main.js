@@ -30,13 +30,13 @@ class Main extends Component {
     };
   }
 
-  componentDidMount() {
-    $.get('/someEndpoint', (messages) => {
-      this.setState({
-        messages: JSON.parse(messages)
-      });
-    });
-  }
+  // componentDidMount() {
+  //   $.get('/someEndpoint', (messages) => {
+  //     this.setState({
+  //       messages: JSON.parse(messages)
+  //     });
+  //   });
+  // }
 
   render() {
     var { display } = this.state;

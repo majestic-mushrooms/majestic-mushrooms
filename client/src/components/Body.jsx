@@ -1,8 +1,8 @@
 import React from 'react';
 import SearchBar from './SearchBar.jsx';
 import RightMenu from './RightMenu.jsx';
-import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
-import InboxList from './InboxList.jsx';
+import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
+import MailViewList from './MailViewList.jsx';
 
 
 class Body extends React.Component {
@@ -12,7 +12,6 @@ class Body extends React.Component {
     this.state = { 
       visible: true
     };
-    console.log('props in body', props);
   }
 
   render() {
@@ -23,7 +22,7 @@ class Body extends React.Component {
 
           <Segment basic>
             <SearchBar />
-            <InboxList messages={this.props.messages}/>
+            <MailViewList messages={this.props.messages}/>
           </Segment>
 
           <Segment basic>
