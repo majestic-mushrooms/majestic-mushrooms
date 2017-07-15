@@ -13,7 +13,7 @@ var currentColor = -1;
 const MailViewList = ({messages}) => (
   <Grid centered>
     <Grid.Column width={11}>
-      <Table fixed singleLine>
+      <Table>
         <Table.Body>
           {messages.map((message, key) => {
             currentColor++;
