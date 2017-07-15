@@ -1,17 +1,9 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
-import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
+import { Sidebar, Segment, Button, Menu, Image, Icon, Header, Button } from 'semantic-ui-react';
 import LeftMenu from './components/LeftMenu.jsx';
 import RightMenu from './components/RightMenu.jsx';
-import {
-  BrowserRouter as Router,
-  browserHistory
-} from 'react-router-dom';
-import { Link, Redirect } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import Navigation from './components/Navigation.js';
 import Body from './components/Body.jsx';
-import $ from 'jquery';
 
 // for redux reducers in index.js
 import reducer from './reducers/index.js';
@@ -37,45 +29,18 @@ class Main extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   $.get('/someEndpoint', (messages) => {
-  //     this.setState({
-  //       messages: JSON.parse(messages)
-  //     });
-  //   });
-  // }
 
   render() {
-    var { display } = this.state;
-    if (this.state.currentView === 'main') {
-      display = (
-        <div className="bar">
-          <Sidebar.Pushable as={Segment}>
-            <LeftMenu />
-            <Body messages={this.state.messages} />
-          </Sidebar.Pushable>
-        </div>
-      );
-    } else {
-      display = (
+
+    return (
         <div className="bar">
           <Sidebar.Pushable as={Segment}>
             <LeftMenu />
             <Body messages={this.state.messages}/>
           </Sidebar.Pushable>
         </div>
-      );
-    }
-
-    return (
-      <Router history={browserHistory} >
-        {display}
-      </Router>
     );
   }
 }
 
-export default Main;
 ReactDOM.render(<Main />, document.getElementById('root'));
-
-
