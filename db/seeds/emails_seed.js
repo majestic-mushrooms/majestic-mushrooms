@@ -3,15 +3,15 @@ const models = require('../models');
 exports.seed = function (knex, Promise) {
 
   let saveObj = {};
-  return models.Account.where({ email: 'eatingbird@gmail.com' }).fetch()
+  return models.Account.where({ email: 'janedoe@gmail.com' }).fetch()
     .then(account => {
       if (account === null) { saveObj = {method: 'insert'}; }
     }).then(() => {
       console.log('saving account!')
       return models.Account.forge({
         account_id: 'abcdefghijkl1234567890',
-        name: 'Soo Park',
-        email: 'eatingbird@gmail.com',
+        name: 'Jane Doe',
+        email: 'janedoe@gmail.com',
         provider: 'gmail',
         org_unit: 'label',
         sync_state: 'running'
@@ -29,7 +29,7 @@ exports.seed = function (knex, Promise) {
         thread_id: 'placeholder',
         subject: 'this is a test',
         from: '["test@gmail.com"]',
-        to: '["eatingbird@gmail.com"]',
+        to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
         reply_to: '["test@gmail.com", "kirkrohani@gmail.com"]',
         date_received: new Date(32394),

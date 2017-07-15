@@ -27,6 +27,7 @@
     "express-session": "^1.15.1",
     "global": "^4.3.2",
     "grunt-pg": "https://github.com/watsoncj/grunt-pg.git",
+    "jquery": "^3.2.1",
     "knex": "^0.12.9",
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
@@ -37,6 +38,7 @@
     "react-router-dom": "^4.1.1",
     "redis": "^2.7.1",
     "redis-server": "^1.1.0",
+    "sass": "^1.0.0-beta.2",
     "semantic-ui-react": "^0.71.0"
   },
   "devDependencies": {

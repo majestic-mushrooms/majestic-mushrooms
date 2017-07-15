@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './SearchBar.jsx';
 import RightMenu from './RightMenu.jsx';
 import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import InboxList from './InboxList.jsx';
 
 
 class Body extends React.Component {
@@ -11,26 +12,18 @@ class Body extends React.Component {
     this.state = { 
       visible: true
     };
+    console.log('props in body', props);
   }
 
   render() {
-    return(
+    return (
       <Sidebar.Pusher>
 
         <Segment.Group horizontal>
 
           <Segment basic>
             <SearchBar />
- 
-            <Header as='h3'>List of Mails goes here</Header>
-            <Header as='h3'>List of Mails goes here</Header>
-            <Header as='h3'>List of Mails goes here</Header>
-            <Header as='h3'>List of Mails goes here</Header>
-            <Header as='h3'>List of Mails goes here</Header>
-            <Header as='h3'>List of Mails goes here</Header>
-            <Header as='h3'>List of Mails goes here</Header>
-            <Header as='h3'>List of Mails goes here</Header>
-            
+            <InboxList messages={this.props.messages}/>
           </Segment>
 
           <Segment basic>
@@ -40,7 +33,7 @@ class Body extends React.Component {
         </Segment.Group>
 
       </Sidebar.Pusher>
-    )
+    );
   }
 }
 
