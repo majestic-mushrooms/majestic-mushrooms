@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import path from 'path';
 
 const config = {
-  entry: './client/src/Main',
+  entry: './client/src/index.jsx',
   output: {
     path: path.join(__dirname, 'public/dist'),
     filename: 'bundle.js'
@@ -15,7 +15,7 @@ const config = {
         use: [
           { loader: 'babel-loader',
             options: {
-              presets: ['react', 'es2015']
+              presets: ['react', 'es2015', 'stage-2']
             }
           }
         ]

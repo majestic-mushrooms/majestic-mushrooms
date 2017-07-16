@@ -7,7 +7,7 @@ exports.seed = function (knex, Promise) {
     .then(account => {
       if (account === null) { saveObj = {method: 'insert'}; }
     }).then(() => {
-      console.log('saving account!')
+      console.log('saving account!');
       return models.Account.forge({
         account_id: 'abcdefghijkl1234567890',
         name: 'Jane Doe',
@@ -50,7 +50,7 @@ exports.seed = function (knex, Promise) {
         account_id: message.get('account_id'),
         name: 'null',
         display_name: 'trashbin'
-      }).save(null, saveObj)
+      }).save(null, saveObj);
     })
     .error(err => {
       console.error('ERROR: failed to create folder!');

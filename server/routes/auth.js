@@ -1,12 +1,11 @@
 const express = require('express');
-const middleware = require('../middleware');
-
 const router = express.Router();
+const middleware = require('../middleware');
 
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
     console.log('Inside router.route /');
-    res.render('index.ejs');
+    res.render('main.ejs');
   });
 
 router.route('/login')
@@ -34,30 +33,6 @@ router.route('/logout')
     res.redirect('/');
   });
 
-router.get('/auth/google', middleware.passport.authenticate('google', {
-  scope: ['email', 'profile']
-}));
 
-router.get('/auth/google/callback', middleware.passport.authenticate('google', {
-  successRedirect: '/profile',
-  failureRedirect: '/login'
-}));
-
-router.get('/auth/facebook', middleware.passport.authenticate('facebook', {
-  scope: ['public_profile', 'email']
-}));
-
-router.get('/auth/facebook/callback', middleware.passport.authenticate('facebook', {
-  successRedirect: '/profile',
-  failureRedirect: '/login',
-  failureFlash: true
-}));
-
-router.get('/auth/twitter', middleware.passport.authenticate('twitter'));
-
-router.get('/auth/twitter/callback', middleware.passport.authenticate('twitter', {
-  successRedirect: '/profile',
-  failureRedirect: '/login'
-}));
 
 module.exports = router;
