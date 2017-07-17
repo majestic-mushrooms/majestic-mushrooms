@@ -36,6 +36,11 @@ class ReadMail extends React.Component {
     })
   }
 
+  handleIconClick(name) {
+    console.log('icon clicked', name);
+  }
+
+
   render() {
     
     var messages = this.props.messages;
@@ -47,7 +52,11 @@ class ReadMail extends React.Component {
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell colSpan='3'>{messages[0].subject}</Table.HeaderCell>
-                <Table.HeaderCell colSpan='1' textAlign='right'> <Icon name="reply" /><Icon name="trash outline" /><Icon name="ellipsis vertical" /></Table.HeaderCell>
+                <Table.HeaderCell colSpan='1' textAlign='right'> 
+                  <Icon name="reply" link name="reply" onClick={() => this.handleIconClick() }/>
+                  <Icon name="trash outline" onClick={this.handleIconClick.bind(this)}/>
+                  <Icon name="ellipsis vertical" onClick={this.handleIconClick.bind(this)}/>
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 

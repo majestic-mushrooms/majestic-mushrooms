@@ -52,6 +52,8 @@ class Main extends Component {
       search: '', // TODO: for search bar to filter msgs ~ relates to MailViewContainer in containers folder + more redux files
       current: current
     };
+
+    this.handleViewChange = this.handleViewChange.bind(this);
   }
 
   // componentDidMount() {
@@ -88,7 +90,7 @@ class Main extends Component {
         <div className="bar">
           <Sidebar.Pushable as={Segment}>
             <LeftMenu handleViewChange={this.handleViewChange}/>
-            <Body messages={this.state.messages} current={this.state.current} />
+            <Body messages={this.state.messages} current={this.state.current} handleViewChange={this.handleViewChange}/>
           </Sidebar.Pushable>
         </div>
       );
@@ -97,7 +99,7 @@ class Main extends Component {
         <div className="bar">
           <Sidebar.Pushable as={Segment}>
             <LeftMenu handleViewChange={this.handleViewChange}/>
-            <Body messages={this.state.messages} current={this.state.current} />
+            <Body messages={this.state.messages} current={this.state.current} handleViewChange={this.handleViewChange}/>
           </Sidebar.Pushable>
         </div>
       );

@@ -4,22 +4,12 @@ import { Table, Segment, Label } from 'semantic-ui-react';
 class MailViewListEntry extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      view: ''
-    };
-  }
-
-  // put in Main
-  handleMessageClick(msg) {
-    this.setState({
-      view: ''
-    });
   }
 
   render() {
   
     return (
-      <Table.Row>
+      <Table.Row >
         <Table.Cell>
           <Label circular color={this.props.color}>{this.props.from.charAt(0)}</Label>
         </Table.Cell>
@@ -34,3 +24,5 @@ class MailViewListEntry extends React.Component {
 }
 
 export default MailViewListEntry;
+
+// onClick={()=> this.props.handleViewChange('mail')}
