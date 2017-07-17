@@ -21,7 +21,7 @@ class Body extends React.Component {
 
           <Segment basic>
             <SearchBar />
-            <ReadMail messages={this.props.messages} current={this.props.current} />
+            <MailViewList messages={this.props.messages} current={this.props.current} />
           </Segment>
 
           <Segment basic>
