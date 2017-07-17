@@ -41,6 +41,7 @@ class SearchBar extends React.Component {
       //     <Header>Options</Header>
       //     <pre>{JSON.stringify(source, null, 2)}</pre>
       //   </Grid.Column>
+
   render() {
     const { isLoading, value, results } = this.state
     
