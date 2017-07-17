@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Segment, Input, Menu, Icon } from 'semantic-ui-react'
+import { Button, Segment, Input, Menu, Icon, Label } from 'semantic-ui-react'
 
 class FolderList extends React.Component {
   constructor(props) {
@@ -16,50 +16,46 @@ class FolderList extends React.Component {
     const { activeItem } = this.state || {}
 
     return(
-      <Menu vertical>
-          <Menu.Item>
-            <Menu.Header>Inbox</Menu.Header>
+      <Menu fluid vertical>
+      <Menu.Item name='inbox' active={activeItem === 'inbox'} onClick={this.handleItemClick}>
+        <Label color='teal'>49,986</Label>
+        Inbox
+      </Menu.Item>
 
-            <Menu.Menu>
-              <Menu.Item name='enterprise' active={activeItem === 'enterprise'} onClick={this.handleItemClick} />
-              <Menu.Item name='consumer' active={activeItem === 'consumer'} onClick={this.handleItemClick} />
-            </Menu.Menu>
-          </Menu.Item>
+      <Menu.Item name='spam' active={activeItem === 'spam'} onClick={this.handleItemClick}>
+        <Label>51</Label>
+        Spam
+      </Menu.Item>
 
-          <Menu.Item>
-            <Menu.Header>Outbox</Menu.Header>
+      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
+        <Label color="red">0</Label>
+        Trash
+      </Menu.Item>
+  
 
-            <Menu.Menu>
-              <Menu.Item name='rails' active={activeItem === 'rails'} onClick={this.handleItemClick} />
-              <Menu.Item name='python' active={activeItem === 'python'} onClick={this.handleItemClick} />
-              <Menu.Item name='php' active={activeItem === 'php'} onClick={this.handleItemClick} />
-            </Menu.Menu>
-          </Menu.Item>
+      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
+        <Label color="blue">5</Label>
+        Drafts
+        </Menu.Item>
 
-          <Menu.Item>
-            <Menu.Header>Trash</Menu.Header>
+      
+      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
+      <Label color="olive"> 5,643</Label>
+      Work
+      </Menu.Item>
 
-            <Menu.Menu>
-              <Menu.Item name='shared' active={activeItem === 'shared'} onClick={this.handleItemClick} />
-              <Menu.Item name='dedicated' active={activeItem === 'dedicated'} onClick={this.handleItemClick} />
-            </Menu.Menu>
-          </Menu.Item>
 
-          <Menu.Item>
-            <Menu.Header>Support</Menu.Header>
+      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
+      <Label color="brown">5</Label>
+      Hack Reactor
+      </Menu.Item>
 
-            <Menu.Menu>
-              <Menu.Item name='email' active={activeItem === 'email'} onClick={this.handleItemClick}>
-                E-mail Support
-              </Menu.Item>
-
-              <Menu.Item name='faq' active={activeItem === 'faq'} onClick={this.handleItemClick}>
-                FAQs
-              </Menu.Item>
-            </Menu.Menu>
-          </Menu.Item>
-        </Menu>
-    )
+      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
+      <Label color="pink">361</Label>
+      Family
+      </Menu.Item>
+      </Menu>
+    );
   }
 }
 

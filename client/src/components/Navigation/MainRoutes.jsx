@@ -15,7 +15,7 @@ const routes = [
     exact:         true,
     component:     ComposeMessage
   },
-  { path:          '/message/:id',
+  { path:          '/message',
     exact:         true,
     component:     ViewMessage
   }
@@ -37,6 +37,7 @@ const PropsRoute = ({ component, ...rest }) => {
 }
 
 const MainRoutes = (props) => (
+
   <Switch>
     {console.log('Rendering Routes', props)}
     {routes.map((route, index) => {

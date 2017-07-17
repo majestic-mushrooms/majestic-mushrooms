@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
 import { Redirect, Link } from 'react-router-dom';
-
+import { withRouter } from 'react-router';
 
 
 class LeftMenu extends Component {
@@ -15,17 +15,14 @@ class LeftMenu extends Component {
     };
   }
 
-  handleClick(e, { name }) {
-    // do things to the state of the app inherited as props
-  }
-
 
   render() {
     const { visible, view } = this.state;
     return (
       <div>
+
       <Sidebar as={Menu} animation='push' width='thin' visible={visible} icon='labeled' vertical inverted color='blue' fixed="left">
-        <Menu.Item as={Link} to='/' name='mail' >
+        <Menu.Item  as={Link} to='/' name='mail'  >
           <Icon name='inbox' />
           Inbox
         </Menu.Item>

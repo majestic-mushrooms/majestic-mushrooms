@@ -5,7 +5,7 @@ const middleware = require('../middleware');
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
     console.log('Inside router.route /');
-    res.render('main.ejs');
+    res.render('index.ejs');
   });
 
 router.route('/login')

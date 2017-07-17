@@ -3,6 +3,7 @@ import SearchBar from './SearchBar.jsx';
 import RightMenu from './RightMenu.jsx';
 import { Divider, Segment, } from 'semantic-ui-react';
 import MailViewList from './MailViewList.jsx';
+import { Link } from 'react-router-dom';
 
 
 class Body extends React.Component {
@@ -39,14 +40,3 @@ class Body extends React.Component {
 }
 
 export default Body;
-
-
-
-  // <Grid>
-  //   <Grid.Column floated='left' width={5}>
-  //     <Image src='/assets/images/wireframe/paragraph.png' />
-  //   </Grid.Column>
-  //   <Grid.Column floated='right' width={5}>
-  //     <Image src='/assets/images/wireframe/paragraph.png' />
-  //   </Grid.Column>
-  // </Grid>
