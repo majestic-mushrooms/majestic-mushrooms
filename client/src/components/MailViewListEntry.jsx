@@ -10,11 +10,11 @@ class MailViewListEntry extends React.Component {
   }
 
   // put in Main
-  // handleMessageClick(msg) {
-  //   this.setState({
-  //     view: ''
-  //   });
-  // }
+  handleMessageClick(msg) {
+    this.setState({
+      view: ''
+    });
+  }
 
   render() {
   
@@ -22,6 +22,8 @@ class MailViewListEntry extends React.Component {
       <Table.Row>
         <Table.Cell>
           <Label circular color={this.props.color}>{this.props.from.charAt(0)}</Label>
+        </Table.Cell>
+        <Table.Cell>
           {'     ' + this.props.from}
         </Table.Cell>
         <Table.Cell style={{fontWeight: 'bold'}}>{this.props.subject}</Table.Cell>
