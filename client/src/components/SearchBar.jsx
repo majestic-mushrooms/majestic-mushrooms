@@ -34,7 +34,6 @@ class SearchBar extends React.Component {
     }, 500);
   }
 
-
   render() {
     const { isLoading, value, results } = this.state;
     
