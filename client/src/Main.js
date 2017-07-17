@@ -15,7 +15,7 @@ import $ from 'jquery';
 
 // for redux reducers in index.js
 import reducer from './reducers/index.js';
-import { createStore } from 'redux';
+// import { createStore } from 'redux';
 
 // for reducers
 // let store = createStore(NAME_OF_reducer);
