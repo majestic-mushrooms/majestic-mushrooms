@@ -5,8 +5,14 @@ import {BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import MainRoutes from './components/Navigation/MainRoutes.jsx';
 import LeftMenu from './components/LeftMenu.jsx';
 import RightMenu from './components/RightMenu.jsx';
-
 import { Grid, Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
+
+// for redux reducers in index.js
+import reducer from './reducers/index.js';
+import { createStore } from 'redux';
+
+// for reducers
+// let store = createStore(NAME_OF_reducer);
 
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest);
