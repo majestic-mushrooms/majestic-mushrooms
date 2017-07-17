@@ -1,25 +1,23 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
-
-//Import components
-import Main from '../Main.jsx';
-import FolderList from '../FolderList.jsx';
-import ReadEmail from '../ReadEmail.jsx';
-
+import Body from '../Body.jsx';
+import ComposeMessage from '../ComposeMessage.jsx';
+import ViewMessage from '../ViewMessage.jsx';
+import { withRouter } from 'react-router';
 
 //Associate each route URL path with a component
 const routes = [
   { path:          '/',
     exact:         true,
-    component:     Main
+    component:     Body
   },
-  { path:          '/test',
+  { path:          '/compose',
     exact:         true,
-    component:     FolderList
+    component:     ComposeMessage
   },
-  { path:          '/hello',
+  { path:          '/message/:id',
     exact:         true,
-    component:     ReadEmail
+    component:     ViewMessage
   }
 ];
 
@@ -38,7 +36,7 @@ const PropsRoute = ({ component, ...rest }) => {
   );
 }
 
-const Routes = (props) => (
+const MainRoutes = (props) => (
   <Switch>
     {console.log('Rendering Routes', props)}
     {routes.map((route, index) => {
@@ -52,4 +50,4 @@ const Routes = (props) => (
   </Switch>
 );
 
-export default Routes;
+export default withRouter(MainRoutes);

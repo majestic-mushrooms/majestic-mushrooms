@@ -1,12 +1,10 @@
 import React from 'react';
 import { Table, Segment, Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 class MailViewListEntry extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      view: ''
-    };
   }
 
   // put in Main
@@ -19,8 +17,8 @@ class MailViewListEntry extends React.Component {
   render() {
   
     return (
-      <Table.Row>
-        <Table.Cell>
+      <Table.Row >
+        <Table.Cell width="2">
           <Label circular color={this.props.color}>{this.props.from.charAt(0)}</Label>
           {'     ' + this.props.from}
         </Table.Cell>

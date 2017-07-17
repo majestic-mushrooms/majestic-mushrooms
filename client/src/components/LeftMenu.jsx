@@ -1,5 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import { Redirect, Link } from 'react-router-dom';
+
+
 
 class LeftMenu extends Component {
   constructor(props) {
@@ -7,7 +10,8 @@ class LeftMenu extends Component {
 
     this.state = { 
       visible: true,
-      activeItem: 'tab1' 
+      activeItem: 'tab1',
+      view: 'home' 
     };
   }
 
@@ -15,23 +19,35 @@ class LeftMenu extends Component {
     // do things to the state of the app inherited as props
   }
 
+
   render() {
-    const { visible } = this.state
+    const { visible, view } = this.state;
     return (
+      <div>
       <Sidebar as={Menu} animation='push' width='thin' visible={visible} icon='labeled' vertical inverted color='blue' fixed="left">
-        <Menu.Item name='mail' onClick={this.handleClick.bind(this)}>
-          <Icon name='file text outline' />
-          Write Mail
+        <Menu.Item as={Link} to='/' name='mail' >
+          <Icon name='inbox' />
+          Inbox
         </Menu.Item>
-        <Menu.Item name='mail'>
-          1
+      
+        <Menu.Item as={Link} to='/compose' name='compose'>
+          <Icon name='mail' />
+            Compose Mail
         </Menu.Item>
-        <Menu.Item name='camera' onClick={this.handleClick.bind(this)}>>
-          <Icon name='camera' />
-          ??
+
+        <Menu.Item as={Link} to='/contacts' name='contacts' >
+          <Icon name='address book' />
+          Contacts
         </Menu.Item>
+
+        <Menu.Item as={Link} to='/logout' name='logout'>
+        <Icon name='log out' />
+        Logout
+        </Menu.Item>
+
       </Sidebar>
-    )
+      </div>
+    );
   }
 }
 

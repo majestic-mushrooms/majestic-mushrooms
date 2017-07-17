@@ -1,8 +1,8 @@
 import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import MailViewListEntry from './MailViewListEntry.jsx';
-import { Table } from 'semantic-ui-react';
-import { Grid } from 'semantic-ui-react';
+import { Table, Grid } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 const colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
@@ -10,9 +10,12 @@ const colors = [
 ]; 
 var currentColor = -1;
 
+const handleMessageClick = () => {
+  
+};
+
 const MailViewList = ({messages}) => (
-  <Grid centered>
-    <Grid.Column width={11}>
+
       <Table>
         <Table.Body>
           {messages.map((message, key) => {
@@ -22,8 +25,6 @@ const MailViewList = ({messages}) => (
           })}
         </Table.Body>
       </Table>
-    </Grid.Column>
-  </Grid>
 );
 
 
