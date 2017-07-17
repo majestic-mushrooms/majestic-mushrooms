@@ -1,24 +1,68 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'; 
-import { Message, Divider } from 'semantic-ui-react';
+import { Message, Divider, Table, Icon } from 'semantic-ui-react';
 import axios from 'axios';
+import MailViewListEntry from './MailViewListEntry.jsx'
 
-const ViewMessage = () => {
-  return (
-      <div>
-      <Divider hidden />
-      <Divider hidden />
+class ViewMessage extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <Message color='blue'>
-      Where does it come from?
-      <Divider hidden />
-      <Divider hidden />
-      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
 
-      </Message>
-      </div>
-  );
-};
+  }
 
-export default ViewMessage;
+
+  render() {
+
+    var message = {
+      message_id: 'abcde12345',
+      account_id: 'abcde12345', // pseudo
+      thread_id: 'placeholder',
+      subject: 'this is a test',
+      from: 'Hank', // TODO: need to pull name from email address
+      to: '["janedoe@gmail.com"]',
+      cc: '["kirkrohani@gmail.com"]',
+      reply_to: '["test@gmail.com", "kirkrohani@gmail.com"]',
+      date_received: '2017-01-09', //need be parsed from date format
+      unread: true,
+      starred: false,
+      snippet: 'This is still a test blah blah trail off',
+      body: 'This is still a test blah blah trail off end of body.',
+      labels: '["labelid1", "labelid2"]'
+    };
+
+    // TODO: replace hardcoded color to dynamic color
+    return (
+        <div>
+          <Divider hidden />
+          <Divider hidden />
+
+          <Table size='small' compact singleLine>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell colSpan='3'>{message.subject}</Table.HeaderCell>
+                <Table.HeaderCell colSpan='1' textAlign='right'> <Icon name="reply" /><Icon name="trash outline" /><Icon name="ellipsis vertical" /></Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
+              <MailViewListEntry message={message} color="green" />
+              
+              <Table.Row>
+              <Table.Cell colSpan='4'>
+                {message.body}
+              </Table.Cell>
+              </Table.Row>
+              </Table.Body>
+            </Table>
+          </div>
+        );
+      };
+    };
+    
+    export default ViewMessage;
+    
+    // from={message.from} 
+    // subject={message.subject}
+    // snippet={message.snippet.substring(0, 45)} 
