@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 //Import components
-import ReadEmail from './ReadEmail.js';
+import ReadMail from './ReadMail.jsx';
 import Main from '../Main.js';
 
 //Associate each route URL path with a component
@@ -11,9 +11,9 @@ const routes = [
     exact:         true,
     component:     Main
   },
-  { path:          '/ReadEmail',
+  { path:          '/ReadMail',
     exact:         true,
-    component:     ReadEmail
+    component:     ReadMail
   }
 ];
 

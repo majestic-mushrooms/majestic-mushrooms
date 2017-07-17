@@ -3,7 +3,7 @@ import SearchBar from './SearchBar.jsx';
 import RightMenu from './RightMenu.jsx';
 import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
 import MailViewList from './MailViewList.jsx';
-
+import ReadMail from './ReadMail.jsx';
 
 class Body extends React.Component {
   constructor(props) {
@@ -17,12 +17,11 @@ class Body extends React.Component {
   render() {
     return (
       <Sidebar.Pusher>
-
         <Segment.Group horizontal>
 
           <Segment basic>
             <SearchBar />
-            <MailViewList messages={this.props.messages}/>
+            <MailViewList messages={this.props.messages} current={this.props.current} />
           </Segment>
 
           <Segment basic>

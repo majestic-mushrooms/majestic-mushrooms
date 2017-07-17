@@ -10,15 +10,16 @@ const colors = [
 ]; 
 var currentColor = -1;
 
-const MailViewList = ({messages}) => (
+const MailViewList = ({messages, handleViewChange, current}) => (
   <Grid centered>
     <Grid.Column width={11}>
-      <Table>
+      <Table selectable>
         <Table.Body>
           {messages.map((message, key) => {
             currentColor++;
             if (currentColor > messages.length) { currentColor = -1; }
-            return <MailViewListEntry from={message.from} subject={message.subject} snippet={message.snippet} key={key} color={colors[currentColor]} />;
+            {console.log(message)}
+            return <MailViewListEntry from={message.from} subject={message.subject} snippet={message.snippet} key={key} color={colors[currentColor]} handelViewChange={handleViewChange} current={current}/>;
           })}
         </Table.Body>
       </Table>
