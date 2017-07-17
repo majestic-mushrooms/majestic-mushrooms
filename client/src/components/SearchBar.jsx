@@ -1,53 +1,45 @@
-import _ from 'lodash'
-import React, { Component } from 'react'
-import { Search, Grid, Header } from 'semantic-ui-react'
+import _ from 'lodash';
+import React, { Component } from 'react';
+import { Search, Grid, Header } from 'semantic-ui-react';
 
 const source = _.times(5, () => ({
-}))
+}));
 
 class SearchBar extends React.Component {
   componentWillMount() {
-    this.resetComponent()
+    this.resetComponent();
   }
 
   resetComponent() {
-    this.setState({ isLoading: false, results: [], value: '' })
+    this.setState({ isLoading: false, results: [], value: '' });
   }
 
   handleResultSelect() {
-    (e, result) => this.setState({ value: result.title })
+    (e, result) => this.setState({ value: result.title });
   }
 
   handleSearchChange(e, value) {
-    this.setState({ isLoading: true, value })
+    this.setState({ isLoading: true, value });
 
     setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
+      if (this.state.value.length < 1) return this.resetComponent();
 
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = (result) => re.test(result.title)
+      const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
+      const isMatch = (result) => re.test(result.title);
 
       this.setState({
         isLoading: false,
         results: _.filter(source, isMatch),
-      })
-    }, 500)
+      });
+    }, 500);
   }
 
-  // search code from react.semantic-ui
-      //   <Grid.Column width={8}>
-      //     <Header>State</Header>
-      //     <pre>{JSON.stringify(this.state, null, 2)}</pre>
-      //     <Header>Options</Header>
-      //     <pre>{JSON.stringify(source, null, 2)}</pre>
-      //   </Grid.Column>
+
   render() {
-    const { isLoading, value, results } = this.state
+    const { isLoading, value, results } = this.state;
     
     return (
-      <Grid>
-        <Grid.Column width={8}>
-          <Search
+          <Search id="searchbar"
             loading={isLoading}
             onResultSelect={this.handleResultSelect}
             onSearchChange={this.handleSearchChange}
@@ -55,9 +47,7 @@ class SearchBar extends React.Component {
             value={value}
             {...this.props}
           />
-        </Grid.Column>
-      </Grid>
-    )
+    );
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import { Sidebar, Segment, Button, Menu, Image, Icon, Header, Input, Label } from 'semantic-ui-react';
 import FolderList from './FolderList.jsx';
 import AiLog from './AiLog.jsx';
 
@@ -8,38 +8,32 @@ class RightMenu extends Component {
     super(props);
     this.state = { 
       visible: true,
-      activeItem: 'tab1' 
+      activeItem: 'Folders' 
     };
   }
 
   handleItemClick(e, { name }) {
-    this.setState({ activeItem: name })
+    this.setState({ activeItem: name });
   }
 
   render() {
-    const { visible } = this.state
-    const { activeItem } = this.state
-
-    var display = null;
-
-    if (this.state.activeItem === 'tab1') {
-      display =  <FolderList />
-    } else {
-      display = <AiLog />
-    }
+    const { visible } = this.state;
+    const { activeItem } = this.state;
 
     return (
-      <div className="folder-list">
-        <Menu attached='top' tabular>
-          <Menu.Item name='tab1' active={activeItem === 'tab1'} onClick={this.handleItemClick.bind(this)} />
-          <Menu.Item name='tab2' active={activeItem === 'tab2'} onClick={this.handleItemClick.bind(this)} />
-        </Menu>
+      <div>
+      <Menu tabular size="large">
+        <Menu.Item name='Folders' active={activeItem === 'Folders'} onClick={this.handleItemClick.bind(this)} />
+        <Menu.Item name='Filters' active={activeItem === 'Filters'} onClick={this.handleItemClick.bind(this)} />
+      </Menu>
 
-        <Segment attached='bottom'>
-          {display}
-        </Segment>
+      <Segment attached='bottom'>
+        {activeItem === 'Folders' && <FolderList />}
+        {activeItem === 'Filters' && <AiLog />}
+      </Segment>
       </div>
-    )
+
+    );
   }
 }
 

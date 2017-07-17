@@ -1,0 +1,81 @@
+Added basic routing and spearated out site componnts
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 19 and 1 different commit each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# Changes to be committed:
+#	modified:   .babelrc
+#	modified:   .editorconfig
+#	modified:   .eslintignore
+#	modified:   .eslintrc.js
+#	modified:   .gitignore
+#	modified:   CONTRIBUTING.md
+#	modified:   Gruntfile.js
+#	modified:   README.md
+#	modified:   STYLE-GUIDE.md
+#	deleted:    client/dist/index.html
+#	modified:   client/src/app_old.js
+#	modified:   client/src/components/AiLog.jsx
+#	modified:   client/src/components/Body.jsx
+#	new file:   client/src/components/ComposeMail.jsx
+#	modified:   client/src/components/FolderList.jsx
+#	modified:   client/src/components/LeftMenu.jsx
+#	modified:   client/src/components/MailViewList.jsx
+#	modified:   client/src/components/MailViewListEntry.jsx
+#	modified:   client/src/components/Main.jsx
+#	modified:   client/src/components/Navigation/NotFound.jsx
+#	modified:   client/src/components/Navigation/Routes.jsx
+#	renamed:    client/src/components/ReadEmail.jsx -> client/src/components/ReadEmail.js
+#	modified:   client/src/components/RightMenu.jsx
+#	modified:   client/src/components/SearchBar.jsx
+#	modified:   client/src/components/SendMail.jsx
+#	modified:   client/src/components/TopMenu.jsx
+#	modified:   client/src/index.jsx
+#	modified:   config/custom-environment-variables.json
+#	modified:   config/default.json
+#	modified:   config/production.example.json
+#	modified:   config/test.example.json
+#	modified:   db/index.js
+#	modified:   db/lib/utils.js
+#	modified:   db/migrations/20170326215143_initial.js
+#	modified:   db/migrations/emails.js
+#	modified:   db/models/accounts.js
+#	modified:   db/models/folders.js
+#	modified:   db/models/index.js
+#	modified:   db/models/messages.js
+#	modified:   db/models/sortedMessages.js
+#	modified:   db/seeds/emails_seed.js
+#	modified:   knexfile.js
+#	modified:   package-lock.json
+#	modified:   package.json
+#	modified:   public/dist/bundle.js
+#	new file:   public/dist/styles.css
+#	modified:   server/app.js
+#	modified:   server/controllers/profiles.js
+#	modified:   server/index.js
+#	modified:   server/middleware/auth.js
+#	modified:   server/middleware/index.js
+#	modified:   server/middleware/passport.js
+#	modified:   server/routes/api.js
+#	modified:   server/routes/auth.js
+#	modified:   server/routes/index.js
+#	modified:   server/routes/profiles.js
+#	modified:   server/test/auth.spec.js
+#	modified:   server/test/profileModel.spec.js
+#	modified:   server/test/profilesAPI.spec.js
+#	modified:   server/test/server.spec.js
+#	modified:   server/views/center.ejs
+#	modified:   server/views/foot.ejs
+#	modified:   server/views/head.ejs
+#	modified:   server/views/login.ejs
+#	modified:   server/views/main.ejs
+#	modified:   server/views/profile.ejs
+#	modified:   server/views/signup.ejs
+#	new file:   utils/routerHelper.js
+#	modified:   webpack.config.babel.js
+#	modified:   yarn.lock
+#
