@@ -13,6 +13,12 @@ import Navigation from './components/Navigation.js';
 import Body from './components/Body.jsx';
 import $ from 'jquery';
 
+// for redux reducers in index.js
+import reducer from './reducers/index.js';
+import { createStore } from 'redux';
+
+// for reducers
+// let store = createStore(NAME_OF_reducer);
 
 var messages = [
     {from: 'Andrea', subject: 'Stuff', snippet: 'Stuff is cool and this line goes on and on and on and forever on and on til forever til off but never really off, just on.', message_id: 0},
@@ -26,7 +32,8 @@ class Main extends Component {
 
     this.state = {
       view: 'main',
-      messages: messages
+      messages: messages,
+      search: '' // TODO: for search bar to filter msgs ~ relates to MailViewContainer in containers folder + more redux files
     };
   }
 
@@ -48,7 +55,7 @@ class Main extends Component {
             <Body messages={this.state.messages} />
           </Sidebar.Pushable>
         </div>
-      )
+      );
     } else {
       display = (
         <div className="bar">
@@ -57,7 +64,7 @@ class Main extends Component {
             <Body messages={this.state.messages}/>
           </Sidebar.Pushable>
         </div>
-      )
+      );
     }
 
     return (
