@@ -52,6 +52,7 @@ class Main extends Component {
       search: '', // TODO: for search bar to filter msgs ~ relates to MailViewContainer in containers folder + more redux files
       current: current
     };
+    console.log(this.state.current);
   }
 
   // componentDidMount() {
