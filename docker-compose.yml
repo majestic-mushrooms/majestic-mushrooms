@@ -13,8 +13,8 @@ services:
     ports:
       - "3030:3030"
     volumes: 
-      #mounts project directory on the host to /public inside the container, to minimize reloading image
-      - .:/public
+      #mounts 
+      - .:/var/log
     networks:
       - webnet
     environment:
