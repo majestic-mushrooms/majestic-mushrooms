@@ -34,6 +34,7 @@ class App extends React.Component {
     super();
   }
 
+// access token via window.token
 
   render() {
     return (

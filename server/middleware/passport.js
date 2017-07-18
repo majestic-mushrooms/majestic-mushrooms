@@ -33,6 +33,7 @@ passport.use('local-signup', new LocalStrategy({
   passReqToCallback: true
 },
   (req, email, password, done) => {
+    console.log('///1');
     // check to see if there is any account with this email address
     return models.Profile.where({ email }).fetch()
       .then(profile => {
@@ -73,6 +74,8 @@ passport.use('local-login', new LocalStrategy({
   passReqToCallback: true
 },
   (req, email, password, done) => {
+    console.log('///2');
+
     // fetch any profiles that have a local auth account with this email address
     return models.Profile.where({ email }).fetch({
       withRelated: [{
@@ -139,6 +142,8 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     withRelated: ['profile']
   })
     .then(oauthAccount => {
+      console.log('///3');
+
 
       if (oauthAccount) {
         throw oauthAccount;

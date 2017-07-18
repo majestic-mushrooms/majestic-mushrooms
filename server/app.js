@@ -20,8 +20,12 @@ app.use(middleware.auth.session);
 app.use(express.static(path.join(__dirname, '../public')));
 console.log('After app.use express.static');
 
+
 app.use('/', routes.auth);
 console.log('after app use / ');
+
+app.use('/authenticated', routes.auth);
+console.log('after app use /auth ');
 
 app.use('/api', routes.api);
 console.log('after app use /api ');
