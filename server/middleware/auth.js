@@ -5,12 +5,6 @@ const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToke
 
 
 module.exports.verify = (req, res, next) => {
-  console.log('Inside middlware.auth.verify, hardcoded to return true for now');
-  // if (req.isAuthenticated()) {
-  //   console.log('authenticated');
-  //   return next();
-  // }
-  console.log('CLIENT_ID', CLIENT_ID);
   res.redirect(`https://api.nylas.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&scope=email&login_hint=email&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauthenticated`);
 };
 
