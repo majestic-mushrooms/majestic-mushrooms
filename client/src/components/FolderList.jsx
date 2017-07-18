@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, Segment, Input, Menu, Icon, Label } from 'semantic-ui-react'
-
+import { Button, Segment, Input, Menu, Icon, Label } from 'semantic-ui-react';
+import axios from 'axios';
+import { Redirect, Link } from 'react-router-dom';
+import FolderListItem from './FolderListItem.jsx';
 class FolderList extends React.Component {
   constructor(props) {
     super(props);
@@ -9,15 +11,24 @@ class FolderList extends React.Component {
 
 
   handleItemClick(name) {
-    this.setState({ activeItem: name })
+    this.setState({ activeItem: name });
   }
 
   render() {
-    const { activeItem } = this.state || {}
+    const { activeItem } = this.state || {};
 
-    return(
+    return (
       <Menu fluid vertical>
-      <Menu.Item name='inbox' active={activeItem === 'inbox'} onClick={this.handleItemClick}>
+        {this.props.folders.map(folder => {
+          return <FolderListItem folder={folder} />;
+        })}
+      </Menu>
+    );
+  }
+}
+
+export default FolderList;
+/* <Menu.Item name='inbox' active={activeItem === 'inbox'} as={Link} to='/' name='mail' onClick={this.handleItemClick}>
         <Label color='teal'>49,986</Label>
         Inbox
       </Menu.Item>
@@ -53,10 +64,4 @@ class FolderList extends React.Component {
       <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
       <Label color="pink">361</Label>
       Family
-      </Menu.Item>
-      </Menu>
-    );
-  }
-}
-
-export default FolderList;
+      </Menu.Item> */

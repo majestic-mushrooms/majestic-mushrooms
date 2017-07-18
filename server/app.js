@@ -3,8 +3,9 @@ const express = require('express');
 const path = require('path');
 const middleware = require('./middleware');
 const routes = require('./routes');
-
+const axios = require('axios');
 const app = express();
+
 
 app.use(middleware.morgan('dev'));
 app.use(middleware.cookieParser());
@@ -31,5 +32,18 @@ console.log('after app use /api/message');
 app.use('/api/profiles', routes.profiles);
 console.log('after app use /api/profiles');
 
+app.use('/api/folders', routes.folders);
+  // console.log('getting messages');
+  //cget data from database from here
+  // axios.get('https://api.nylas.com/messages', 
+  //   { authentication: {'X-Custom-Header': 'foobar'} 
+  //   })
+  // .then(response => {
+  //   res.send('hello');
+  // });
+  // axios.get('/')
+  
+
+    // res.send(result)
 
 module.exports = app;
