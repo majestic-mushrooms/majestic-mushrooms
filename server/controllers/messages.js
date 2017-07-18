@@ -56,7 +56,7 @@ module.exports.getOne = (req, res) => {
       if (!message) {
         throw message;
       }
-      console.log('Inside Messages Controller with retrieved message: ');
+      console.log('Inside Messages Controller with retrieved message: ', message);
       // res.status(200).send(message);
       res.render('index.ejs');
     })
