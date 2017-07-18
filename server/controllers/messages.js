@@ -1,28 +1,25 @@
 const models = require('../../db/models');
 
+
+
 module.exports.getAll = (req, res) => {
-  models.Message.fetchAll()
-    .then(messages => {
-      res.status(200).send(messages);
+  models.Message.fetch()
+  .then(messages => {
+    res.status(200).send('in getAll');// render to the page
+    // res.render('index.ejs', {messages: messages}, function(err, html) {
     })
-    .catch(err => {
-      // This code indicates an outside service (the database) did not respond in time
-      res.status(503).send(err);
-    });
+  .error(err => {
+    res.status(500).send(err);
+  })
+  .catch(() => {
+    res.sendStatus(404);
+  });
 };
 
-module.exports.create = (req, res) => {
-
-  console.log('Inside Messages Controller create() ', req.body);
-  let newMessage= new models.Message(
-   req.body
-  );
-  console.log('IS IT NEW? ', newMessage.isNew());
-  newMessage
-  .save(null, {method: 'insert'})
-  .then(result => {
-    console.log('Successfully created message: ', result);
-    res.status(201).send(result);
+module.exports.getThread = (req, res) => {
+  models.Message.where({ thread_id: req.params.thread }).fetch()
+  .then(messages => {
+    res.status(200).send(messages);
   })
   .catch(err => {
     console.log('Error creating message in DB: ', err);
@@ -32,14 +29,29 @@ module.exports.create = (req, res) => {
 
 
 //@TODO Dont' hard code the message id
+module.exports.create = (req, res) => {
+  models.Message.forge({ username: req.body.username, password: req.body.password })
+    .save()
+    .then(result => {
+      res.status(201).send(result.omit('password'));
+    })
+    .catch(err => {
+      if (err.constraint === 'users_username_unique') {
+        return res.status(403);
+      }
+      res.status(500).send(err);
+    });
+};
+
+//@TODO Dont' hard code the message id
 module.exports.getOne = (req, res) => {
-  console.log('Inside Messages Controller getOne() ');
+  console.log('Inside Messages Controller getOne()');
   models.Message.where({ message_id: "abcde12345" }).fetch()
     .then(message => {
       if (!message) {
         throw message;
       }
-      console.log('Inside Messages Controller with retrieved message: ');
+      console.log('Inside Messages Controller with retrieved message: ', message);
       // res.status(200).send(message);
       res.render('index.ejs');
     })

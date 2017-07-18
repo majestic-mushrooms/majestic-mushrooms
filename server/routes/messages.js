@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middleware');
 const MessageController = require('../controllers').Messages;
 const middleware = require('../middleware');
 
