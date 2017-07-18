@@ -16,30 +16,27 @@ module.exports.getAll = (req, res) => {
   .then(messages => {
     res.status(200).send('in getAll');// render to the page
     // res.render('index.ejs', {messages: messages}, function(err, html) {
-    //   res.status(200).send(html);
-    }); // reload the entire site
-    // send the data to the redux - get the state from redux to react component
-  // })
-  // .error(err => {
-  //   res.status(500).send(err);
-  // })
-  // .catch(() => {
-  //   res.sendStatus(404);
-  // });
+    })
+  .error(err => {
+    res.status(500).send(err);
+  })
+  .catch(() => {
+    res.sendStatus(404);
+  });
 };
 
-// module.exports.getThread = (req, res) => {
-//   models.Message.where({ message_id: req.params.id }).fetch()
-//   .then(message => {
-//     res.status(200).send(message);
-//   })
-//   .error(err => {
-//     res.status(500).send(err);
-//   })
-//   .catch(() => {
-//     res.sendStatus(404);
-//   });
-// }
+module.exports.getThread = (req, res) => {
+  models.Message.where({ thread_id: req.params.thread }).fetch()
+  .then(messages => {
+    res.status(200).send(messages);
+  })
+  .error(err => {
+    res.status(500).send(err);
+  })
+  .catch(() => {
+    res.sendStatus(404);
+  });
+}
 
 // // module.exports.create = (req, res) => {
 // //   models.Message.forge({ username: req.body.username, password: req.body.password })

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'; 
 import { Message, Divider, Table, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-import MailViewListEntry from './MailViewListEntry.jsx'
+import MailViewListEntry from './MailViewListEntry.jsx';
 
 class ViewMessage extends React.Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class ViewMessage extends React.Component {
     this.state ={
       threads: [],
       messageId: 'abcde12345',
+      threadId: 'placeholder',
       currentMessage: {}
     }
   }
@@ -23,19 +24,29 @@ class ViewMessage extends React.Component {
         currentMessage: response.data
       })
     })
-    // .then (
-    //   axios.get('/api/message')
-    //   .then (response => {
-    //     console.log(response)
-    //     // this.setState({
-    //     //   threads: response.data
-    //     // })
-    //   })
-    // )
+    .then (
+      axios.get(`/api/message/${this.state.messageId}/${this.state.threadId}`)
+      .then (response => {
+        var thread;
+        if (Array.isArray(response.data)) {
+          thread = response.data;
+        } else {
+          thread = [response.data];
+        }
+        this.setState({
+          threads: thread
+        })
+        console.log(this.state.threads)
+      })
+    )
   }
 
   render() {
     // TODO: replace hardcoded color to dynamic color
+    // TODO: render threads (slice current and )
+    // TODO: get messageId from the previous history
+    // TODO: make delete/reply/menu
+    // NEED TEAM: what are the menu items?
     return (
         <div>
           <Divider hidden />
@@ -62,9 +73,4 @@ class ViewMessage extends React.Component {
         };
       };
       
-      export default ViewMessage;
-      // {this.props.messages.map((message, index) => {
-      //   currentColor++;
-      //   if (currentColor > messages.length) { currentColor = -1; }
-      //   return <MailViewListEntry key={index} message={message} onClick={this.handleMessageClick.bind(this)} />;
-      // })}
+export default ViewMessage;
