@@ -1,8 +1,9 @@
 'use strict';
 const app = require('./app');
 const db = require('../db');
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0'; //allow outside access
 
-app.listen(PORT, () => {
-  console.log('Example app listening on port 3000!');
+app.listen(PORT, '0.0.0.0', '', () => {
+  console.log(`Example app listening on port ${PORT}!`);
 });
