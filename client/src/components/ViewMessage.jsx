@@ -42,11 +42,9 @@ class ViewMessage extends React.Component {
   }
 
   render() {
-    // TODO: replace hardcoded color to dynamic color
-    // TODO: render threads (slice current and )
-    // TODO: get messageId from the previous history
-    // TODO: make delete/reply/menu
-    // NEED TEAM: what are the menu items?
+
+
+
     return (
         <div>
           <Divider hidden />

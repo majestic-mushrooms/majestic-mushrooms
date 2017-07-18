@@ -18,8 +18,7 @@ class MailViewList extends React.Component {
     super(props);
 
     this.state = {
-      view: 'messages',
-      currentId: 
+      view: 'messages'
     };
   }
 

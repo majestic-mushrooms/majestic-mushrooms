@@ -1,7 +1,7 @@
 const models = require('../models');
 
 exports.seed = function (knex, Promise) {
-
+  console.log(knex);
   let saveObj = {};
   return models.Account.where({ email: 'janedoe@gmail.com' }).fetch()
     .then(account => {
