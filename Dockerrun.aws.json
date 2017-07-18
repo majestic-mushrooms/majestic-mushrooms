@@ -1,0 +1,14 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "jenniferwg/timebox",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "3030"
+    }
+  ],
+  "Volumes": [],
+  "Logging": "/var/log"
+}
