@@ -1,0 +1,21 @@
+import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import { Menu, Label } from 'semantic-ui-react';
+
+class FolderListItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const { activeItem } = this.state || {};
+
+    return (
+      <Menu.Item name={this.props.folder.name} active={activeItem === this.props.folder.name } as={Link} to='/' name='mail' >
+        <Label color='teal'>49,986</Label>
+        {this.props.folder.display_name}
+      </Menu.Item>
+    );
+  }
+}
+
+export default FolderListItem;

@@ -4,7 +4,7 @@ import RightMenu from './RightMenu.jsx';
 import { Divider, Segment, } from 'semantic-ui-react';
 import MailViewList from './MailViewList.jsx';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 
 class Body extends React.Component {
   constructor(props) {
@@ -14,7 +14,12 @@ class Body extends React.Component {
       visible: true
     };
   }
-  
+  componenetDidMount() {
+    axios.get('/messages')
+     .then(response => {
+       console.log('successss in didmount');
+     });
+  }
 
 
   render() {
