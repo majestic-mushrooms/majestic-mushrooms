@@ -52,5 +52,4 @@ class MailViewList extends React.Component {
   }
 }
 
-
 export default MailViewList;
