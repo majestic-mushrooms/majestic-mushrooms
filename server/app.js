@@ -34,7 +34,6 @@ console.log('after app use /api/messages');
 app.use('/api/profiles', routes.profiles);
 
 
-app.use('/api/messages', routes.messages);
 
 app.use('/api/folders', routes.folders);
   // console.log('getting messages');
