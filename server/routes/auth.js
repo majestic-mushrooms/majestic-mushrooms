@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const middleware = require('../middleware');
-const nylas = require('../../config/nylasToken.js');
-const CLIENT_ID = process.env.NYLAS_CLIENT_ID || nylas.CLIENT_ID;
-const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || nylas.CLIENT_SECRET;
+const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
+const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
 const axios = require('axios');
 const querystring = require('querystring');
 
