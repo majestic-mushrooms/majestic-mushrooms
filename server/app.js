@@ -24,8 +24,19 @@ app.use('/', routes.auth);
 app.use('/authenticated', routes.auth);
 app.use('/api', routes.api);
 app.use('/api/message', routes.messages);
+<<<<<<< HEAD
 app.use('/api/profiles', routes.profiles);
 app.use('/api/messages', routes.messages);
+=======
+
+app.use('/api/messages', routes.messages);
+console.log('after app use /api/messages');
+
+app.use('/api/profiles', routes.profiles);
+
+
+
+>>>>>>> created basic compose mail screen
 app.use('/api/folders', routes.folders);
 
 

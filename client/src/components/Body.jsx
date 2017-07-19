@@ -31,11 +31,11 @@ class Body extends React.Component {
           snippet: message.snippet,
           unread: message.unread,
           message_id: message.id
-        }
+        };
       });
       app.setState({
         messages: retrievedMessages
-      })
+      });
     });
   }
 

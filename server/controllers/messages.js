@@ -31,7 +31,7 @@ module.exports.getThread = (req, res) => {
 //@TODO Dont' hard code the message id
 module.exports.create = (req, res) => {
 
-  console.log('Inside Messages Controller create() ');
+  console.log('Inside Messages Controller create() ', req.body);
   let newMessage= new models.Message(
    req.body
   );
@@ -39,7 +39,7 @@ module.exports.create = (req, res) => {
   newMessage
   .save(null, {method: 'insert'})
   .then(result => {
-    console.log('Successfully created message: ');
+    console.log('Successfully created message: ', result);
     res.status(201).send(result);
   })
   .catch(err => {
@@ -56,7 +56,7 @@ module.exports.getOne = (req, res) => {
       if (!message) {
         throw message;
       }
-      console.log('Inside Messages Controller with retrieved message: ', message);
+      console.log('Inside Messages Controller with retrieved message: ');
       // res.status(200).send(message);
       res.render('index.ejs');
     })
