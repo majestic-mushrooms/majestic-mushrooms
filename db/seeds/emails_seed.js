@@ -162,8 +162,8 @@ exports.seed = function (knex, Promise) {
       return models.Folder.forge({
         folder_id: 'abcd1234',
         account_id: message.get('account_id'),
-        name: 'null',
-        display_name: 'trashbin'
+        name: 'inbox',
+        display_name: 'inbox'
       }).save(null, saveObj);
     })
 
