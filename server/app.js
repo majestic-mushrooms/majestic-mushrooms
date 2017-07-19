@@ -33,6 +33,9 @@ console.log('after app use /api ');
 app.use('/api/message', routes.messages);
 console.log('after app use /api/message');
 
+app.use('/api/messages', routes.messages);
+console.log('after app use /api/messages');
+
 app.use('/api/profiles', routes.profiles);
 console.log('after app use /api/profiles');
 
