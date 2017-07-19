@@ -3,7 +3,7 @@ config/development.json
 config/production.json
 config/staging.json
 config/test.json
-config/nylasToken.json
+config/nylasToken.js
 
 # OS X
 .DS_Store
