@@ -166,7 +166,6 @@ exports.seed = function (knex, Promise) {
         display_name: 'inbox'
       }).save(null, saveObj);
     })
-
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
@@ -176,7 +175,6 @@ exports.seed = function (knex, Promise) {
         display_name: 'sent'
       }).save(null, saveObj);
     })
-
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
@@ -186,7 +184,6 @@ exports.seed = function (knex, Promise) {
         display_name: 'mymail'
       }).save(null, saveObj);
     })
-
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
@@ -196,7 +193,6 @@ exports.seed = function (knex, Promise) {
         display_name: 'mymail2'
       }).save(null, saveObj);
     })
-
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
@@ -206,7 +202,6 @@ exports.seed = function (knex, Promise) {
         display_name: 'trashbin'
       }).save(null, saveObj);
     })
-
     .error(err => {
       console.error('ERROR: failed to create folder!');
     })
