@@ -12,29 +12,34 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.create = (req, res) => {
-  models.Message.forge({ username: req.body.username, password: req.body.password })
-    .save()
-    .then(result => {
-      res.status(201).send(result.omit('password'));
-    })
-    .catch(err => {
-      if (err.constraint === 'users_username_unique') {
-        return res.status(403);
-      }
-      res.status(500).send(err);
-    });
+
+  console.log('Inside Messages Controller create() ', req.body);
+  let newMessage= new models.Message(
+   req.body
+  );
+  console.log('IS IT NEW? ', newMessage.isNew());
+  newMessage
+  .save(null, {method: 'insert'})
+  .then(result => {
+    console.log('Successfully created message: ', result);
+    res.status(201).send(result);
+  })
+  .catch(err => {
+    console.log('Error creating message in DB: ', err);
+    res.status(500).send(err);
+  });
 };
 
 
 //@TODO Dont' hard code the message id
 module.exports.getOne = (req, res) => {
-  console.log('Inside Messages Controller getOne()');
+  console.log('Inside Messages Controller getOne() ');
   models.Message.where({ message_id: "abcde12345" }).fetch()
     .then(message => {
       if (!message) {
         throw message;
       }
-      console.log('Inside Messages Controller with retrieved message: ', message);
+      console.log('Inside Messages Controller with retrieved message: ');
       // res.status(200).send(message);
       res.render('index.ejs');
     })

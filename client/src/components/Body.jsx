@@ -6,8 +6,11 @@ import MailViewList from './MailViewList.jsx';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
+
 class Body extends React.Component {
   constructor(props) {
+    console.log('Inside Body.jsx constructor: ', props.location);
     super(props);
     this.state = { 
       messages: [],

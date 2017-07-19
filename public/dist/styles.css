@@ -1,3 +1,14 @@
 #searchbar {
   width: 55rem;
 }
+body {
+  background-color: #DCDCDC;
+}
+
+.emailFields {
+  width: 500px;
+}
+
+#composeMailSubject {
+  width: 500px;
+}
