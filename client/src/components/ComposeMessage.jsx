@@ -19,7 +19,7 @@ class ComposeMessage extends React.Component {
 
 
   handleSubmit(e) {
-    console.log('Inside handle Submit: ', e.target.toInputField.value);
+    console.log('Inside composeMail handle Submit: ', e.target.toInputField.value);
     //@TODO REMOVE HARDCODED VALUES
     e.target.accountId = 'abcdefghijkl1234567890';
     e.target.threadId = '1';
