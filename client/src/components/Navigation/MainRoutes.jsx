@@ -11,6 +11,10 @@ const routes = [
     exact:         true,
     component:     Body
   },
+  { path:          '/authenticated',
+    exact:         true,
+    component:     Body
+  },
   { path:          '/compose',
     exact:         true,
     component:     ComposeMessage

@@ -20,19 +20,13 @@ class MailViewList extends React.Component {
     
     this.state = {
       view: 'messages',
-      messages: [],
+      messages: null,
       current: ''
     };
   }
   
-  componentWillMount() {
-    axios.get('/api/messages')
-    .then (response => {
-      this.setState({
-        messages: response.data
-      })
-      console.log(this.state.messages);
-    })
+  componentWillReceiveProps({ messages }) {
+    this.setState({messages: messages});
   }
 
   handleMessageClick() {
@@ -42,8 +36,7 @@ class MailViewList extends React.Component {
   }
 
   render() {
-    const messages = this.state.messages;
-    const { view } = this.state;
+    const { messages, view } = this.state;
   
     return (
       <div>
@@ -52,15 +45,21 @@ class MailViewList extends React.Component {
           pathname: '/message'
         }}/>
         )}
-        <Table>
-        <Table.Body>
-          {messages.map((message, index) => {
-            currentColor++;
-            if (currentColor > messages.length) { currentColor = -1; }
-            return <MailViewListEntry key={index} message={message} messageId={message.message_id} onClick={this.handleMessageClick.bind(this)} />;
-          })}
-        </Table.Body>
-        </Table>
+        {messages === null ? (
+          <span>Loading your messages, please wait.</span>
+          ) : (
+          <Table>
+            <Table.Body>
+              {messages.map((message, index) => {
+                currentColor++;
+                if (currentColor > messages.length) { currentColor = -1; }
+                return <MailViewListEntry key={index} message={message} messageId={message.message_id} 
+                  onClick={this.handleMessageClick.bind(this)} />;
+              })}
+            </Table.Body> 
+          </Table>
+          )
+        }
       </div>
     );
 
