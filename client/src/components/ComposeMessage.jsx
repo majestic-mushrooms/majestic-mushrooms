@@ -38,11 +38,6 @@ class ComposeMessage extends React.Component {
         console.log('Error after calling to /api/messages ', err);
       });
   }
-//   <Redirect to={{
-// pathname: '/login',
-// search: '?utm=your+face',
-// state: { referrer: currentLocation }
-// }}/>
 
   render() {
     
@@ -89,13 +84,3 @@ class ComposeMessage extends React.Component {
 
 export default ComposeMessage;
 
-
-
-
-{/* <Segment>
-<Label color='blue' horizontal>To </Label><Input transparent={true} placeholder='Who do you want to talk to?' />
-<Divider  />
- <Label color='olive' horizontal>Cc </Label><Input transparent={true} placeholder='Copy others on this message...' />
- <Divider  />
- <Label color='grey' horizontal>Subject </Label><Input transparent={true} placeholder='So, what do you want to talk about?' />
-</Segment> */}

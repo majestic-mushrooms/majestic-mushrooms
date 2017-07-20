@@ -31,7 +31,7 @@ module.exports.getThread = (req, res) => {
 //@TODO Dont' hard code the message id
 module.exports.create = (req, res) => {
 
-  console.log('Inside Messages Controller create() ', req.body);
+  console.log('Inside Messages Controller create() ');
   let newMessage= new models.Message(
    req.body
   );
@@ -39,7 +39,7 @@ module.exports.create = (req, res) => {
   newMessage
   .save(null, {method: 'insert'})
   .then(result => {
-    console.log('Successfully created message: ', result);
+    console.log('Successfully created message: ');
     res.status(201).send(result);
   })
   .catch(err => {
