@@ -1,36 +1,60 @@
 import React from 'react';
-import { Table, Segment, Label } from 'semantic-ui-react';
+import { Icon, Table, Segment, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const MailViewListEntry = ({ message, messageId, onClick }) => {
-  message.from = message.from.reduce((fromStr, sender) => fromStr + sender.name, '');
-  const weight = message.unread === true ? 'bold' : 'regular';
-  const cellStyle = {
-    maxWidth: '20px',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis'
+class MailViewListEntry extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showButton: false
+    };
   }
 
-  return (
-    <Table.Row onClick={onClick}>
-      <Table.Cell width="4">
-        <Label circular color={message.color} style={{marginRight:'8px'}}>
-          {message.from.charAt(0).toUpperCase()}
-        </Label>
-        <span style={{fontWeight:weight}}>
-          { message.from.length < 20 ? message.from : message.from.slice(0, 21) + '...' }
-        </span>
-      </Table.Cell>
-      <Table.Cell style={cellStyle}>
-        <span style={{fontWeight:weight}}>{message.subject}</span>
-        <span> - </span>
-        <span style={{color:'grey'}}>{message.snippet}</span>
-      </Table.Cell>
-    </Table.Row>
-  )
+  deleteMessage(e, messageId) {
+    console.log('deleting message:', messageId);
+    e.stopPropagation();
+
+    //@TODO: replace number string with real trash folder id, from state + add type
+    axios.put(`/api/messages/${messageId}/trash/'3948384545'`).then(response => { 
+      console.log('message deleted!', response);
+    })
+  }
+
+  render() {
+    const { message, messageId, show, onClick } = this.props;
+    const fromStr = message.from.reduce((fromStr, sender) => fromStr + sender.name, '');
+    const weight = message.unread === true ? 'bold' : 'regular';
+    
+    return (
+      <Table.Row onClick={ (e) => { onClick(e, messageId); }} onMouseEnter={() => {this.setState({ showButton: true });}}
+        onMouseLeave={() => {this.setState({ showButton: false });}}>
+        <Table.Cell width="4">
+          <Label circular color={message.color} style={{marginRight:'8px'}}>
+            { fromStr.charAt(0).toUpperCase() }
+          </Label>
+          <span style={{fontWeight:weight}}>
+            { fromStr.length < 20 ? fromStr : fromStr.slice(0, 21) + '...' }
+          </span>
+        </Table.Cell>
+        <Table.Cell>
+          <span style={{fontWeight:weight}}>{message.subject}</span>
+        </Table.Cell>
+        <Table.Cell width="3" textAlign="right">
+          {this.state.showButton === true ? 
+          ( 
+            <div>
+              <Icon name="reply" onClick={ (e) => { onClick(e, messageId); }}/>
+              <Icon name="trash outline" onClick={ (e) => { this.deleteMessage(e, messageId); }}/>
+            </div>
+          ) : (
+            <span>{message.timestamp}</span>
+          )}
+        </Table.Cell>
+      </Table.Row>
+    )
+  }
 };
-  
 
 
 export default MailViewListEntry;

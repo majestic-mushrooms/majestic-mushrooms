@@ -17,10 +17,9 @@ var currentColor = -1;
 class MailViewList extends React.Component {
   constructor(props) {
     super(props);
-    
     this.state = {
       view: 'messages',
-      messages: null,
+      messages: [],
       current: ''
     };
   }
@@ -29,9 +28,11 @@ class MailViewList extends React.Component {
     this.setState({messages: messages});
   }
 
-  handleMessageClick() {
-    this.setState({
-      view: 'read'
+  handleMessageClick(e, messageId) {
+    axios.put(`/api/messages/${messageId}/read/null`).then(response => {
+      this.setState({
+        view: 'read'
+      });
     });
   }
 
@@ -45,10 +46,10 @@ class MailViewList extends React.Component {
           pathname: '/message'
         }}/>
         )}
-        {messages === null ? (
+        {messages.length === 0 ? (
           <span>Loading your messages, please wait.</span>
           ) : (
-          <Table>
+          <Table singleLine fixed>
             <Table.Body>
               {messages.map((message, index) => {
                 currentColor++;
