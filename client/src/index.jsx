@@ -29,12 +29,16 @@ const renderMergedProps = (component, ...rest) => {
     );
   }
 
+
+
 class App extends React.Component {
   constructor() {
     super();
   }
 
-// access token via window.token
+  componentDidMount() {
+    console.log('WE HAVE A TOKEN IN index.jsx: ', window.token);
+  }
 
   render() {
     return (

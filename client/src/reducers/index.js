@@ -15,3 +15,17 @@
   // added: let store = createStore(reducer) to same file
   // http://redux.js.org/docs/api/combineReducers.html
 // TODO dispatch
+
+
+const emailState = (state = {}, action) => {
+
+  switch (action.type) {
+  default: 
+    return state;
+  }
+
+
+};
+
+
+export default emailState;

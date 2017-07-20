@@ -7,9 +7,10 @@ const axios = require('axios');
 const querystring = require('querystring');
 
 
+
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
-    res.render('index.ejs');
+    res.render('index.ejs', {token: req.session.nylasToken});
   });
 
 router.route('/authenticated')
@@ -22,9 +23,11 @@ router.route('/authenticated')
           code: res.req.query.code 
         }))
     .then( (response) => {
-      var token = response.data.access_token;
+      let token = response.data.access_token;
+      
+      req.session.nylasToken = token;
       res.locals.token = token;
-      res.render('index.ejs');
+      res.redirect('http://localhost:3000');
     }) 
     .catch( err => { console.log('ERROR ', err); });
   });
@@ -49,10 +52,19 @@ router.route('/profile')
     });
   });
 
+
+  
 router.route('/logout')
-  .get((req, res) => {
-    req.logout();
-    res.redirect('/');
+  .get( (req, res) => {
+    console.log('Inside LOGOUT');
+    req.session.destroy( (err) => {
+      if (err){
+        console.log('Error destroying request session', err);
+        res.status(500).send(err);
+      } else {
+        res.sendStatus(200);
+      }
+    });
   });
 
 

@@ -15,42 +15,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(middleware.auth.session);
-
+app.use(middleware.auth.initializeAuthentication);
 
 app.use(express.static(path.join(__dirname, '../public')));
-console.log('After app.use express.static');
 
 
 app.use('/', routes.auth);
-console.log('after app use / ');
-
 app.use('/authenticated', routes.auth);
-console.log('after app use /auth ');
-
 app.use('/api', routes.api);
-console.log('after app use /api ');
-
 app.use('/api/message', routes.messages);
-console.log('after app use /api/message');
-
-app.use('/api/messages', routes.messages);
-console.log('after app use /api/messages');
-
 app.use('/api/profiles', routes.profiles);
-console.log('after app use /api/profiles');
-
+app.use('/api/messages', routes.messages);
+app.use('/api/profiles', routes.profiles);
 app.use('/api/folders', routes.folders);
-  // console.log('getting messages');
-  //cget data from database from here
-  // axios.get('https://api.nylas.com/messages', 
-  //   { authentication: {'X-Custom-Header': 'foobar'} 
-  //   })
-  // .then(response => {
-  //   res.send('hello');
-  // });
-  // axios.get('/')
-  
 
-    // res.send(result)
 
 module.exports = app;

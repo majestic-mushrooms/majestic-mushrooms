@@ -1,25 +1,26 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middleware');
 const MessageController = require('../controllers').Messages;
 
 router.route('/')
-  .get(MessageController.getAll)
-  // .post(MessageController.create)
-;
+  .post( middleware.auth.verify, (req, res) => {
+    console.log('Inside Routes messages.js POST');
+    MessageController.create(req, res);
+  });
 
-router.route('/:id')
-  .get((req, res) => {
+router.route('/')
+  .get( middleware.auth.verify, (req, res) => {
+    console.log('Inside Routes messages.js GET ');
     MessageController.getOne(req, res);
-  })
-//   .get(MessageController.getOne)  
-//   .put(MessageController.update)
-//   // .delete(MessageController.deleteOne)
-;
+  });
+
 
 router.route('/:id/:thread')
 .get((req, res) => {
   MessageController.getThread(req, res);
-})
+});
+
 
 module.exports = router;

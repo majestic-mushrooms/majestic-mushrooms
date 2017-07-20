@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
 import { Redirect, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import axios from 'axios';
 
 
 class LeftMenu extends Component {
@@ -10,9 +11,20 @@ class LeftMenu extends Component {
 
     this.state = { 
       visible: true,
-      activeItem: 'tab1',
       view: 'home' 
     };
+  }
+
+ 
+  onClickLogOut() {
+    axios.get('/logout')
+    .then( res => {
+      window.token = null;
+      this.setState({ view: 'loggedOut '});
+    })
+    .catch( err => {
+      console.log('Error calling /logout from LeftMenu.jsx', err);
+    });
   }
 
 
@@ -37,7 +49,7 @@ class LeftMenu extends Component {
           Contacts
         </Menu.Item>
 
-        <Menu.Item as={Link} to='/logout' name='logout'>
+        <Menu.Item onClick={this.onClickLogOut.bind(this)} name='logout'>
         <Icon name='log out' />
         Logout
         </Menu.Item>
