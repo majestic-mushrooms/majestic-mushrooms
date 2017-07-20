@@ -22,6 +22,7 @@ class Body extends React.Component {
   componentWillMount() {
     const app = this;
     const authString = 'Bearer ' + window.token;
+    console.log('AUTHSTRING', authString)
     axios.get('https://api.nylas.com/messages', {
       headers: { Authorization: authString }
     }).then(response => {
