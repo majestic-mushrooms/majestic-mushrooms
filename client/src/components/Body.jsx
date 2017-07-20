@@ -8,27 +8,35 @@ import axios from 'axios';
 
 class Body extends React.Component {
   constructor(props) {
-
     super(props);
     this.state = { 
+      messages: [],
       visible: true
     };
   }
-  componenetDidMount() {
-    axios.get('/messages')
-     .then(response => {
-       console.log('successss in didmount');
-     });
+
+  componentWillMount() {
+    const app = this;
+    const authString = 'Bearer ' + window.token;
+    axios.get('https://api.nylas.com/messages', {
+      headers: { Authorization: authString }
+    }).then(response => {
+      const retrievedMessages = response.data.slice(0, 21).map(message => {
+        return {
+          from: message.from,
+          subject: message.subject,
+          snippet: message.snippet,
+          unread: message.unread,
+          message_id: message.id
+        }
+      });
+      app.setState({
+        messages: retrievedMessages
+      })
+    });
   }
 
-
   render() {
-    const messages = [
-      {from: 'Andrea', subject: 'Lets talk about this', snippet: 'Stuff is cool and this line goes on and on and on and forever on and on til forever til off but never really off, just on.', message_id: 0},
-      {from: 'Jane', subject: 'Things', snippet: 'Things are cool.', message_id: 1}, 
-      {from: 'Rick', subject: 'Morty', snippet: 'C\'mon let\'s go on an adventure, Morty!', message_id: 2}
-    ];
-
     return (
       <div>
       <Divider hidden />
@@ -37,7 +45,7 @@ class Body extends React.Component {
          <Segment>
            <SearchBar />
           </Segment>
-            <MailViewList messages={ messages }/>
+            <MailViewList messages={this.state.messages}/>
         </Segment.Group>
       </div>
     );
