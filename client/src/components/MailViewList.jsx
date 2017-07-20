@@ -17,7 +17,6 @@ var currentColor = -1;
 class MailViewList extends React.Component {
   constructor(props) {
     super(props);
-    
     this.state = {
       view: 'messages',
       messages: null,
