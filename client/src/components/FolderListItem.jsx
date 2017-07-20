@@ -7,16 +7,13 @@ class FolderListItem extends React.Component {
     super(props);
   }
   
-  getRandomColor() {
-    var colors = ['red', 'orange', 'yellow', 'olive', 'green', 'teal', 'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'];
-    return colors[Math.floor(Math.random() * 12)];
-  }
+
   render() {
     const { activeItem } = this.state || {};
 
     return (
-      <Menu.Item name={this.props.folder.name} active={activeItem === this.props.folder.name } as={Link} to='/' name='mail' >
-        <Label color={this.getRandomColor()}>49,986</Label>
+      <Menu.Item name={this.props.folder.display_name} active={activeItem === this.props.folder.display_name } as={Link} to='/' name='mail' >
+        <Label color={this.props.folder.color}>1</Label>
         {this.props.folder.display_name}
       </Menu.Item>
     );
