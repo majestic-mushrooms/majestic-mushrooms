@@ -11,7 +11,7 @@ module.exports.verify = (req, res, next) => {
   if (req.session.isAuthenticated()) {
     return next();
   }
-  res.redirect(`https://api.nylas.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&scope=email&login_hint=email&redirect_uri=${REDIRECT_URI}`);
+  res.redirect(`https://api.nylas.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&scope=email&redirect_uri=${REDIRECT_URI}`);
 };
 
 
