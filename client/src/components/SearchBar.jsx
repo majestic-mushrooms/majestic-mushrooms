@@ -1,51 +1,33 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
-import { Search, Grid, Header } from 'semantic-ui-react';
-
-const source = _.times(5, () => ({
-}));
+import { Search, Grid, Header, Input } from 'semantic-ui-react';
 
 class SearchBar extends React.Component {
-  componentWillMount() {
-    this.resetComponent();
+  constructor(props) {
+
+    super(props);
+    this.state = {
+      search: ''
+    };
   }
 
-  resetComponent() {
-    this.setState({ isLoading: false, results: [], value: '' });
+  handleSearchChange(e) {
+    this.setState({
+      search: e.target.value
+    });
   }
 
-  handleResultSelect() {
-    (e, result) => this.setState({ value: result.title });
-  }
-
-  handleSearchChange(e, value) {
-    this.setState({ isLoading: true, value });
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent();
-
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-      const isMatch = (result) => re.test(result.title);
-
-      this.setState({
-        isLoading: false,
-        results: _.filter(source, isMatch),
-      });
-    }, 500);
+  handleSearch() {
+    this.props.onSearch(this.state.search);
   }
 
   render() {
-    const { isLoading, value, results } = this.state;
     
     return (
-          <Search id="searchbar"
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={this.handleSearchChange}
-            results={results}
-            value={value}
-            {...this.props}
-          />
+      <Input fluid id="searchbar"
+        onKeyPress={e => { if (e.key === 'Enter') { this.handleSearch(); } }}
+        onChange={this.handleSearchChange.bind(this)}
+        icon={{ name: 'search', circular: true }}
+      />
     );
   }
 }
