@@ -18,27 +18,12 @@ class ViewMessage extends React.Component {
 
   componentWillMount() {
     var messageId = this.state.messageId;
-    axios.get('/api/message/'+ this.state.messageId)
+    axios.get('/api/messages/'+ this.state.messageId)
     .then (response => {
       this.setState({
         currentMessage: response.data
       })
     })
-    .then (
-      axios.get(`/api/message/${this.state.messageId}/${this.state.threadId}`)
-      .then (response => {
-        var thread;
-        if (Array.isArray(response.data)) {
-          thread = response.data;
-        } else {
-          thread = [response.data];
-        }
-        this.setState({
-          threads: thread
-        })
-        console.log(this.state.threads)
-      })
-    )
   }
 
   render() {
