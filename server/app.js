@@ -6,7 +6,6 @@ const routes = require('./routes');
 const axios = require('axios');
 const app = express();
 
-
 app.use(middleware.morgan('dev'));
 app.use(middleware.cookieParser());
 app.use(middleware.bodyParser.urlencoded({extended: false}));

@@ -6,7 +6,7 @@ import MailViewList from './MailViewList.jsx';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
+import parseMessages from './utils/messagesParser';
 
 class Body extends React.Component {
   constructor(props) {
@@ -21,20 +21,12 @@ class Body extends React.Component {
 
   componentWillMount() {
     const app = this;
-    const authString = 'Bearer ' + window.token;
-    console.log('AUTHSTRING', authString)
-    axios.get('https://api.nylas.com/messages', {
-      headers: { Authorization: authString }
-    }).then(response => {
-      const retrievedMessages = response.data.slice(0, 21).map(message => {
-        return {
-          from: message.from,
-          subject: message.subject,
-          snippet: message.snippet,
-          unread: message.unread,
-          message_id: message.id
-        };
-      });
+    let now = Date.now();
+    now = new Date(now);
+    const today = now.getMonth() + '/' + now.getDate() + '/' + ('' + now.getFullYear()).substr(-2);
+
+    axios.get('/api/messages/').then(response => {
+      const retrievedMessages = parseMessages(response.data, today);
       app.setState({
         messages: retrievedMessages
       });
