@@ -20,12 +20,12 @@ class MailViewList extends React.Component {
     this.state = {
       view: 'messages',
       messages: [],
-      current: ''
+      current: {}
     };
   }
   
   componentWillMount() {
-    axios.get('/api/message')
+    axios.get('/api/messages')
     .then (response => {
       this.setState({
         messages: response.data
@@ -35,11 +35,12 @@ class MailViewList extends React.Component {
   }
 
   handleMessageClick(e, messageId) {
-    axios.put(`/api/messages/${messageId}/read/null`).then(response => {
+    axios.get(`/api/messages/read/${messageId}`).then(response => {
       this.setState({
-        view: 'read'
+        view: 'read',
+        current: response.data
       });
-    });
+    });    
   }
 
   render() {
@@ -49,7 +50,8 @@ class MailViewList extends React.Component {
       <div>
         { view === 'read' && (
         <Redirect from={'/'} push to={{
-          pathname: '/message'
+          pathname: '/message',
+          state: {from: this.state.current}
         }}/>
         )}
         {messages.length === 0 ? (
@@ -60,7 +62,7 @@ class MailViewList extends React.Component {
               {messages.map((message, index) => {
                 currentColor++;
                 if (currentColor > messages.length) { currentColor = -1; }
-                return <MailViewListEntry key={index} message={message} messageId={message.message_id} 
+                return <MailViewListEntry key={index} message={message} messageId={message.id} 
                   onClick={this.handleMessageClick.bind(this)} />;
               })}
             </Table.Body> 
