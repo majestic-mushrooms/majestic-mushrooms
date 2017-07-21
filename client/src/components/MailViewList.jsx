@@ -28,11 +28,10 @@ class MailViewList extends React.Component {
     this.setState({messages: messages});
   }
 
-  handleMessageClick(e, messageId) {
-
+  handleMessageClick(e, messageId, unreadStatus) {
     const readMessage = [
       () => { return axios.get(`/api/messages/read/${messageId}`) },
-      () => { return axios.put(`/api/messages/${messageId}/read/null`) }
+      () => { if (unreadStatus === true) { return axios.put(`/api/messages/${messageId}/read/null`) } }
     ];
     axios.all(readMessage.map(axiosCall => axiosCall()))
     .then(axios.spread((res1, res2) => {
@@ -40,7 +39,6 @@ class MailViewList extends React.Component {
         view: 'read',
         current: res1.data
       });
-      console.log("two promise executed",'res1.data', res1.data,'res2.data', res2);
     }))
     .catch(err => console.log(err));
 
