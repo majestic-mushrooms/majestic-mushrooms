@@ -17,16 +17,15 @@ class ViewMessage extends React.Component {
   }
 
   componentDidMount() {
-    console.log('her1')
     var messageId = this.state.messageId;
     // var threadId = this.state.threadId
     var threadId = '12sav690mijdpe6qok1c9ujhy';
-    console.log('her2')
-    console.log('=====this is the props, threadId, messageId====',this.props, threadId, messageId)
+    console.log('=====this is the props, messageId, threadId====',this.props, messageId, threadId)
 
-    axios.get(`api/threads`)
+    axios.get(`api/threads/${threadId}`)
     .then(response => {
-      console.log('getThreads success', response);
+      this.setState({threads: response.data})
+      console.log("========state of the thread after axios: =============:", this.state.threads[0])
     })
     .catch(error => {
         console.log('getThreads error: ', error);

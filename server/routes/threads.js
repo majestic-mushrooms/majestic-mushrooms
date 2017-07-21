@@ -10,4 +10,10 @@ router.route('/')
     Threads.getAll(req, res);
   })
 
+  router.route('/:id')
+  .get( middleware.auth.verify, (req, res) => {
+    console.log(`Inside threads.js for route /:id`);
+    Threads.getAll(req, res);
+  })
+
 module.exports = router;
