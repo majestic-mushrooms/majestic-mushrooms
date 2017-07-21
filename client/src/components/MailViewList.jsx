@@ -30,7 +30,6 @@ class MailViewList extends React.Component {
 
   handleMessageClick(e, messageId) {
 
-    console.log('Inside MailViewList.jsx handleMessageClick()', messageId);////////////////
     const readMessage = [
       () => { return axios.get(`/api/messages/read/${messageId}`) },
       () => { return axios.put(`/api/messages/${messageId}/read/null`) }
@@ -41,7 +40,7 @@ class MailViewList extends React.Component {
         view: 'read',
         current: res1.data
       });
-      console.log("two promise executed", res1, res2);
+      console.log("two promise executed",'res1.data', res1.data,'res2.data', res2);
     }))
     .catch(err => console.log(err));
 
