@@ -29,7 +29,7 @@ class ComposeMessage extends React.Component {
     let message = objectBuilder.createMessage(e.target);
 
     console.log('After calling createMessage: ', message);
-    axios.post('/api/message', message)
+    axios.post('/api/messages', message)
       .then( message => {
         console.log('Returned back from /api/messages/', message);
         this.setState({ view: 'home', toAddress: message.data.to});

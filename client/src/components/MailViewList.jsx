@@ -20,7 +20,7 @@ class MailViewList extends React.Component {
     this.state = {
       view: 'messages',
       messages: [],
-      current: ''
+      current: {}
     };
   }
   
@@ -29,11 +29,22 @@ class MailViewList extends React.Component {
   }
 
   handleMessageClick(e, messageId) {
-    axios.put(`/api/messages/${messageId}/read/null`).then(response => {
+
+    console.log('Inside MailViewList.jsx handleMessageClick()', messageId);////////////////
+    const readMessage = [
+      () => { return axios.get(`/api/messages/read/${messageId}`) },
+      () => { return axios.put(`/api/messages/${messageId}/read/null`) }
+    ];
+    axios.all(readMessage.map(axiosCall => axiosCall()))
+    .then(axios.spread((res1, res2) => {
       this.setState({
-        view: 'read'
+        view: 'read',
+        current: res1.data
       });
-    });
+      console.log("two promise executed", res1, res2);
+    }))
+    .catch(err => console.log(err));
+
   }
 
   render() {
@@ -43,7 +54,8 @@ class MailViewList extends React.Component {
       <div>
         { view === 'read' && (
         <Redirect from={'/'} push to={{
-          pathname: '/message'
+          pathname: '/message',
+          state: {from: this.state.current}
         }}/>
         )}
         {messages.length === 0 ? (
