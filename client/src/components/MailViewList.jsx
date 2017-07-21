@@ -24,23 +24,27 @@ class MailViewList extends React.Component {
     };
   }
   
-  componentWillMount() {
-    axios.get('/api/messages')
-    .then (response => {
-      this.setState({
-        messages: response.data
-      })
-      console.log(this.state.messages);
-    })
+  componentWillReceiveProps({ messages }) {
+    this.setState({messages: messages});
   }
 
   handleMessageClick(e, messageId) {
-    axios.get(`/api/messages/read/${messageId}`).then(response => {
+
+    console.log('Inside MailViewList.jsx handleMessageClick()', messageId);////////////////
+    const readMessage = [
+      () => { return axios.get(`/api/messages/read/${messageId}`) },
+      () => { return axios.put(`/api/messages/${messageId}/read/null`) }
+    ];
+    axios.all(readMessage.map(axiosCall => axiosCall()))
+    .then(axios.spread((res1, res2) => {
       this.setState({
         view: 'read',
-        current: response.data
+        current: res1.data
       });
-    });    
+      console.log("two promise executed", res1, res2);
+    }))
+    .catch(err => console.log(err));
+
   }
 
   render() {
@@ -62,7 +66,7 @@ class MailViewList extends React.Component {
               {messages.map((message, index) => {
                 currentColor++;
                 if (currentColor > messages.length) { currentColor = -1; }
-                return <MailViewListEntry key={index} message={message} messageId={message.id} 
+                return <MailViewListEntry key={index} message={message} messageId={message.message_id} 
                   onClick={this.handleMessageClick.bind(this)} />;
               })}
             </Table.Body> 
