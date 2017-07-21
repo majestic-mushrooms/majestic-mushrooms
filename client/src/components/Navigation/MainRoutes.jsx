@@ -12,8 +12,8 @@ const routes = [
     component:     Body
   },
   { path:          '/authenticated',
-    exact:         true,
-    component:     Body
+  exact:         true,
+  component:     Body
   },
   { path:          '/compose',
     exact:         true,
