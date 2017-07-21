@@ -47,11 +47,11 @@ class App extends React.Component {
       <Router history={browserHistory} >
         <Grid >
           <Grid.Row>
-            <Grid.Column width={2}>
+            <Grid.Column width={1}>
               <LeftMenu /> 
             </Grid.Column>
 
-            <Grid.Column width={11}>
+            <Grid.Column width={12}>
               <MainRoutes />
             </Grid.Column> 
 
