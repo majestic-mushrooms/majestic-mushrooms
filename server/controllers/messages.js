@@ -21,6 +21,9 @@ module.exports.getAll = (req, res) => {
     headers: { Authorization: authString }
   }).then(response => {
     res.send(response.data);
+  })
+  .catch(err => {
+    console.log("Retreiving messages from Nylas: ", err);
   });
 };
 
@@ -44,15 +47,12 @@ module.exports.create = (req, res) => {
   });
 };
 
-//@TODO Dont' hard code the message id
 module.exports.getOne = (req, res) => {
-  console.log('Inside Messages Controller getOne() ');
   models.Message.where({ message_id: "abcde12345" }).fetch()
-    .then(message => {
-      if (!message) {
-        throw message;
-      }
-      console.log('Inside Messages Controller with retrieved message: ');
+  .then(message => {
+    if (!message) {
+      throw message;
+    }
       res.status(200).send(message);
     })
     .error(err => {
@@ -61,6 +61,18 @@ module.exports.getOne = (req, res) => {
     .catch(() => {
       res.sendStatus(404);
     });
+
+  //TODO: get the NYLAS CALL work
+  // const authString = 'Bearer ' + req.session.nylasToken;
+  // axios.get(`https://api.nylas.com/messages?id=${req.params.id}`, {
+  //   headers: { Authorization: authString }
+  // }).then(response => {
+  //   res.send(response.data);
+  // })
+  // .catch(err => {
+  //   console.log("Retreiving threads from Nylas: ", err);
+  // });
+
 };
 
 module.exports.update = (req, res) => {

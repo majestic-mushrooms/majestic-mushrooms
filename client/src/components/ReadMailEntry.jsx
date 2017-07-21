@@ -3,7 +3,7 @@ import { Icon, Table, Segment, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class MailViewListEntry extends React.Component {
+class ViewMessageEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +25,7 @@ class MailViewListEntry extends React.Component {
     const { message, messageId, show, onClick } = this.props;
     const fromStr = message.from.reduce((fromStr, sender) => fromStr + sender.name, '');
     const weight = message.unread === true ? 'bold' : 'regular';
+    
     return (
       <Table.Row onClick={ (e) => { onClick(e, messageId); }} onMouseEnter={() => {this.setState({ showButton: true });}}
         onMouseLeave={() => {this.setState({ showButton: false });}}>
@@ -56,4 +57,4 @@ class MailViewListEntry extends React.Component {
 };
 
 
-export default MailViewListEntry;
+export default ViewMessageEntry;

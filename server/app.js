@@ -18,16 +18,15 @@ app.use(middleware.auth.initializeAuthentication);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-
 app.use('/', routes.auth);
 app.use('/authenticated', routes.auth);
 app.use('/api', routes.api);
-app.use('/api/message', routes.messages);
-app.use('/api/profiles', routes.profiles);
+
 app.use('/api/messages', routes.messages);
 app.use('/api/profiles', routes.profiles);
 app.use('/api/folders', routes.folders);
 app.use('/api/search', routes.search);
+app.use('/api/threads', routes.threads);
 
 
 module.exports = app;
