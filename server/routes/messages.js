@@ -16,7 +16,7 @@ router.route('/')
     MessageController.getAll(req, res);
   });
 
-router.route('/:id')
+router.route('/read/:id')
   .get( middleware.auth.verify, (req, res) => {
     console.log(`Inside Routes messages.js GET for /${req.params.id}`);
     MessageController.getOne(req, res);
