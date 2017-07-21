@@ -16,13 +16,15 @@ class ViewMessage extends React.Component {
     }
   }
 
-  componentWillMount(threadId) {
+  componentDidMount() {
+    console.log('her1')
     var messageId = this.state.messageId;
     // var threadId = this.state.threadId
     var threadId = '12sav690mijdpe6qok1c9ujhy';
+    console.log('her2')
     console.log('=====this is the props, threadId, messageId====',this.props, threadId, messageId)
 
-    axios.get(`/api/threads/${threadId}`)
+    axios.get(`api/threads`)
     .then(response => {
       console.log('getThreads success', response);
     })
@@ -37,7 +39,7 @@ class ViewMessage extends React.Component {
 
   render() {
     var display = null;
-    {console.log('thread in view', this.state.threads);}
+    {console.log('rendering ReadMail.jsx', this.state.threads);}
 
     // TODO: have condition if there is no thread
     // TODO: change the names according to the Nylas data structure & the circle
