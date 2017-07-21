@@ -3,41 +3,32 @@ import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom';
 import { Message, Divider, Table, Icon, Label } from 'semantic-ui-react';
 import axios from 'axios';
-import ViewMessageEntry from './ViewMessageEntry.jsx';
+import ReadMail from './ReadMail.jsx';
 
 class ViewMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
       threads: [],
-      messageId: 'abcde12345',
-      threadId: 'placeholder',
-      currentMessage: {}
+      messageId: this.props.location.state.from.message_id,
+      threadId: this.props.location.state.from.thread_id,
+      currentMessage: this.props.location.state.from
     }
   }
 
-  componentWillMount() {
+  componentWillMount(threadId) {
     var messageId = this.state.messageId;
-    axios.get('/api/message/'+ this.state.messageId)
-    .then (response => {
-      this.setState({
-        currentMessage: response.data
-      })
+    // var threadId = this.state.threadId
+    var threadId = '12sav690mijdpe6qok1c9ujhy';
+    console.log('=====this is the props, threadId, messageId====',this.props, threadId, messageId)
+
+    axios.get(`/api/threads/${threadId}`)
+    .then(response => {
+      console.log('getThreads success', response);
     })
-    .then (
-      axios.get(`/api/thread/${this.state.threadId}`)
-      .then (response => {
-        // var thread;
-        // if (Array.isArray(response.data)) {
-        //   thread = response.data;
-        // } else {
-        //   thread = [response.data];
-        // }
-        this.setState({
-          threads: response.data
-        })
-      })
-    )
+    .catch(error => {
+        console.log('getThreads error: ', error);
+    });
   }
 
   handleMessageClick() {
@@ -46,13 +37,13 @@ class ViewMessage extends React.Component {
 
   render() {
     var display = null;
-    console.log('thread in view', this.state.threads);
+    {console.log('thread in view', this.state.threads);}
 
     // TODO: have condition if there is no thread
     // TODO: change the names according to the Nylas data structure & the circle
     if (this.state.threads.length > 1) {
       display = this.state.threads.map((message, index) => {
-        return <ViewMessageEntry key={index} message={message} messageId={message.message_id} onClick={this.handleMessageClick.bind(this)} />;
+        return <ReadMailEntry key={index} message={message} onClick={this.handleMessageClick.bind(this)} />;
       })
     };
 
