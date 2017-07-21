@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 import Body from '../Body.jsx';
 import ComposeMessage from '../ComposeMessage.jsx';
-import ViewMessage from '../ViewMessage.jsx';
+import ReadMail from '../ReadMail.jsx';
 import { withRouter } from 'react-router';
 
 //Associate each route URL path with a component
@@ -21,7 +21,7 @@ const routes = [
   },
   { path:          '/message',
     exact:         true,
-    component:     ViewMessage
+    component:     ReadMail
   }
 ];
 
