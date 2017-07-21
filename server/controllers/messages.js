@@ -48,30 +48,31 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.getOne = (req, res) => {
-  models.Message.where({ message_id: "abcde12345" }).fetch()
-  .then(message => {
-    if (!message) {
-      throw message;
-    }
-      res.status(200).send(message);
-    })
-    .error(err => {
-      res.status(500).send(err);
-    })
-    .catch(() => {
-      res.sendStatus(404);
-    });
+  // models.Message.where({ message_id: "abcde12345" }).fetch()
+  // .then(message => {
+  //   if (!message) {
+  //     throw message;
+  //   }
+  //     res.status(200).send(message);
+  //   })
+  //   .error(err => {
+  //     res.status(500).send(err);
+  //   })
+  //   .catch(() => {
+  //     res.sendStatus(404);
+  //   });
 
   //TODO: get the NYLAS CALL work
-  // const authString = 'Bearer ' + req.session.nylasToken;
+  const authString = 'Bearer ' + req.session.nylasToken;
   // axios.get(`https://api.nylas.com/messages?id=${req.params.id}`, {
-  //   headers: { Authorization: authString }
-  // }).then(response => {
-  //   res.send(response.data);
-  // })
-  // .catch(err => {
-  //   console.log("Retreiving threads from Nylas: ", err);
-  // });
+  axios.get(`https://api.nylas.com/messages/${req.params.id}`, {
+    headers: { Authorization: authString }
+  }).then(response => {
+    res.send(response.data);
+  })
+  .catch(err => {
+    console.log("Retreiving one mail from Nylas: error");
+  });
 
 };
 
