@@ -20,7 +20,7 @@ class FolderList extends React.Component {
     return (
       <Menu fluid vertical>
         {this.props.folders.map((folder, key) => {
-          return <FolderListItem folder={folder} key={key}/>;
+          return <FolderListItem folder={folder} filter={this.props.filter} key={key}/>;
         })}
       </Menu>
     );

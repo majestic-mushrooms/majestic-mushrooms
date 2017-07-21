@@ -32,12 +32,13 @@ class RightMenu extends Component {
     this.setState({ activeItem: name });
   }
   
-  // getFolders(e) {
-  //   axios.get('/api/folders')
-  //     .then(response => {
-  //       console.log('this is response frm', response.data);
-  //     });
-  // }
+  filterMessages(labelId) {
+    console.log('label id', labelId);
+    axios.get('/api/folders/' + labelId)
+      .then(response => {
+      //set messages state.
+      });
+  }
   render() {
     const { visible } = this.state;
     const { activeItem } = this.state;
@@ -50,7 +51,7 @@ class RightMenu extends Component {
         </Menu>
 
         <Segment attached='bottom'>
-          {activeItem === 'Folders' && <FolderList folders={this.state.folders}/>}
+          {activeItem === 'Folders' && <FolderList filter={this.filterMessages} folders={this.state.folders}/>}
           {activeItem === 'Filters' && <AiLog />}
         </Segment>
       </div>
