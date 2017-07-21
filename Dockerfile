@@ -10,7 +10,9 @@ WORKDIR /public
 COPY . /public
 
 # Define environment variable
-ENV PORT 3030
+ENV PORT=3030
+ENV REDIS_HOST=redis
+ENV REDIRECT_URI=http://localhost:3030/authenticated
 
 # Install any needed packages with yarn (should be bundled with official node image)
 RUN apk upgrade --update && \
