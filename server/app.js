@@ -27,6 +27,7 @@ app.use('/api/profiles', routes.profiles);
 app.use('/api/messages', routes.messages);
 app.use('/api/profiles', routes.profiles);
 app.use('/api/folders', routes.folders);
+app.use('/api/search', routes.search);
 
 
 module.exports = app;
