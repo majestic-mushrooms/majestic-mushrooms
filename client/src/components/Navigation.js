@@ -7,13 +7,13 @@ import Main from '../Main.js';
 
 //Associate each route URL path with a component
 const routes = [
-  { path:          '/',
-    exact:         true,
-    component:     Main
+  { path: '/',
+    exact: true,
+    component: Main
   },
-  { path:          '/ReadMail',
-    exact:         true,
-    component:     ReadMail
+  { path: '/ReadMail',
+    exact: true,
+    component: ReadMail
   }
 ];
 
