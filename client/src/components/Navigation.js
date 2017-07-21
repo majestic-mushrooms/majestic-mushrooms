@@ -27,8 +27,7 @@ const Navigation = (props) => (
         path={route.path}
         exact={route.exact}
         component={route.component}
-      />
- ;}
+      />}
     )}
   </Switch>
 );
