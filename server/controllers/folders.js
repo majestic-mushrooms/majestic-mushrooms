@@ -40,8 +40,8 @@ module.exports.getAll = (req, res) => {
       , i * 30);
     })
     .then(() =>{
-      // console.log('this is the arr ============', arr);
-      setTimeout((function() { res.send(arr); }), 1500);
+      console.log('this is the arr ============', arr);
+      setTimeout((function() { res.send(arr); }), 2000);
     }).catch(err => {
       res.send(err);
     });
