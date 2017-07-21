@@ -1,6 +1,9 @@
 version: "3"
 services:
-  #redis: image: "redis:alpine"
+  redis: 
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
   postgres:
     image: "postgres:9.6.3-alpine"
     ports:
@@ -25,8 +28,4 @@ services:
       - .:/var/log
     depends_on:
       - postgres
-    networks:
-      - webnet
-      # - redis
-networks:
-  webnet:
+      - redis
