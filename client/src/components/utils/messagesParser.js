@@ -4,7 +4,7 @@ module.exports = function(messages, today) {
     const date = new Date(message.date * 1000);
     let day = date.getMonth() + '/' + date.getDate() + '/' + ('' + date.getFullYear()).substr(-2);
     day = day === today ? 'Today' : day;
-    const time = date.getHours() + ':' + ('0' + date.getMinutes()).substr(-2)
+    const time = date.getHours() + ':' + ('0' + date.getMinutes()).substr(-2);
 
     return {
       from: message.from,
@@ -15,4 +15,4 @@ module.exports = function(messages, today) {
       message_id: message.id
     };
   });
-}
+};

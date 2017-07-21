@@ -34,25 +34,16 @@ class Body extends React.Component {
   }
 
   handleSearch(searchQuery) {
-    const app = this;
-    const authString = 'Bearer ' + window.token;
-    axios.get(`https://api.nylas.com/messages/search?q=${searchQuery}`, { 
-      headers: { Authorization: authString }
-    })
-    .then(response => {
-      const searchedMessages = response.data.slice(0, 21).map(message => {
-        return {
-          from: message.from,
-          subject: message.subject,
-          snippet: message.snippet,
-          unread: message.unread,
-          message_id: message.id
-        };
-      });
-      app.setState({
-        messages: searchedMessages
-      });
-    });
+    let now = Date.now();
+    now = new Date(now);
+    const today = now.getMonth() + '/' + now.getDate() + '/' + ('' + now.getFullYear()).substr(-2);
+
+    axios.post('api/search', searchQuery) 
+      .then(response => {
+        const searchedMessages = parseMessages(response.data, today);
+        this.setState({messages: searchedMessages});
+      })
+      .catch(err => { console.log('Error searching emails ', err); });
   }
 
   render() {
