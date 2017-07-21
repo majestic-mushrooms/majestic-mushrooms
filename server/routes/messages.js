@@ -27,9 +27,5 @@ router.route('/:id/:type/:typeid')
     console.log(`Inside Routes message.js PUT for /${req.params.id}`);
     MessageController.update(req, res);
   });
-router.route('/:id/:thread')
-  .get((req, res) => {
-    MessageController.getThread(req, res);
-  });
 
 module.exports = router;
