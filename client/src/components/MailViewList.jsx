@@ -20,7 +20,9 @@ class MailViewList extends React.Component {
     this.state = {
       view: 'messages',
       messages: [],
-      current: {}
+      current: {},
+      beforeId: '',
+      afterId: ''
     };
   }
   
@@ -28,7 +30,7 @@ class MailViewList extends React.Component {
     this.setState({messages: messages});
   }
 
-  handleMessageClick(e, messageId) {
+  handleMessageClick(e, messageId, beforeId, afterId) {
 
     const readMessage = [
       () => { return axios.get(`/api/messages/read/${messageId}`) },
@@ -38,12 +40,13 @@ class MailViewList extends React.Component {
     .then(axios.spread((res1, res2) => {
       this.setState({
         view: 'read',
-        current: res1.data
+        current: res1.data,
+        beforeId: beforeId,
+        afterId: afterId
       });
       console.log("two promise executed",'res1.data', res1.data,'res2.data', res2);
     }))
     .catch(err => console.log(err));
-
   }
 
   render() {
@@ -54,7 +57,7 @@ class MailViewList extends React.Component {
         { view === 'read' && (
         <Redirect from={'/'} push to={{
           pathname: '/message',
-          state: {from: this.state.current}
+          state: {from: this.state.current, beforeId: this.state.beforeId, afterId: this.state.afterId}
         }}/>
         )}
         {messages.length === 0 ? (
@@ -62,10 +65,13 @@ class MailViewList extends React.Component {
           ) : (
           <Table singleLine fixed>
             <Table.Body>
-              {messages.map((message, index) => {
+              {messages.map((message, index, array) => {
                 currentColor++;
+                var beforeId = array[index-1]? array[index-1].message_id : 'end';
+                var afterId = array[index+1] ? array[index+1].message_id : 'end';
                 if (currentColor > messages.length) { currentColor = -1; }
-                return <MailViewListEntry key={index} message={message} messageId={message.message_id} 
+                return <MailViewListEntry key={index} message={message} messageId={message.message_id}
+                  beforeId={beforeId} afterId={afterId}
                   onClick={this.handleMessageClick.bind(this)} />;
               })}
             </Table.Body> 
