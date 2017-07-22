@@ -44,11 +44,6 @@ class MailViewList extends React.Component {
         beforeId: beforeId,
         afterId: afterId
       });
-<<<<<<< HEAD
-      console.log("two promise executed",'res1.data', res1.data,'res2.data', res2);
-=======
-      console.log('two promise executed', res1, res2);
->>>>>>> styling changes
     }))
     .catch(err => console.log(err));
   }
