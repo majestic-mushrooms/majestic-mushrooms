@@ -9,7 +9,7 @@ module.exports.getAll = (req, res) => {
     })
     .then(response => {
       folder.count = response.data.count;
-      console.log('this is a folder', folder);
+      // console.log('this is a folder', folder);
     }); 
   };
   const authString = 'Bearer ' + req.session.nylasToken;
@@ -40,7 +40,7 @@ module.exports.getAll = (req, res) => {
       , i * 30);
     })
     .then(() =>{
-      console.log('this is the arr ============', arr);
+      // console.log('this is the arr ============', arr);
       setTimeout((function() { res.send(arr); }), 1500);
     }).catch(err => {
       res.send(err);
