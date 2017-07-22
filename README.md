@@ -1,4 +1,4 @@
-# Majestic Mushrooms (REPLACE WITH APP NAME)
+# Time Box
 
 The project description
 
@@ -8,6 +8,7 @@ The project description
 - Jennifer Wang
 - Kirk Rohani
 - Soo Park
+- Andrea Miralles
 
 ## Roadmap
 
