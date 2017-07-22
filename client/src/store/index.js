@@ -1,5 +1,6 @@
-import reducer from '../reducers';
+import emailApp from '../reducers';
 import { createStore } from 'redux';
 
+const store = createStore(emailApp);
 
-const store = createStore(reducer);
+export default store;
