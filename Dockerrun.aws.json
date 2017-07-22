@@ -1,4 +1,3 @@
-MULTICONTAINER
 {
   "AWSEBDockerrunVersion": "2",
   "volumes": [
