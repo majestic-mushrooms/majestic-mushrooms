@@ -41,6 +41,10 @@ class ViewMessage extends React.Component {
     console.log("not yet built.");
   }
 
+  createMarkup() {
+    return {__html: this.state.currentMessage.body};
+  }
+
   render() {
     var display = null;
     {console.log('rendering ReadMail.jsx', this.state.threads);}
@@ -54,12 +58,21 @@ class ViewMessage extends React.Component {
             <Table singleLine fixed>
               <Table.Header>
                 <Table.Row>
-                  <Table.HeaderCell colSpan='3'>Title: {this.state.currentMessage.subject}</Table.HeaderCell>
+                  <Table.HeaderCell colSpan='2'>Title: {this.state.currentMessage.subject}</Table.HeaderCell>
                   <Table.HeaderCell colSpan='1' textAlign='right'> <Icon name="reply" /><Icon name="trash outline" /><Icon name="ellipsis vertical" /></Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
-            <Table.Body>
-            {this.state.threads.map((message, index) => {
+
+              <Table.Body>
+
+              {<ReadMailEntry message={this.state.threads[0]} messageId={this.state.threads[0].message_id}  />}
+
+              <Table.Row>
+                <Table.Cell colSpan='3'>
+                  <div dangerouslySetInnerHTML={this.createMarkup()} ></div>
+                </Table.Cell>
+              </Table.Row>
+              {this.state.threads.slice(1,this.state.threads.length).map((message, index) => {
               currentColor++;
               if (currentColor > this.state.threads.length) { currentColor = -1; }
               return <ReadMailEntry key={index} message={message} messageId={message.message_id} 
