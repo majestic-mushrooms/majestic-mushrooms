@@ -13,7 +13,7 @@ const colors = [
 var currentColor = -1;
 
 
-class ViewMessage extends React.Component {
+class ReadMail extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
@@ -41,6 +41,18 @@ class ViewMessage extends React.Component {
     console.log("not yet built.");
   }
 
+  handleCloseClick() {
+    this.setState({redirect: true});    
+  }
+
+  handleNextClick() {
+    console.log("not yet built.");
+  }
+
+  handleBeforeClick() {
+    console.log("not yet built.");
+  }
+  
   createMarkup() {
     return {__html: this.state.currentMessage.body};
   }
@@ -48,44 +60,50 @@ class ViewMessage extends React.Component {
   render() {
     var display = null;
     {console.log('rendering ReadMail.jsx', this.state.threads);}
+    if (this.state.redirect) {
+      return <Redirect push to="/" />;
+    }
 
     return (
             
         <div>
+          <Divider hidden />
+          <Divider hidden />
           {this.state.threads.length === 0 ? (
             <span>Loading your messages, please wait.</span>
           ) : (
             <Table singleLine fixed>
               <Table.Header>
-                <Table.Row className="head-row">
+                <Table.Row height="100px">
                   <Table.HeaderCell colSpan='2'>Title: {this.state.currentMessage.subject}</Table.HeaderCell>
-                  <Table.HeaderCell colSpan='1' textAlign='right'> <Icon name="reply" /><Icon name="trash outline" /><Icon name="ellipsis vertical" /></Table.HeaderCell>
+                  <Table.HeaderCell colSpan='1' textAlign='right'> 
+                    <Icon name="chevron left" onClick={this.handleBeforeClick.bind(this)}/>
+                    <Icon name="chevron right" onClick={this.handleNextClick.bind(this)}/>
+                    <Icon name="remove" onClick={this.handleCloseClick.bind(this)}/>
+                  </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
 
               <Table.Body>
-
-              {<ReadMailEntry message={this.state.threads[0]} messageId={this.state.threads[0].message_id}  />}
-
-              <Table.Row>
-                <Table.Cell colSpan='3'>
-                  <div dangerouslySetInnerHTML={this.createMarkup()} ></div>
-                </Table.Cell>
-              </Table.Row>
-              {this.state.threads.slice(1,this.state.threads.length).map((message, index) => {
-              currentColor++;
-              if (currentColor > this.state.threads.length) { currentColor = -1; }
-              return <ReadMailEntry key={index} message={message} messageId={message.message_id} 
-              onClick={this.handleMessageClick.bind(this)} />;
-            })}
-           <Table.Row><Reply /></Table.Row>
+                {<ReadMailEntry message={this.state.threads[0]} messageId={this.state.threads[0].message_id}  />}
+                <Table.Row>
+                  <Table.Cell colSpan='3'>
+                    <div dangerouslySetInnerHTML={this.createMarkup()} ></div>
+                  </Table.Cell>
+                </Table.Row>
+                {this.state.threads.slice(1,this.state.threads.length).map((message, index) => {
+                currentColor++;
+                if (currentColor > this.state.threads.length) { currentColor = -1; }
+                return <ReadMailEntry key={index} message={message} messageId={message.message_id} 
+                onClick={this.handleMessageClick.bind(this)} />;
+              })}
+              <Table.Row><Reply /></Table.Row>
             </Table.Body> 
-            </Table>
-          )
-        }
+          </Table>
+        )}
       </div>
     );
   };
 };
 
-export default ViewMessage;
+export default ReadMail;

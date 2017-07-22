@@ -48,6 +48,7 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.getOne = (req, res) => {
+  // // when using DB
   // models.Message.where({ message_id: "abcde12345" }).fetch()
   // .then(message => {
   //   if (!message) {
@@ -62,9 +63,8 @@ module.exports.getOne = (req, res) => {
   //     res.sendStatus(404);
   //   });
 
-  //TODO: get the NYLAS CALL work
+  // when using Nylus call
   const authString = 'Bearer ' + req.session.nylasToken;
-  // axios.get(`https://api.nylas.com/messages?id=${req.params.id}`, {
   axios.get(`https://api.nylas.com/messages/${req.params.id}`, {
     headers: { Authorization: authString }
   }).then(response => {

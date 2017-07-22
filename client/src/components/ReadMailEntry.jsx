@@ -3,7 +3,7 @@ import { Icon, Table, Segment, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class ViewMessageEntry extends React.Component {
+class ReadMailEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,4 +57,4 @@ class ViewMessageEntry extends React.Component {
 };
 
 
-export default ViewMessageEntry;
+export default ReadMailEntry;
