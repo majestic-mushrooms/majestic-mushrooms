@@ -24,8 +24,8 @@ class ComposeMessage extends React.Component {
     e.target.accountId = 'abcdefghijkl1234567890';
     e.target.threadId = '1';
     e.target.fromField = ['kirk.rohan@gmail.com'];
-    e.target.labels = ["inbox"];
-    e.target.messageId = "1";
+    e.target.labels = ['inbox'];
+    e.target.messageId = '1';
     let message = objectBuilder.createMessage(e.target);
 
     console.log('After calling createMessage: ', message);
@@ -54,15 +54,14 @@ class ComposeMessage extends React.Component {
                   }} /> 
         }
         <Divider hidden />
-        <Divider hidden />
           <Segment.Group>
           <Segment padded={true}>
           <Form onSubmit={this.handleSubmit.bind(this)}>
             <Container>
               <Label color='blue' horizontal>To </Label> <Input name="toInputField" transparent={true} className="emailFields" placeholder='Who are you talking to ?' />
-              <Divider  />
+              <Divider />
               <Label color='olive' horizontal>Cc </Label><Input name="ccInputField"transparent={true} className="emailFields" placeholder='Copy others on this message...' />
-              <Divider  hidden/>
+              <Divider hidden/>
             </Container> 
             <TextArea name="emailContentInputField" autoHeight placeholder="Say what's on your mind..." rows="20" />
             <Divider hidden />
