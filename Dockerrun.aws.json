@@ -1,86 +1,41 @@
 {
-  "AWSEBDockerrunVersion": "1",
-  "Image": {
-    "Name": "jenniferwg/timebox:app",
-    "Update": "true"
-  },
-  "Ports": [
+  "AWSEBDockerrunVersion": "2",
+  "containerDefinitions": [
     {
-      "ContainerPort": "3030"
+      "name": "app",
+      "image": "jenniferwg/timebox:app",
+      "environment": [],
+      "essential": true,
+      "memory": 128,
+      "portMappings": [{
+        "hostPort": 3030,
+        "containerPort": 3030
+      }],
+      "links": [
+        "redis"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "awseb-logs-app",
+          "containerPath": "/var/log/app"
+        }
+      ]
+    },
+    {
+      "name": "redis",
+      "image": "redis:alpine",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [{
+        "hostPort": 3032,
+        "containerPort": 6379
+      }],
+      "mountPoints": [
+        {
+          "sourceVolume": "awseb-logs-redis",
+          "containerPath": "/var/log/redis"
+        }
+      ]
     }
-  ],
-  "Volumes": [],
-  "Logging": "/var/log"
+  ]
 }
-
-//MULTICONTAINER
-// {
-//   "AWSEBDockerrunVersion": "2",
-//   "volumes": [
-//     {
-//       "name": "app",
-//       "host": {
-//         "sourcePath": "/var/app/current/app"
-//       }
-//     },
-//     {
-//       "name": "db",
-//       "host": {
-//         "sourcePath": "/var/app/current/db"
-//       }
-//     },
-//     {
-//       "name": "redis",
-//       "host": {
-//         "sourcePath": "/var/app/current/redis"
-//       }
-//     }
-//   ],
-//   "containerDefinitions": [
-//     {
-//       "name": "app",
-//       "image": "jenniferwg/timebox:app",
-//       "environment": [],
-//       "essential": true,
-//       "memory": 128,
-//       "portMappings": [{
-//         "hostPort": 3030,
-//         "containerPort": 3030
-//       }],
-//       "mountPoints": [
-//         {
-//           "sourceVolume": "awseb-logs-app",
-//           "containerPath": "/var/log"
-//         }
-//       ]
-//     },
-//     {
-//       "name": "db",
-//       "image": "jenniferwg/timebox:db",
-//       "essential": true,
-//       "memory": 128,
-//       "portMappings": [{
-//         "hostPort": 3031,
-//         "containerPort": 3031
-//       }],
-//       "links": [
-//         "app"
-//       ],
-//       "mountPoints": [] 
-//     },
-//     {
-//       "name": "redis",
-//       "image": "jenniferwg/timebox:redis",
-//       "essential": true,
-//       "memory": 128,
-//       "portMappings": [{
-//         "hostPort": 6379,
-//         "containerPort": 6379
-//       }],
-//       "links": [
-//         "app"
-//       ],
-//       "mountPoints": [] 
-//     }
-//   ]
-// }

@@ -17,7 +17,7 @@ module.exports.getAll = (req, res) => {
 
   //NYLAS CALL
   const authString = 'Bearer ' + req.session.nylasToken;
-  axios.get('https://api.nylas.com/messages', {
+  axios.get('https://api.nylas.com/messages?limit=5', {
     headers: { Authorization: authString }
   }).then(response => {
     res.send(response.data);

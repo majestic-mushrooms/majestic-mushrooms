@@ -24,8 +24,7 @@ services:
     ports:
       - "3030:3030"
     volumes: 
-      #mounts from container to host's current dir
-      - .:/var/log
+      - /var/app/current/app
     depends_on:
       - postgres
       - redis
