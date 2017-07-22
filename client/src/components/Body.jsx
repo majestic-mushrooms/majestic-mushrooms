@@ -1,6 +1,5 @@
 import React from 'react';
 import SearchBar from './SearchBar.jsx';
-import RightMenu from './RightMenu.jsx';
 import { Divider, Segment, } from 'semantic-ui-react';
 import MailViewList from './MailViewList.jsx';
 import { Link } from 'react-router-dom';
@@ -49,14 +48,10 @@ class Body extends React.Component {
   render() {
     return (
       <div>
-      <Divider hidden />
-      <Divider hidden />
-        <Segment.Group>
-         <Segment>
-           <SearchBar onSearch={this.handleSearch.bind(this)}/>
-          </Segment>
-            <MailViewList messages={this.state.messages}/>
-        </Segment.Group>
+        <Divider hidden />
+        <SearchBar onSearch={this.handleSearch.bind(this)} style={{marginBottom: '20px'}}/>
+        <Divider hidden />
+        <MailViewList messages={this.state.messages} style={{border: '0'}} />
       </div>
     );
   }

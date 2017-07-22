@@ -1,67 +1,61 @@
 import React from 'react';
-import { Button, Segment, Input, Menu, Icon, Label } from 'semantic-ui-react';
+import { Divider, Button, Segment, Input, Menu, Icon, Label } from 'semantic-ui-react';
 import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
 import FolderListItem from './FolderListItem.jsx';
+
 class FolderList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { 
+      visible: true,
+      activeItem: 'Folders',
+      folders: []
+    };
     this.handleItemClick = this.handleItemClick.bind(this);
   }
 
-
-  handleItemClick(name) {
+  componentWillMount() {
+    axios.get('/api/folders')
+      .then(response => {
+        console.log('this is response frm', response.data);
+        this.setState({
+          folders: response.data
+        });
+      });
+    // axios.get('https://api.nylas.com/labels', {
+    //   authorization: window.token
+    //   //  { authorization: window.token }
+    // }).then(response => {
+    //   console.log('resp ==================== ', response.data);
+    // });
+  }
+  handleItemClick(e, { name }) {
     this.setState({ activeItem: name });
   }
-
+  
+  filterMessages(labelId) {
+    console.log('label id', labelId);
+    axios.get('/api/folders/' + labelId)
+      .then(response => {
+      //set messages state.
+      });
+  }
+ 
   render() {
     const { activeItem } = this.state || {};
 
     return (
-      <Menu fluid vertical>
-        {this.props.folders.map((folder, key) => {
-          return <FolderListItem folder={folder} filter={this.props.filter} key={key}/>;
-        })}
-      </Menu>
+      <div>
+        <Divider hidden />
+        <Menu fluid vertical>
+          {this.state.folders.map((folder, key) => {
+            return <FolderListItem folder={folder} filter={this.filterMessages} key={key}/>;
+          })}
+        </Menu>
+      </div>
     );
   }
 }
 
 export default FolderList;
-/* <Menu.Item name='inbox' active={activeItem === 'inbox'} as={Link} to='/' name='mail' onClick={this.handleItemClick}>
-        <Label color='teal'>49,986</Label>
-        Inbox
-      </Menu.Item>
-
-      <Menu.Item name='spam' active={activeItem === 'spam'} onClick={this.handleItemClick}>
-        <Label>51</Label>
-        Spam
-      </Menu.Item>
-
-      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
-        <Label color="red">0</Label>
-        Trash
-      </Menu.Item>
-  
-
-      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
-        <Label color="blue">5</Label>
-        Drafts
-        </Menu.Item>
-
-      
-      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
-      <Label color="olive"> 5,643</Label>
-      Work
-      </Menu.Item>
-
-
-      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
-      <Label color="brown">5</Label>
-      Hack Reactor
-      </Menu.Item>
-
-      <Menu.Item name='updates' active={activeItem === 'updates'} onClick={this.handleItemClick}>
-      <Label color="pink">361</Label>
-      Family
-      </Menu.Item> */

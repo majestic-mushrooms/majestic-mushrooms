@@ -41,7 +41,7 @@ module.exports.getAll = (req, res) => {
     })
     .then(() =>{
       console.log('this is the arr ============', arr);
-      setTimeout((function() { res.send(arr); }), 1500);
+      setTimeout((function() { res.send(arr); }), 2000);
     }).catch(err => {
       res.send(err);
     });

@@ -4,7 +4,7 @@ import ReactRouter from 'react-router-dom';
 import {BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import MainRoutes from './components/Navigation/MainRoutes.jsx';
 import LeftMenu from './components/LeftMenu.jsx';
-import RightMenu from './components/RightMenu.jsx';
+import FolderList from './components/FolderList.jsx';
 import { Grid, Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
 
 // for redux reducers in index.js
@@ -47,16 +47,16 @@ class App extends React.Component {
       <Router history={browserHistory} >
         <Grid >
           <Grid.Row>
-            <Grid.Column width={2}>
+            <Grid.Column width={1}>
               <LeftMenu /> 
             </Grid.Column>
 
-            <Grid.Column width={11}>
+            <Grid.Column width={11} style={{marginLeft: '25px'}} >
               <MainRoutes />
             </Grid.Column> 
 
-            <Grid.Column width={3}>
-              <RightMenu />
+            <Grid.Column className='foldersTable' width={3}>
+              <FolderList />
             </Grid.Column>
           </Grid.Row>
         </Grid>
