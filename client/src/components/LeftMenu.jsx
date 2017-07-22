@@ -33,7 +33,7 @@ class LeftMenu extends Component {
     return (
       <div>
 
-      <Sidebar as={Menu} animation='push' visible={visible} icon='labeled' vertical inverted color='blue' fixed="left" style={{width: '100px'}}>
+      <Sidebar as={Menu} animation='push' visible={visible} icon='labeled' vertical inverted fixed="left" className='sideBar'>
         <Menu.Item as={Link} to='/' name='mail' >
           <Icon name='inbox' />
           Inbox
