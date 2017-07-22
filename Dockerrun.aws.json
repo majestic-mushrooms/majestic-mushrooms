@@ -34,7 +34,7 @@
         {
           "sourceVolume": "awseb-logs-redis",
           "containerPath": "/var/log/redis"
-        },
+        }
       ]
     }
   ]
