@@ -57,7 +57,7 @@ class ViewMessage extends React.Component {
           ) : (
             <Table singleLine fixed>
               <Table.Header>
-                <Table.Row>
+                <Table.Row className="head-row">
                   <Table.HeaderCell colSpan='2'>Title: {this.state.currentMessage.subject}</Table.HeaderCell>
                   <Table.HeaderCell colSpan='1' textAlign='right'> <Icon name="reply" /><Icon name="trash outline" /><Icon name="ellipsis vertical" /></Table.HeaderCell>
                 </Table.Row>

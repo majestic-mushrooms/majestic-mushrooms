@@ -18,9 +18,10 @@ module.exports.getAll = (req, res) => {
   console.log('inside getAll of threads');
   const authString = 'Bearer ' + req.session.nylasToken;
   // axios.get(`https://api.nylas.com/messages?thread_id=${req.params.id}`, {
-  axios.get(`https://api.nylas.com/messages?thread_id=12sav690mijdpe6qok1c9ujhy`, {
+  axios.get(`https://api.nylas.com/messages?thread_id=`+req.params.id, {
     headers: { Authorization: authString }
   }).then(response => {
+    console.log("Retrieving threads from Nylas success. req.params is: ", req.params.id);
     res.send(response.data);
   })
   .catch(err => {

@@ -13,9 +13,9 @@ class Reply extends React.Component {
 
       render() {
           return (
-              <div>
+              <Table.Cell>
                 REPLY HERE
-              </div>
+              </Table.Cell>
           )
         }
 
