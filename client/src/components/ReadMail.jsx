@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom';
-import { Message, Divider, Table, Icon, Label } from 'semantic-ui-react';
+import { Message, Divider, Table, Icon, Label, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import ReadMailEntry from './ReadMailEntry.jsx';
 import Reply from './Reply.jsx';
@@ -75,7 +75,7 @@ class ReadMail extends React.Component {
         <div>
           <Divider hidden />
           {this.state.threads.length === 0 ? (
-            <span>Loading your messages, please wait.</span>
+            <Image src='https://s-media-cache-ak0.pinimg.com/originals/d9/93/3c/d9933c4e2c272f33b74ef18cdf11a7d5.gif' centered size='small'/>
           ) : (
             <Table singleLine fixed>
               <Table.Header>
@@ -109,6 +109,6 @@ class ReadMail extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default ReadMail;

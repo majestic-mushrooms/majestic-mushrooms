@@ -16,3 +16,7 @@ body {
 .foldersTable {
   margin-left: 10px;
 }
+
+.sideBar {
+  background-color: #cf8dea !important;
+}
