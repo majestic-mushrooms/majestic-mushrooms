@@ -1,3 +1,4 @@
+MULTICONTAINER
 {
   "AWSEBDockerrunVersion": "2",
   "containerDefinitions": [
@@ -34,7 +35,7 @@
         {
           "sourceVolume": "awseb-logs-redis",
           "containerPath": "/var/log/redis"
-        }
+        },
       ]
     }
   ]
