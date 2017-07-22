@@ -2,7 +2,7 @@
 import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import MailViewListEntry from './MailViewListEntry.jsx';
-import { Table, Grid } from 'semantic-ui-react';
+import { Table, Grid, Dimmer, Loader } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
@@ -44,6 +44,7 @@ class MailViewList extends React.Component {
         beforeId: beforeId,
         afterId: afterId
       });
+      console.log('two promise executed', res1, res2);
     }))
     .catch(err => console.log(err));
   }
@@ -60,7 +61,7 @@ class MailViewList extends React.Component {
         }}/>
         )}
         {messages.length === 0 ? (
-          <span>Loading your messages, please wait.</span>
+          <Loader active inline='centered' />
           ) : (
           <Table singleLine fixed>
             <Table.Body>

@@ -12,3 +12,7 @@ body {
 #composeMailSubject {
   width: 500px;
 }
+
+.foldersTable {
+  margin-left: 10px;
+}
