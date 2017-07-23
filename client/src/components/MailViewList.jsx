@@ -7,12 +7,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 
-const colors = [
-  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
-]; 
-var currentColor = -1;
-
 
 class MailViewList extends React.Component {
   constructor(props) {
@@ -66,10 +60,8 @@ class MailViewList extends React.Component {
           <Table singleLine fixed>
             <Table.Body>
               {messages.map((message, index, array) => {
-                currentColor++;
-                var beforeId = array[index - 1] ? array[index - 1].message_id : 'end';
-                var afterId = array[index + 1] ? array[index + 1].message_id : 'end';
-                if (currentColor > messages.length) { currentColor = -1; }
+                var beforeId = array[index-1]? array[index-1].message_id : 'end';
+                var afterId = array[index+1] ? array[index+1].message_id : 'end';
                 return <MailViewListEntry key={index} message={message} messageId={message.message_id}
                   beforeId={beforeId} afterId={afterId}
                   onClick={this.handleMessageClick.bind(this)} />;
