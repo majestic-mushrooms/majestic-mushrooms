@@ -17,10 +17,6 @@ class ReadMail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      threads: [],
-      messageId: this.props.location.state.from.id,
-      threadId: this.props.location.state.from.thread_id,
-      currentMessage: this.props.location.state.from,
       beforeId: this.props.location.state.beforeId,
       afterId: this.props.location.state.afterId
     };
@@ -28,14 +24,15 @@ class ReadMail extends React.Component {
   }
 
   componentDidMount() {
-
-    // get thread
-    var messageId = this.props.location.state.from.id;
-    var threadId = this.props.location.state.from.thread_id;
+    const { currentMessage, setThread } = this.props;
+    var messageId = currentMessage.id;
+    var threadId = currentMessage.thread_id;
 
     axios.get(`api/threads/${threadId}`)
     .then(response => {
-      this.setState({threads: response.data});
+      // this.setState({threads: response.data});
+      console.log('******** Setting thread', response.data);
+      setThread(response.data);
     })
     .catch(error => {
       console.log('getThreads error: ', error);
@@ -60,28 +57,27 @@ class ReadMail extends React.Component {
   }
   
   createMarkup() {
-    return {__html: this.state.currentMessage.body};
+    const { currentMessage } = this.props;
+    return {__html: currentMessage.body};
   }
 
   render() {
-    var display = null;
-    { console.log('rendering ReadMail.jsx', this.state.threads); }
+    const { currentMessage, thread } = this.props;
     if (this.state.redirect) {
       return <Redirect push to="/" />;
     }
 
     return (
-            
         <div>
           <Divider hidden />
-          {this.state.threads.length === 0 ? (
+          {thread.length === 0 ? (
             <Image src='https://s-media-cache-ak0.pinimg.com/originals/d9/93/3c/d9933c4e2c272f33b74ef18cdf11a7d5.gif' centered size='small'/>
           ) : (
             <Table fixed>
               <Table.Header>
                 <Table.Row height="100px">
                   <Table.HeaderCell colSpan='2' style={{wordWrap: 'normal'}}>
-                  <h2>{this.state.currentMessage.subject}</h2>
+                  <h2>{currentMessage.subject}</h2>
                   </Table.HeaderCell>
 
 
@@ -94,15 +90,15 @@ class ReadMail extends React.Component {
               </Table.Header>
 
               <Table.Body>
-                {<ReadMailEntry message={this.state.threads[0]} messageId={this.state.threads[0].message_id} />}
+                {<ReadMailEntry message={thread[0]} messageId={thread[0].message_id} />}
                 <Table.Row>
                   <Table.Cell colSpan='3'>
                     <div dangerouslySetInnerHTML={this.createMarkup()} ></div>
                   </Table.Cell>
                 </Table.Row>
-                  {this.state.threads.slice(1, this.state.threads.length).map((message, index) => {
+                  {thread.slice(1, thread.length).map((message, index) => {
                     currentColor++;
-                    if (currentColor > this.state.threads.length) { currentColor = -1; }
+                    if (currentColor > thread.length) { currentColor = -1; }
                     return <ReadMailEntry key={index} message={message} messageId={message.message_id} 
                   onClick={this.handleMessageClick.bind(this)} />;
                   })}

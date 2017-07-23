@@ -8,6 +8,7 @@ import FolderList from './components/FolderList.jsx';
 import { Grid, Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
 import store from './store';
 import { Provider } from 'react-redux';
+import { addMessages } from './actions';
 
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest);
@@ -31,17 +32,16 @@ class App extends React.Component {
     super();
   }
 
-  componentDidMount() {
-    const { store } = this.context;
-    console.log('Inside index.jsx componentDidMount() ', store.getState());
-    this.unsubscribe = store.subscribe(
-      () => this.forceUpdate()
-    );
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+  // componentDidMount() {
+  //   console.log('Inside Index.jsx with store: ', store.getState());
+  //   store.dispatch(addMessages(
+  //     [
+  //       {id:1, snippet: 'hello'},
+  //       {id:2, snippet: 'goodbye'}
+  //     ])
+  //   );
+  //   console.log('Inside Index.jsx with store: ', store.getState());
+  // }
 
 
   render() {
@@ -69,9 +69,7 @@ class App extends React.Component {
     );
   }
 }
-App.contextTypes = {
-  store: React.PropTypes.object
-};
+
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 

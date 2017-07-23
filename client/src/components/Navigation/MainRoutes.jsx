@@ -1,15 +1,17 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 import Body from '../Body.jsx';
+import BodyContainer from '../../containers/BodyContainer.jsx';
 import ComposeMessage from '../ComposeMessage.jsx';
 import ReadMail from '../ReadMail.jsx';
+import ReadMailContainer from '../../containers/ReadMailContainer.jsx';
 import { withRouter } from 'react-router';
 
 //Associate each route URL path with a component
 const routes = [
   { path:          '/',
     exact:         true,
-    component:     Body
+    component:     BodyContainer
   },
   { path:          '/authenticated',
     exact:         true,
@@ -21,7 +23,7 @@ const routes = [
   },
   { path:          '/message',
     exact:         true,
-    component:     ReadMail
+    component:     ReadMailContainer
   }
 ];
 

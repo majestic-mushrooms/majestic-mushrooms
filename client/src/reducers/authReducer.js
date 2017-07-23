@@ -6,7 +6,7 @@ const defaultAuthState = {
 };
 
 export const authReducer = (state = defaultAuthState, action) => {
-  
+  console.log('Inside authReducer with action: ', action);
   switch (action.type) {
   case 'SET_TOKEN':
     return {

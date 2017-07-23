@@ -1,5 +1,6 @@
 
 const message = (state, action) => {
+  console.log('Inside message reducer with action: ', action.type);
   switch (action.type) {
   case 'ADD_MESSAGE':
     return {
@@ -12,6 +13,7 @@ const message = (state, action) => {
 };
   
 export const messagesReducer = (state = [], action) => {
+  console.log('Inside message(s) Reducer with action: ', action.type);
   switch (action.type) {
   case 'ADD_MESSAGE':
     return [
