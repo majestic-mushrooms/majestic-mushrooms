@@ -21,11 +21,7 @@ module.exports.getAll = (req, res) => {
 
   //NYLAS CALL
   const authString = 'Bearer ' + req.session.nylasToken;
-<<<<<<< HEAD
-  axios.get('https://api.nylas.com/messages?limit=5', {
-=======
   axios.get('https://api.nylas.com/messages?limit=20', {
->>>>>>> limit incoming msgs to 20
     headers: { Authorization: authString }
   }).then(response => {
     for (let i = 0; i < response.data.length; i++) {

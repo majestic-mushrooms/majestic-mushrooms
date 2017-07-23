@@ -48,7 +48,7 @@ class Reply extends React.Component {
 
   render() {
     return (
-      <div onClick={() => { this.setState({ expand: true, deleted: false }); }}>
+      <Table.Cell colSpan='3' onClick={() => { this.setState({ expand: true, deleted: false }); }}>
 
         {!this.state.expand ? (
           <Form warning>
@@ -61,8 +61,8 @@ class Reply extends React.Component {
             <TextArea name="emailContentInputField" placeholder="Click here to Reply" rows="3" />
           </Form>
         ) : (
-          <Segment.Group>
-            <Segment >
+
+            
               <Form onSubmit={this.handleSubmit.bind(this)}>
 
                 <Container>
@@ -77,10 +77,9 @@ class Reply extends React.Component {
                   <Button primary>Send</Button>
                 </Container>
               </Form>
-            </Segment>
-          </Segment.Group>
+
         )}
-      </div>
+      </Table.Cell>
     );
   }
 
