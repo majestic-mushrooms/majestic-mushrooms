@@ -50,7 +50,8 @@
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
     "sass": "^1.0.0-beta.2",
-    "semantic-ui-react": "^0.71.0"
+    "semantic-ui-react": "^0.71.0",
+    "webpack": "3"
   },
   "devDependencies": {
     "babel-loader": "^7.0.0",
@@ -65,7 +66,6 @@
     "mocha": "^3.2.0",
     "node-mocks-http": "^1.6.1",
     "supertest": "^3.0.0",
-    "webpack": "^2.7.0",
     "webpack-dev-server": "^2.4.2"
   },
   "babel": {
