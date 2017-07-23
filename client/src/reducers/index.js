@@ -1,12 +1,14 @@
 import { messagesReducer } from './messagesReducer.js';
 import { authReducer } from './authReducer.js';
 import { viewReducer } from './viewReducer.js';
+import { threadsReducer } from './threadsReducer.js';
 import { combineReducers } from 'redux';
   
 const emailApp = combineReducers( {
-  messages: messagesReducer,
-  auth:     authReducer,
-  view:     viewReducer
+  messages:       messagesReducer,
+  auth:           authReducer,
+  view:           viewReducer,
+  threads:        threadsReducer
 });
 
 

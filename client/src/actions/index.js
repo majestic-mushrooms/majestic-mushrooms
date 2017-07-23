@@ -29,6 +29,7 @@ export const removeMessage = (messageId) => {
 
 
 export const addMessages = (messages) => {
+  console.log('Inside addMessages action with messages passed in: ', messages);
   return {
     type:       'ADD_MESSAGES',
     messages:   messages
@@ -42,7 +43,7 @@ export const clearMessages = () => {
 };
 
 export const setView = (viewName = 'Inbox') => {
- 
+  console.log('Inside setView ACTIONS with viewName: ', viewName);
   switch (viewName) {
   case 'Compose':
     return {
@@ -59,6 +60,11 @@ export const setView = (viewName = 'Inbox') => {
       type:       'SET_VIEW_TO_FOLDER',
       view:       viewName
     };
+  case 'Read':
+    return {
+      type:       'SET_VIEW_TO_READ',
+      view:       viewName
+    };
 
   default:
     return {
@@ -66,4 +72,31 @@ export const setView = (viewName = 'Inbox') => {
       view:       'Inbox'
     };
   }
+};
+
+export const setCurrentMessage = (currentMessage) => {
+  return {
+    type:         'SET_CURRENT_MESSAGE',
+    message:      currentMessage
+  };
+};
+
+export const clearCurrentMessage = () => {
+  return {
+    type:         'CLEAR_CURRENT_MESSAGE'
+  };
+};
+
+export const setCurrentThread = (currentThread) => {
+  console.log('Inside ACTION setCurrentThread: ', currentThread);
+  return {
+    type:         'SET_CURRENT_THREAD',
+    thread:       currentThread
+  };
+};
+
+export const clearCurrentThread = () => {
+  return {
+    type:         'CLEAR_CURRENT_THREAD'
+  };
 };

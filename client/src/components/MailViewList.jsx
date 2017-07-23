@@ -12,19 +12,15 @@ class MailViewList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'messages',
-      messages: [],
-      current: {},
       beforeId: '',
       afterId: ''
     };
   }
   
-  componentWillReceiveProps({ messages }) {
-    this.setState({messages: messages});
-  }
+
 
   handleMessageClick(e, messageId, beforeId, afterId) {
+    const { setNewView, setMessageToDisplay } = this.props;
 
     const readMessage = [
       () => { return axios.get(`/api/messages/read/${messageId}`); },
@@ -33,24 +29,29 @@ class MailViewList extends React.Component {
     axios.all(readMessage.map(axiosCall => axiosCall()))
     .then(axios.spread((res1, res2) => {
       this.setState({
-        view: 'read',
-        current: res1.data,
         beforeId: beforeId,
         afterId: afterId
       });
+
+
+      setNewView('Read');
+      setMessageToDisplay(res1.data);
+
     }))
     .catch(err => console.log(err));
   }
 
   render() {
-    const { messages, view } = this.state;
+    const { messages, view, currentMessage } = this.props;
+    console.log('Inside MailViewList.jsx render()....', view, currentMessage, this.props);
+    
   
     return (
       <div>
-        { view === 'read' && (
+        { view === 'Read' && (
         <Redirect from={'/'} push to={{
           pathname: '/message',
-          state: {from: this.state.current, beforeId: this.state.beforeId, afterId: this.state.afterId}
+          state: {from: currentMessage, beforeId: this.state.beforeId, afterId: this.state.afterId}
         }}/>
         )}
         {messages.length === 0 ? (
