@@ -1,0 +1,13 @@
+sudo: required
+
+language: node_js
+
+services: 
+  - docker
+
+install: 
+  - docker-compose up
+  - docker ps -a
+
+script:
+  - yarn test
