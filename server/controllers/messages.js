@@ -1,6 +1,10 @@
 const models = require('../../db/models');
 const axios = require('axios');
 
+const colors = [
+  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
+  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
+]; 
 
 module.exports.getAll = (req, res) => {
   // models.Message.fetch()
@@ -17,13 +21,16 @@ module.exports.getAll = (req, res) => {
 
   //NYLAS CALL
   const authString = 'Bearer ' + req.session.nylasToken;
-  axios.get('https://api.nylas.com/messages', {
+  axios.get('https://api.nylas.com/messages?limit=20', {
     headers: { Authorization: authString }
   }).then(response => {
+    for (let i = 0; i < response.data.length; i++) {
+      response.data[i].color = colors[Math.floor(Math.random() * 12)];
+    }
     res.send(response.data);
   })
   .catch(err => {
-    console.log("Retreiving messages from Nylas: ", err);
+    console.log('Retreiving messages from Nylas: ', err);
   });
 };
 
@@ -31,7 +38,7 @@ module.exports.getAll = (req, res) => {
 module.exports.create = (req, res) => {
 
   console.log('Inside Messages Controller create() ');
-  let newMessage= new models.Message(
+  let newMessage = new models.Message(
    req.body
   );
   console.log('IS IT NEW? ', newMessage.isNew());

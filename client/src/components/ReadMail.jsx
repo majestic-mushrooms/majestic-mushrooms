@@ -77,14 +77,18 @@ class ReadMail extends React.Component {
           {this.state.threads.length === 0 ? (
             <Image src='https://s-media-cache-ak0.pinimg.com/originals/d9/93/3c/d9933c4e2c272f33b74ef18cdf11a7d5.gif' centered size='small'/>
           ) : (
-            <Table singleLine fixed>
+            <Table fixed>
               <Table.Header>
                 <Table.Row height="100px">
-                  <Table.HeaderCell colSpan='2'>Title: {this.state.currentMessage.subject}</Table.HeaderCell>
+                  <Table.HeaderCell colSpan='2' style={{wordWrap: 'normal'}}>
+                  <h2>{this.state.currentMessage.subject}</h2>
+                  </Table.HeaderCell>
+
+
                   <Table.HeaderCell colSpan='1' textAlign='right'> 
-                  {this.state.beforeId !== 'end' ? <Icon name="chevron left" onClick={this.handleBeforeClick.bind(this)}/> : null}
-                  {this.state.afterId !== 'end' ? <Icon name="chevron right" onClick={this.handleNextClick.bind(this)}/> : null}
-                    <Icon name="remove" onClick={this.handleCloseClick.bind(this)}/>
+                    {this.state.beforeId !== 'end' ? <Icon name="chevron left" onClick={this.handleBeforeClick.bind(this)}/> : null}
+                    {this.state.afterId !== 'end' ? <Icon name="chevron right" onClick={this.handleNextClick.bind(this)}/> : null}
+                      <Icon name="remove" onClick={this.handleCloseClick.bind(this)}/>
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
@@ -96,13 +100,15 @@ class ReadMail extends React.Component {
                     <div dangerouslySetInnerHTML={this.createMarkup()} ></div>
                   </Table.Cell>
                 </Table.Row>
-                {this.state.threads.slice(1, this.state.threads.length).map((message, index) => {
-                  currentColor++;
-                  if (currentColor > this.state.threads.length) { currentColor = -1; }
-                  return <ReadMailEntry key={index} message={message} messageId={message.message_id} 
-                onClick={this.handleMessageClick.bind(this)} />;
-                })}
-              <Table.Row><Reply /></Table.Row>
+                  {this.state.threads.slice(1, this.state.threads.length).map((message, index) => {
+                    currentColor++;
+                    if (currentColor > this.state.threads.length) { currentColor = -1; }
+                    return <ReadMailEntry key={index} message={message} messageId={message.message_id} 
+                  onClick={this.handleMessageClick.bind(this)} />;
+                  })}
+              <Table.Row>
+                <Reply />
+              </Table.Row>
             </Table.Body> 
           </Table>
         )}
