@@ -18,7 +18,7 @@ class ReadMailEntry extends React.Component {
     //@TODO: replace number string with real trash folder id, from state + add type
     axios.put(`/api/messages/${messageId}/trash/'3948384545'`).then(response => { 
       console.log('message deleted!', response);
-    })
+    });
   }
 
   render() {
@@ -30,15 +30,15 @@ class ReadMailEntry extends React.Component {
       <Table.Row onClick={ (e) => { onClick(e, messageId); }} onMouseEnter={() => {this.setState({ showButton: true });}}
         onMouseLeave={() => {this.setState({ showButton: false });}}>
         <Table.Cell width="4">
-          <Label circular color={message.color} style={{marginRight:'8px'}}>
+          <Label circular color={message.color} style={{marginRight: '8px'}}>
             { fromStr.charAt(0).toUpperCase() }
           </Label>
-          <span style={{fontWeight:weight}}>
+          <span style={{fontWeight: weight}}>
             { fromStr.length < 20 ? fromStr : fromStr.slice(0, 21) + '...' }
           </span>
         </Table.Cell>
         <Table.Cell>
-          <span style={{fontWeight:weight}}>{message.subject}</span>
+          <span style={{fontWeight: weight}}>{message.subject}</span>
         </Table.Cell>
         <Table.Cell width="3" textAlign="right">
           {this.state.showButton === true ? 
@@ -52,9 +52,9 @@ class ReadMailEntry extends React.Component {
           )}
         </Table.Cell>
       </Table.Row>
-    )
+    );
   }
-};
+}
 
 
 export default ReadMailEntry;

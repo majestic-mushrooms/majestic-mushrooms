@@ -12,7 +12,8 @@ module.exports = function(messages, today) {
       snippet: message.snippet,
       unread: message.unread,
       timestamp: day + ' ' + time,
-      message_id: message.id
+      message_id: message.id,
+      color: message.color
     };
   });
 };
