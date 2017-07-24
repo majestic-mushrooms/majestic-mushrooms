@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
-import ReadMail from '../components/ReadMail.jsx';
-import { setCurrentThread } from '../actions';
+import ReadEmail from '../components/ReadEmail.jsx';
+import { setCurrentThread, setCurrentMessage } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
     currentMessage: state.threads.currentMessage,
     thread:         state.threads.currentThread,
-    view:           state.view,
-    threads:        state.threads
+    messages:       state.messages,
+    view:           state.view
   };
 };
 
@@ -15,13 +15,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setThread: (newThread) => {
       dispatch(setCurrentThread(newThread));
+    },
+    setCurrentMessage: (currentMessage, messageIndex) => {
+      dispatch(setCurrentMessage(currentMessage, messageIndex));
     }
   };
 };
 
-const ReadMailContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ReadMail);
+)(ReadEmail);
 
-export default ReadMailContainer;

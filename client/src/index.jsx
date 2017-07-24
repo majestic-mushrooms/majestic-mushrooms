@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactRouter from 'react-router-dom';
 import {BrowserRouter as Router, browserHistory } from 'react-router-dom';
 import MainRoutes from './components/Navigation/MainRoutes.jsx';
-import LeftMenu from './components/LeftMenu.jsx';
+import LeftMenuContainer from './containers/LeftMenuContainer.jsx';
 import FolderList from './components/FolderList.jsx';
 import { Grid, Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
-import store from './store';
 import { Provider } from 'react-redux';
-import { addMessages } from './actions';
+import store from './store';
 
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest);
@@ -25,23 +23,15 @@ const renderMergedProps = (component, ...rest) => {
     );
   }
 
+const App = () => {
 
-
-class App extends React.Component {
-  constructor() {
-    super();
-  }
-
-
-
-  render() {
     return (
       <div>
       <Router history={browserHistory} >
         <Grid >
           <Grid.Row>
             <Grid.Column width={1}>
-              <LeftMenu /> 
+              <LeftMenuContainer /> 
             </Grid.Column>
 
             <Grid.Column width={11} style={{marginLeft: '25px'}} >
@@ -55,13 +45,9 @@ class App extends React.Component {
         </Grid>
         </Router>
       </div>
-   
     );
-  }
+  
 }
-
-
-// ReactDOM.render(<App />, document.getElementById('root'));
 
 ReactDOM.render(
   <Provider store={store}>

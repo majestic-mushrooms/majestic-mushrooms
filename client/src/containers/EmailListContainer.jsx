@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { setView, setCurrentMessage } from '../actions';
-import List from '../components/List.jsx';
+import EmailList from '../components/EmailList.jsx';
 
 const mapStateToProps = (state) => {
   return {
@@ -10,19 +10,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setNewView: (viewName) => {
-      dispatch(setView(viewName));
-    },
-    setMessageToDisplay: (newMessage) => {
-      dispatch(setCurrentMessage(newMessage));
-    }
-  };
-};
+
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(List);
+  null
+)(EmailList);
 

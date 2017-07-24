@@ -7,7 +7,7 @@ const colors = [
 
 module.exports.getAll = (req, res) => {
   const authString = 'Bearer ' + req.session.nylasToken;
-  axios.get(`https://api.nylas.com/messages/search?q=${Object.keys(req.res.req.body)[0]}`, {
+  axios.get(`https://api.nylas.com/messages/search?limit=20&q=${Object.keys(req.res.req.body)[0]}`, {
     headers: { Authorization: authString }
   })
   .then(response => {
