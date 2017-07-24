@@ -43,7 +43,7 @@ export const clearMessages = () => {
 };
 
 export const setView = (viewName = 'Inbox') => {
-  console.log('Inside setView ACTIONS with viewName: ', viewName);
+  console.log('Inside  ACTIONS setView: ', viewName);
   switch (viewName) {
   case 'Compose':
     return {
@@ -75,9 +75,11 @@ export const setView = (viewName = 'Inbox') => {
 };
 
 export const setCurrentMessage = (currentMessage) => {
+  console.log('Inside ACTION setCurrentMessage: ', currentMessage);
   return {
     type:         'SET_CURRENT_MESSAGE',
-    message:      currentMessage
+    message:      currentMessage,
+    view:         'Read'
   };
 };
 

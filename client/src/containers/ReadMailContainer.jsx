@@ -5,7 +5,9 @@ import { setCurrentThread } from '../actions';
 const mapStateToProps = (state) => {
   return {
     currentMessage: state.threads.currentMessage,
-    thread:         state.threads.currentThread
+    thread:         state.threads.currentThread,
+    view:           state.view,
+    threads:        state.threads
   };
 };
 

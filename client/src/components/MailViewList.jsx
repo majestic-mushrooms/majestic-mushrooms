@@ -20,6 +20,7 @@ class MailViewList extends React.Component {
 
 
   handleMessageClick(e, messageId, beforeId, afterId) {
+    console.log('Inside MailViewList.jsx handleMessageClick() with: ', messageId);
     const { setNewView, setMessageToDisplay } = this.props;
 
     const readMessage = [
@@ -28,22 +29,25 @@ class MailViewList extends React.Component {
     ];
     axios.all(readMessage.map(axiosCall => axiosCall()))
     .then(axios.spread((res1, res2) => {
-      this.setState({
-        beforeId: beforeId,
-        afterId: afterId
-      });
-
-
-      setNewView('Read');
+      // setNewView('Read');
+      console.log('Before setMessageToDisplay()');
       setMessageToDisplay(res1.data);
+      console.log('Inside MailViewList.jsx handleMessageClick after axios call to get current message: ', res1.data);
+      
 
+      // this.setState({
+      //   beforeId: beforeId,
+      //   afterId: afterId
+      // });
     }))
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log('ERROR getting messages: ', err);
+    });
   }
 
   render() {
     const { messages, view, currentMessage } = this.props;
-    console.log('Inside MailViewList.jsx render()....', view, currentMessage, this.props);
+    console.log('Inside MailViewList.jsx render()....', this.props);
     
   
     return (
