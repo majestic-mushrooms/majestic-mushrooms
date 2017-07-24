@@ -8,10 +8,6 @@ node_js:
 services: 
   - docker
 
-before_script: 
-  - docker-compose up
-  - docker ps -a
-
 script:
-  - docker-compose version
-  - yarn test
+  - docker-compose build
+  - docker-compose run yarn test
