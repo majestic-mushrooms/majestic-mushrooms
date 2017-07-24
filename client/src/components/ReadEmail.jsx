@@ -5,6 +5,7 @@ import { Message, Divider, Table, Icon, Label, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import ReadMailEntry from './ReadMailEntry.jsx';
 import Reply from './Reply.jsx';
+import { queryMessageDetails } from './utils/messagesHelper.js';
 
 const colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
@@ -13,96 +14,78 @@ const colors = [
 var currentColor = -1;
 
 
-class ReadMail extends React.Component {
+class ReadEmail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      threads: [],
-      messageId: this.props.location.state.from.id,
-      threadId: this.props.location.state.from.thread_id,
-      currentMessage: this.props.location.state.from,
-      beforeId: this.props.location.state.beforeId,
-      afterId: this.props.location.state.afterId
-    };
-    console.log('beforeId is', this.state.beforeId);
   }
 
   componentDidMount() {
-
-    // get thread
-    var messageId = this.props.location.state.from.id;
-    var threadId = this.props.location.state.from.thread_id;
-
+    const { currentMessage, setThread } = this.props;
+    var messageId = currentMessage.id;
+    var threadId = currentMessage.thread_id;
     axios.get(`api/threads/${threadId}`)
     .then(response => {
-      this.setState({threads: response.data});
+      setThread(response.data);
     })
     .catch(error => {
       console.log('getThreads error: ', error);
     });
   }
 
-  handleMessageClick() {
-    console.log('handleMessageClick not yet built.');
-  }
-
   handleCloseClick() {
-    this.setState({redirect: true});    
+    // this.setState({redirect: true});    
   }
 
-  handleNextClick() {
-    console.log('handleNextClick not yet built.');
+  handleArrowClick(arrowDirection) {
+    
+    const newMessageIndex = this.props.currentMessage.messageIndex + arrowDirection;
+    const { messages, setCurrentMessage } = this.props;
+    queryMessageDetails(messages[newMessageIndex].message_id, newMessageIndex, setCurrentMessage );
+
   }
 
-  handleBeforeClick() {
-    // need key, beforeMailId, afterMailId, handle one email click event as props
-    console.log('handleBeforeClick not yet built. messages:', this.props.location.state);
-  }
-  
   createMarkup() {
-    return {__html: this.state.currentMessage.body};
+    const { currentMessage } = this.props;
+    return {__html: currentMessage.body};
   }
 
   render() {
-    var display = null;
-    { console.log('rendering ReadMail.jsx', this.state.threads); }
-    if (this.state.redirect) {
-      return <Redirect push to="/" />;
-    }
+    
+    const { currentMessage, thread, messages } = this.props;
 
     return (
-            
+      
         <div>
           <Divider hidden />
-          {this.state.threads.length === 0 ? (
+          {thread.length === 0 ? (
             <Image src='https://s-media-cache-ak0.pinimg.com/originals/d9/93/3c/d9933c4e2c272f33b74ef18cdf11a7d5.gif' centered size='small'/>
           ) : (
             <Table fixed>
               <Table.Header>
                 <Table.Row height="100px">
                   <Table.HeaderCell colSpan='2' style={{wordWrap: 'normal'}}>
-                  <h2>{this.state.currentMessage.subject}</h2>
+                  <h2>{currentMessage.subject}</h2>
                   </Table.HeaderCell>
 
 
                   <Table.HeaderCell colSpan='1' textAlign='right'> 
-                    {this.state.beforeId !== 'end' ? <Icon name="chevron left" onClick={this.handleBeforeClick.bind(this)}/> : null}
-                    {this.state.afterId !== 'end' ? <Icon name="chevron right" onClick={this.handleNextClick.bind(this)}/> : null}
+                    {currentMessage.messageIndex > 0 ? <Icon name="chevron left" onClick={this.handleArrowClick.bind(this, -1)}/> : null}
+                    {currentMessage.messageIndex < messages.length ? <Icon name="chevron right" onClick={this.handleArrowClick.bind(this, 1)}/> : null}
                       <Icon name="remove" onClick={this.handleCloseClick.bind(this)}/>
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
 
               <Table.Body>
-                {<ReadMailEntry message={this.state.threads[0]} messageId={this.state.threads[0].message_id} />}
+                {<ReadMailEntry message={thread[0]} messageId={thread[0].message_id} />}
                 <Table.Row>
                   <Table.Cell colSpan='3'>
                     <div dangerouslySetInnerHTML={this.createMarkup()} ></div>
                   </Table.Cell>
                 </Table.Row>
-                  {this.state.threads.slice(1, this.state.threads.length).map((message, index) => {
+                  {thread.slice(1, thread.length).map((message, index) => {
                     currentColor++;
-                    if (currentColor > this.state.threads.length) { currentColor = -1; }
+                    if (currentColor > thread.length) { currentColor = -1; }
                     return <ReadMailEntry key={index} message={message} messageId={message.message_id} 
                   onClick={this.handleMessageClick.bind(this)} />;
                   })}
@@ -117,4 +100,4 @@ class ReadMail extends React.Component {
   }
 }
 
-export default ReadMail;
+export default ReadEmail;

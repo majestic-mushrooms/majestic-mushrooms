@@ -1,19 +1,19 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
-import Body from '../Body.jsx';
+import BodyContainer from '../../containers/BodyContainer.jsx';
 import ComposeMessage from '../ComposeMessage.jsx';
-import ReadMail from '../ReadMail.jsx';
+import ReadEmailContainer from '../../containers/ReadEmailContainer.jsx';
 import { withRouter } from 'react-router';
 
 //Associate each route URL path with a component
 const routes = [
   { path:          '/',
     exact:         true,
-    component:     Body
+    component:     BodyContainer
   },
   { path:          '/authenticated',
     exact:         true,
-    component:     Body
+    component:     BodyContainer
   },
   { path:          '/compose',
     exact:         true,
@@ -21,7 +21,7 @@ const routes = [
   },
   { path:          '/message',
     exact:         true,
-    component:     ReadMail
+    component:     ReadEmailContainer
   }
 ];
 
@@ -43,7 +43,6 @@ const PropsRoute = ({ component, ...rest }) => {
 const MainRoutes = (props) => (
 
   <Switch>
-    {console.log('Rendering Routes', props)}
     {routes.map((route, index) => {
       return <PropsRoute
         key={index}
