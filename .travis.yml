@@ -9,7 +9,7 @@ services:
   - docker
 
 install: 
-  - docker-compose up
+  - docker-compose run -e NYLAS_CLIENT_ID -e NYLAS_CLIENT_SECRET web
   - docker ps -a
 
 script:
