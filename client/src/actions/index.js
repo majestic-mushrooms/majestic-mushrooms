@@ -80,6 +80,11 @@ export const setView = (viewName = 'Inbox') => {
       type:       'SET_VIEW_TO_READ',
       view:       viewName
     };
+  case 'Logout':
+    return {
+      type:       'SET_VIEW_TO_LOGOUT',
+      view:       viewName
+    };
 
   default:
     return {
@@ -89,11 +94,12 @@ export const setView = (viewName = 'Inbox') => {
   }
 };
 
-export const setCurrentMessage = (currentMessage) => {
+export const setCurrentMessage = (currentMessage, messageIndex) => {
   return {
     type:         'SET_CURRENT_MESSAGE',
     message:      currentMessage,
-    view:         'Read'
+    view:         'Read',
+    index:        messageIndex
   };
 };
 
@@ -117,7 +123,6 @@ export const clearCurrentThread = () => {
 };
 
 export const setSearchQueryAndResults = (searchQuery, searchResults) => {
-  console.log('Inside ACTIONS setSearchQueryAndResults ', searchQuery);
   return {
     type:         'SET_SEARCH',
     query:        searchQuery,

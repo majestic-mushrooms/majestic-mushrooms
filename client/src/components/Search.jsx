@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {  Grid, Header, Input } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import parseMessages from './utils/messagesParser';
+import { parseMessage } from './utils/messagesHelper';
 import { today } from './utils/dateTimeHelper';
 
 
@@ -17,14 +17,13 @@ class Search extends React.Component {
 
     axios.post('api/search',searchQuery ) 
       .then(response => {
-        setSearch(searchQuery, parseMessages(response.data, today));
+        setSearch(searchQuery, parseMessage(response.data, today));
       })
       .catch(err => { console.log('Error searching emails ', err); });
   }
 
   render() {
     const { view } = this.props;
-    console.log('*****************Inside Search.jsx render()', view);
     return (
       <div>
         { view === 'Search'  && 

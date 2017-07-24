@@ -8,6 +8,8 @@ export const threadsReducer = (state = initialThreadsState, action) => {
   
   switch (action.type) {
   case 'SET_CURRENT_MESSAGE':
+    action.message.messageIndex = action.index;
+    
     return {
       ...state,
       currentMessage: action.message

@@ -1,6 +1,6 @@
 
 export const viewReducer = (state = 'Inbox', action) => {
-  switch(action.type) {
+  switch (action.type) {
   case 'SET_VIEW_TO_INBOX':
     return action.view;
   case 'SET_VIEW_TO_FOLDER':
@@ -10,6 +10,8 @@ export const viewReducer = (state = 'Inbox', action) => {
   case 'SET_VIEW_TO_COMPOSE':
     return action.view;
   case 'SET_VIEW_TO_READ':
+    return action.view;
+  case 'SET_VIEW_TO_LOGOUT':
     return action.view;
   case 'SET_CURRENT_MESSAGE':
     return action.view;

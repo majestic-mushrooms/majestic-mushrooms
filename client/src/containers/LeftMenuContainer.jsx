@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Search from '../components/Search.jsx';
-import { setSearchQueryAndResults } from '../actions';
+import LeftMenu from '../components/LeftMenu.jsx';
+import { setView } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -10,8 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSearch: (searchQuery, searchResults) => {
-      dispatch(setSearchQueryAndResults(searchQuery, searchResults));
+    setNewView: (viewName) => {
+      dispatch(setView(viewName));
     }
   };
 };
@@ -19,5 +19,5 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Search);
+)(LeftMenu);
 

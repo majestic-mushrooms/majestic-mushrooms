@@ -5,6 +5,7 @@ import { Message, Divider, Table, Icon, Label, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import ReadMailEntry from './ReadMailEntry.jsx';
 import Reply from './Reply.jsx';
+import { queryMessageDetails } from './utils/messagesHelper.js';
 
 const colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
@@ -13,25 +14,17 @@ const colors = [
 var currentColor = -1;
 
 
-class ReadMail extends React.Component {
+class ReadEmail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      beforeId: this.props.location.state.beforeId,
-      afterId: this.props.location.state.afterId
-    };
-    console.log('beforeId is', this.state.beforeId);
   }
 
   componentDidMount() {
     const { currentMessage, setThread } = this.props;
     var messageId = currentMessage.id;
     var threadId = currentMessage.thread_id;
-    console.log('Inside ReadMail.jsx componentDidMount() m_id, t_id: ', messageId, threadId);
     axios.get(`api/threads/${threadId}`)
     .then(response => {
-      // this.setState({threads: response.data});
-      console.log('Inside ReadMail.jsx componentDidMount() setting thread', response.data);
       setThread(response.data);
     })
     .catch(error => {
@@ -39,36 +32,26 @@ class ReadMail extends React.Component {
     });
   }
 
-  handleMessageClick() {
-    console.log('handleMessageClick not yet built.');
-  }
-
   handleCloseClick() {
-    this.setState({redirect: true});    
+    // this.setState({redirect: true});    
   }
 
-  handleNextClick() {
-    console.log('handleNextClick not yet built.');
-  }
-
-  handleBeforeClick() {
-    // need key, beforeMailId, afterMailId, handle one email click event as props
-    console.log('handleBeforeClick not yet built. messages:', this.props.location.state);
-  }
-  
-  createMarkup() {
+  handleArrowClick(arrowDirection) {
     
+    const newMessageIndex = this.props.currentMessage.messageIndex + arrowDirection;
+    const { messages, setCurrentMessage } = this.props;
+    queryMessageDetails(messages[newMessageIndex].message_id, newMessageIndex, setCurrentMessage );
+
+  }
+
+  createMarkup() {
     const { currentMessage } = this.props;
     return {__html: currentMessage.body};
   }
 
   render() {
     
-    const { currentMessage, thread } = this.props;
-    console.log('Inside ReadMail.jsx render() ', this.props);
-    if (this.state.redirect) {
-      return <Redirect push to="/" />;
-    }
+    const { currentMessage, thread, messages } = this.props;
 
     return (
       
@@ -86,8 +69,8 @@ class ReadMail extends React.Component {
 
 
                   <Table.HeaderCell colSpan='1' textAlign='right'> 
-                    {this.state.beforeId !== 'end' ? <Icon name="chevron left" onClick={this.handleBeforeClick.bind(this)}/> : null}
-                    {this.state.afterId !== 'end' ? <Icon name="chevron right" onClick={this.handleNextClick.bind(this)}/> : null}
+                    {currentMessage.messageIndex > 0 ? <Icon name="chevron left" onClick={this.handleArrowClick.bind(this, -1)}/> : null}
+                    {currentMessage.messageIndex < messages.length ? <Icon name="chevron right" onClick={this.handleArrowClick.bind(this, 1)}/> : null}
                       <Icon name="remove" onClick={this.handleCloseClick.bind(this)}/>
                   </Table.HeaderCell>
                 </Table.Row>
@@ -117,4 +100,4 @@ class ReadMail extends React.Component {
   }
 }
 
-export default ReadMail;
+export default ReadEmail;
