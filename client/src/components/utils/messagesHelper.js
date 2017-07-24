@@ -20,10 +20,10 @@ export const parseMessage = (messages, today) => {
   });
 };
 
-export const queryMessageDetails = (messageId, messageIndex, setCurrentMessage) => {
+export const queryMessageDetails = (messageId, messageIndex, messageUnread, setCurrentMessage) => {
   const readMessage = [
     () => { return axios.get(`/api/messages/read/${messageId}`); },
-    () => {  if (unreadStatus === true) { return axios.put(`/api/messages/${messageId}/read/null`); } }
+    () => {  if (messageUnread === true) { return axios.put(`/api/messages/${messageId}/read/null`); } }
   ];
 
   axios.all(readMessage.map(axiosCall => axiosCall()))
