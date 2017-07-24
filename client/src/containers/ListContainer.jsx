@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { setView, setCurrentMessage } from '../actions';
-import MailViewList from '../components/MailViewList.jsx';
+import List from '../components/List.jsx';
 
 const mapStateToProps = (state) => {
   return {
     messages:       state.messages,
     view:           state.view,
-    currentMessage: state.threads.currentMessage
+    searchResults:  state.search.searchResults
   };
 };
 
@@ -21,9 +21,8 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const MailViewListContainer = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MailViewList);
+)(List);
 
-export default MailViewListContainer;

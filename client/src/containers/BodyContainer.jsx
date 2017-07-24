@@ -1,24 +1,21 @@
 import { connect } from 'react-redux';
-import { setMessages } from '../actions';
+import { setMessages, setSearchResults } from '../actions';
 import Body from '../components/Body.jsx';
 
-const mapStateToProps = (state) => {
-  return {
-    messages: state.messages
-  };
-};
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setRetrievedMessages: (newMessages) => {
       dispatch(setMessages(newMessages));
+    },
+    setSearchResults: (newMessages) => {
+      dispatch(setSearchResults(newMessages));
     }
   };
 };
 
-const BodyContainer = connect(
-  mapStateToProps,
+export default connect(
+  null,
   mapDispatchToProps
 )(Body);
-
-export default BodyContainer;

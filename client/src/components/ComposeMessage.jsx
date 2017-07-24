@@ -40,7 +40,7 @@ class ComposeMessage extends React.Component {
   }
 
   render() {
-    
+    console.log('Inside ComposeMessage render: ', this.props);
     const { view, toAddress } = this.state;
     return (
         <div>

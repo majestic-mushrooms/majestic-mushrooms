@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
-import Body from '../Body.jsx';
 import BodyContainer from '../../containers/BodyContainer.jsx';
 import ComposeMessage from '../ComposeMessage.jsx';
 import ReadMail from '../ReadMail.jsx';
@@ -15,7 +14,7 @@ const routes = [
   },
   { path:          '/authenticated',
     exact:         true,
-    component:     Body
+    component:     BodyContainer
   },
   { path:          '/compose',
     exact:         true,
