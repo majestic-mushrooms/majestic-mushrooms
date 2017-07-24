@@ -12,29 +12,23 @@ class Body extends React.Component {
   constructor(props) {
     console.log('Inside Body.jsx constructor ***: ', props);
     super(props);
-    this.state = { 
-      messages: [],
-      visible: true
-    };
 
   }
 
   componentWillMount() {
-    // console.log('Inside Body.jsx componentWillMount() FIRST: ', this.props);
-    let { msg, setMessages } = this.props;
-    const app = this;
+    console.log('Inside Body.jsx componentWillMount() FIRST: ', this.props);
+    let { messages, setRetrievedMessages } = this.props;
+  
     let now = Date.now();
     now = new Date(now);
     const today = now.getMonth() + '/' + now.getDate() + '/' + ('' + now.getFullYear()).substr(-2);
 
     axios.get('/api/messages/').then(response => {
       const retrievedMessages = parseMessages(response.data, today);
-      app.setState({
-        messages: retrievedMessages
-      });
-      console.log('Inside Body.jsx() componentWillMount() B4***', this.props.msg);
-      setMessages(retrievedMessages);
-      console.log('Inside Body.jsx() componentWillMount() AFTA***', this.props.msg);
+
+      console.log('Inside Body.jsx() componentWillMount() B4***', this.props.messages);
+      setRetrievedMessages(retrievedMessages);
+      console.log('Inside Body.jsx() componentWillMount() AFTA***', this.props.messages);
 
     });
   }
@@ -53,14 +47,14 @@ class Body extends React.Component {
   }
 
   render() {
-    const { msg } = this.props;
-    console.log('Inside Body.jsx RENDER: ', msg);
+    const { messages } = this.props;
+    console.log('Inside Body.jsx RENDER: ', messages);
     return (
       <div>
         <Divider hidden />
         <SearchBar onSearch={this.handleSearch.bind(this)} style={{marginBottom: '20px'}}/>
         <Divider hidden />
-        <MailViewListContainer messages={msg} style={{border: '0'}}/>
+        <MailViewListContainer messages={messages} style={{border: '0'}}/>
       </div>
     );
   }

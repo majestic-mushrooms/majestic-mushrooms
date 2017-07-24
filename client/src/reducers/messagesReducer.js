@@ -26,6 +26,9 @@ export const messagesReducer = (state = [], action) => {
   case 'ADD_MESSAGES':
     return state.concat(action.messages);
   
+  case 'SET_MESSAGES':
+    return action.messages;
+  
   case 'CLEAR_MESSAGES':
     return [];
     

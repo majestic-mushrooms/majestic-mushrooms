@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
-import { addMessages } from '../actions';
+import { setMessages } from '../actions';
 import Body from '../components/Body.jsx';
 
 const mapStateToProps = (state) => {
   return {
-    msg: state.messages
+    messages: state.messages
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setMessages: (newMessages) => {
-      dispatch(addMessages(newMessages));
+    setRetrievedMessages: (newMessages) => {
+      dispatch(setMessages(newMessages));
     }
   };
 };

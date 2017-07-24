@@ -29,9 +29,17 @@ export const removeMessage = (messageId) => {
 
 
 export const addMessages = (messages) => {
-  console.log('Inside addMessages action with messages passed in: ', messages);
+  console.log('Inside addMessages ACTION with messages passed in: ', messages);
   return {
     type:       'ADD_MESSAGES',
+    messages:   messages
+  };
+};
+
+export const setMessages = (messages) => {
+  console.log('Inside setMessages ACTION with messages passed in: ', messages);
+  return {
+    type:       'SET_MESSAGES',
     messages:   messages
   };
 };
