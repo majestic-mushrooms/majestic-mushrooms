@@ -32,16 +32,6 @@ class App extends React.Component {
     super();
   }
 
-  // componentDidMount() {
-  //   console.log('Inside Index.jsx with store: ', store.getState());
-  //   store.dispatch(addMessages(
-  //     [
-  //       {id:1, snippet: 'hello'},
-  //       {id:2, snippet: 'goodbye'}
-  //     ])
-  //   );
-  //   console.log('Inside Index.jsx with store: ', store.getState());
-  // }
 
 
   render() {

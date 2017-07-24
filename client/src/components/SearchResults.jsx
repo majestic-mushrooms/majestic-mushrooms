@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Search, Grid, Header, Input } from 'semantic-ui-react';
 
-class SearchBar extends React.Component {
+class Search extends React.Component {
   constructor(props) {
 
     super(props);
@@ -16,8 +15,15 @@ class SearchBar extends React.Component {
     });
   }
 
-  handleSearch() {
-    this.props.onSearch(this.state.search);
+
+  handleSearch(searchQuery) {
+    const { setSearchResults } = this.props;
+
+    axios.post('api/search', searchQuery) 
+      .then(response => {
+        setSearchResults(parseMessages(response.data, today));
+      })
+      .catch(err => { console.log('Error searching emails ', err); });
   }
 
   render() {
@@ -32,4 +38,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default Search;

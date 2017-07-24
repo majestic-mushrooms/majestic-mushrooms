@@ -29,7 +29,6 @@ export const removeMessage = (messageId) => {
 
 
 export const addMessages = (messages) => {
-  console.log('Inside addMessages ACTION with messages passed in: ', messages);
   return {
     type:       'ADD_MESSAGES',
     messages:   messages
@@ -37,10 +36,19 @@ export const addMessages = (messages) => {
 };
 
 export const setMessages = (messages) => {
-  console.log('Inside setMessages ACTION with messages passed in: ', messages);
   return {
     type:       'SET_MESSAGES',
     messages:   messages
+  };
+};
+
+
+export const setSearchResults = (messages) => {
+  return {
+    type:       'SET_SEARCH_RESULTS',
+    messages:   messages,
+    view:       'Search'
+
   };
 };
 
@@ -51,7 +59,6 @@ export const clearMessages = () => {
 };
 
 export const setView = (viewName = 'Inbox') => {
-  console.log('Inside  ACTIONS setView: ', viewName);
   switch (viewName) {
   case 'Compose':
     return {
@@ -83,7 +90,6 @@ export const setView = (viewName = 'Inbox') => {
 };
 
 export const setCurrentMessage = (currentMessage) => {
-  console.log('Inside ACTION setCurrentMessage: ', currentMessage);
   return {
     type:         'SET_CURRENT_MESSAGE',
     message:      currentMessage,
@@ -98,7 +104,6 @@ export const clearCurrentMessage = () => {
 };
 
 export const setCurrentThread = (currentThread) => {
-  console.log('Inside ACTION setCurrentThread: ', currentThread);
   return {
     type:         'SET_CURRENT_THREAD',
     thread:       currentThread
@@ -108,5 +113,15 @@ export const setCurrentThread = (currentThread) => {
 export const clearCurrentThread = () => {
   return {
     type:         'CLEAR_CURRENT_THREAD'
+  };
+};
+
+export const setSearchQueryAndResults = (searchQuery, searchResults) => {
+  console.log('Inside ACTIONS setSearchQueryAndResults ', searchQuery);
+  return {
+    type:         'SET_SEARCH',
+    query:        searchQuery,
+    results:      searchResults,
+    view:         'Search'
   };
 };

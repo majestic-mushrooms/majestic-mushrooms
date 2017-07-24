@@ -65,7 +65,7 @@ class ReadMail extends React.Component {
   render() {
     
     const { currentMessage, thread } = this.props;
-    console.log('*******Inside ReadMail.jsx render() ', this.props);
+    console.log('Inside ReadMail.jsx render() ', this.props);
     if (this.state.redirect) {
       return <Redirect push to="/" />;
     }

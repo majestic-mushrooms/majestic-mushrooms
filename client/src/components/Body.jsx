@@ -1,60 +1,37 @@
 import React from 'react';
-import SearchBar from './SearchBar.jsx';
-import { Divider, Segment, } from 'semantic-ui-react';
-import MailViewList from './MailViewList.jsx';
-import MailViewListContainer from '../containers/MailViewListContainer.jsx';
-import { Link } from 'react-router-dom';
+import { Divider} from 'semantic-ui-react';
+import ListContainer from '../containers/ListContainer.jsx';
+import SearchContainer from '../containers/SearchContainer.jsx';
 import axios from 'axios';
-import { addMessages } from '../actions';
 import parseMessages from './utils/messagesParser';
+import { today } from './utils/dateTimeHelper';
+
 
 class Body extends React.Component {
   constructor(props) {
-    console.log('Inside Body.jsx constructor ***: ', props);
     super(props);
 
   }
 
-  componentWillMount() {
-    console.log('Inside Body.jsx componentWillMount() FIRST: ', this.props);
-    let { messages, setRetrievedMessages } = this.props;
+
+  componentDidMount() {
+    const { setRetrievedMessages } = this.props;
   
-    let now = Date.now();
-    now = new Date(now);
-    const today = now.getMonth() + '/' + now.getDate() + '/' + ('' + now.getFullYear()).substr(-2);
-
     axios.get('/api/messages/').then(response => {
-      const retrievedMessages = parseMessages(response.data, today);
-
-      console.log('Inside Body.jsx() componentWillMount() B4***', this.props.messages);
-      setRetrievedMessages(retrievedMessages);
-      console.log('Inside Body.jsx() componentWillMount() AFTA***', this.props.messages);
-
+      setRetrievedMessages(parseMessages(response.data, today));
     });
   }
 
-  handleSearch(searchQuery) {
-    let now = Date.now();
-    now = new Date(now);
-    const today = now.getMonth() + '/' + now.getDate() + '/' + ('' + now.getFullYear()).substr(-2);
 
-    axios.post('api/search', searchQuery) 
-      .then(response => {
-        const searchedMessages = parseMessages(response.data, today);
-        this.setState({messages: searchedMessages});
-      })
-      .catch(err => { console.log('Error searching emails ', err); });
-  }
 
   render() {
-    const { messages } = this.props;
-    console.log('Inside Body.jsx RENDER: ', messages);
+    console.log('*******Inside List.jsx render() ');
     return (
       <div>
         <Divider hidden />
-        <SearchBar onSearch={this.handleSearch.bind(this)} style={{marginBottom: '20px'}}/>
+        <SearchContainer style={{marginBottom: '20px'}}/>
         <Divider hidden />
-        <MailViewListContainer messages={messages} style={{border: '0'}}/>
+        <ListContainer style={{border: '0'}}/>
       </div>
     );
   }

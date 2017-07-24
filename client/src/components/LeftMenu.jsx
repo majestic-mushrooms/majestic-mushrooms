@@ -28,13 +28,16 @@ class LeftMenu extends Component {
   }
 
 
+
   render() {
     const { visible, view } = this.state;
+    console.log('VIEW IS ', view);
     return (
       <div>
 
       <Sidebar as={Menu} animation='push' visible={visible} icon='labeled' vertical inverted fixed="left" className='sideBar'>
         <Menu.Item as={Link} to='/' name='mail' >
+    
           <Icon name='inbox' />
           Inbox
         </Menu.Item>
