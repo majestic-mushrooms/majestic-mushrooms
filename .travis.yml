@@ -11,6 +11,3 @@ services:
 before_script: 
   - docker-compose up
   - docker ps -a
-
-script:
-  - yarn test
