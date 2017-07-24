@@ -23,7 +23,7 @@ export const parseMessage = (messages, today) => {
 export const queryMessageDetails = (messageId, messageIndex, setCurrentMessage) => {
   const readMessage = [
     () => { return axios.get(`/api/messages/read/${messageId}`); },
-    () => { return axios.put(`/api/messages/${messageId}/read/null`); }
+    () => {  if (unreadStatus === true) { return axios.put(`/api/messages/${messageId}/read/null`); } }
   ];
 
   axios.all(readMessage.map(axiosCall => axiosCall()))
