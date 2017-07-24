@@ -5,7 +5,7 @@ const initialThreadsState = {
 }
   
 export const threadsReducer = (state = initialThreadsState, action) => {
-  console.log('Inside threadsReducer with action ', action);
+  console.log('Inside threadsReducer with action ', state, action.type, action.message, action.thread);
   switch (action.type) {
   case 'SET_CURRENT_MESSAGE':
     return {
@@ -15,7 +15,7 @@ export const threadsReducer = (state = initialThreadsState, action) => {
   case 'SET_CURRENT_THREAD':
     return {
       ...state,
-      currrentThread: action.thread
+      currentThread: action.thread
     };
 
   case 'CLEAR_CURRENT_MESSAGE':

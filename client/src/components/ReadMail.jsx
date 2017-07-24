@@ -27,11 +27,11 @@ class ReadMail extends React.Component {
     const { currentMessage, setThread } = this.props;
     var messageId = currentMessage.id;
     var threadId = currentMessage.thread_id;
-
+    console.log('Inside ReadMail.jsx componentDidMount() m_id, t_id: ', messageId, threadId);
     axios.get(`api/threads/${threadId}`)
     .then(response => {
       // this.setState({threads: response.data});
-      console.log('******** Setting thread', response.data);
+      console.log('Inside ReadMail.jsx componentDidMount() setting thread', response.data);
       setThread(response.data);
     })
     .catch(error => {
@@ -57,17 +57,21 @@ class ReadMail extends React.Component {
   }
   
   createMarkup() {
+    
     const { currentMessage } = this.props;
     return {__html: currentMessage.body};
   }
 
   render() {
+    
     const { currentMessage, thread } = this.props;
+    console.log('*******Inside ReadMail.jsx render() ', this.props);
     if (this.state.redirect) {
       return <Redirect push to="/" />;
     }
 
     return (
+      
         <div>
           <Divider hidden />
           {thread.length === 0 ? (
