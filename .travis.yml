@@ -8,8 +8,8 @@ node_js:
 services: 
   - docker
 
-install: 
-  - docker-compose run -e NYLAS_CLIENT_ID -e NYLAS_CLIENT_SECRET web
+before_script: 
+  - docker-compose up
   - docker ps -a
 
 script:
