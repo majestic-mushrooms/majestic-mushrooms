@@ -1,31 +1,18 @@
-// to create a single root reducer out of many.
-// import { combineReducers } from 'redux';
-// TODO: import other reducer files
-// eg
-// import todos from './todos'
-// import counter from './counter'
-
-// export default combineReducers ({
-  // todos,
-  // counter
-// });
-
-// DONE 
-  // added: import reducer from 'whateverFilePathTo reducers/index' && import { createStore } from 'redux' to Main.js 
-  // added: let store = createStore(reducer) to same file
-  // http://redux.js.org/docs/api/combineReducers.html
-// TODO dispatch
+import { messagesReducer } from './messagesReducer.js';
+import { authReducer } from './authReducer.js';
+import { viewReducer } from './viewReducer.js';
+import { threadsReducer } from './threadsReducer.js';
+import { searchReducer } from './searchReducer.js';
+import { combineReducers } from 'redux';
+  
+const emailApp = combineReducers( {
+  messages:       messagesReducer,
+  search:         searchReducer,
+  auth:           authReducer,
+  view:           viewReducer,
+  threads:        threadsReducer,
+  
+});
 
 
-const emailState = (state = {}, action) => {
-
-  switch (action.type) {
-  default: 
-    return state;
-  }
-
-
-};
-
-
-export default emailState;
+export default emailApp;
