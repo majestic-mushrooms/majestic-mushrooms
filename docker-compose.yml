@@ -29,3 +29,6 @@ services:
     depends_on:
       - postgres
       - redis
+    environment:
+      - NYLAS_CLIENT_ID=${NYLAS_CLIENT_ID}
+      - NYLAS_CLIENT_SECRET=${NYLAS_CLIENT_SECRET}
