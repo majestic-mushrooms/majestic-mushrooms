@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 import BodyContainer from '../../containers/BodyContainer.jsx';
-import ComposeMessage from '../ComposeMessage.jsx';
+import ComposeEmailContainer from '../../containers/ComposeEmailContainer.jsx';
 import ReadEmailContainer from '../../containers/ReadEmailContainer.jsx';
 import { withRouter } from 'react-router';
 
@@ -17,7 +17,7 @@ const routes = [
   },
   { path:          '/compose',
     exact:         true,
-    component:     ComposeMessage
+    component:     ComposeEmailContainer
   },
   { path:          '/message',
     exact:         true,

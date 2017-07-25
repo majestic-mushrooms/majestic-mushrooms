@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setMessages, setSearchResults, setView } from '../actions';
+import { setMessages, setSearchResults, setView, setAccount } from '../actions';
 import Body from '../components/Body.jsx';
 
 const mapStateToProps = (state) => {
@@ -18,6 +18,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     setNewView: (viewName) => {
       dispatch(setView(viewName));
+    },
+    setAccountDetails: (account, token) => {
+      console.log('Inside setAccount BodyContainer: ', account, token);
+      dispatch(setAccount(account, token));
     },
   };
 };

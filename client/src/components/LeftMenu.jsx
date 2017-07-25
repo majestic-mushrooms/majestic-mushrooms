@@ -16,7 +16,7 @@ const onClickLogOut = (props) => {
   .catch( err => {
     console.log('Error calling /logout from LeftMenu.jsx', err);
   });
-}
+};
 
 const LeftMenu = (props) => {
   const { view, setNewView } = props;
