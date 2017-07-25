@@ -5,7 +5,7 @@ const models = require('../../db/models');
 const messagesConstructor = require('../utils/messagesConstructor');
 
 module.exports.getAll = (req, res) => {
-  models.Message.where({ account_id: req.session.accountId }).fetchAll()
+  models.Message.query('orderBy', 'date_received', 'where', 'account_id', '=', req.session.accountId).fetchAll()
   .then(messages => {
     if (messages.length === 0) { //no messages stored
       console.log(`No messages stored for account ${req.session.accountId}. Retrieving!`);
@@ -56,53 +56,22 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.getOne = (req, res) => {
-  // // when using DB
-  // models.Message.where({ message_id: "abcde12345" }).fetch()
-  // .then(message => {
-  //   if (!message) {
-  //     throw message;
-  //   }
-  //     res.status(200).send(message);
-  //   })
-  //   .error(err => {
-  //     res.status(500).send(err);
-  //   })
-  //   .catch(() => {
-  //     res.sendStatus(404);
-  //   });
-
-  // when using Nylus call
-  const authString = 'Bearer ' + req.session.nylasToken;
-  axios.get(`https://api.nylas.com/messages/${req.params.id}`, {
-    headers: { Authorization: authString }
-  }).then(response => {
-    res.send(response.data);
-  })
-  .catch(err => {
-    console.log("Retreiving one mail from Nylas: error");
-  });
-
+  models.Message.where({ message_id: req.params.id }).fetch()
+  .then(message => {
+    if (!message) {
+      throw message;
+    }
+      res.status(200).send(message);
+    })
+    .error(err => {
+      res.status(500).send(err);
+    })
+    .catch(() => {
+      res.sendStatus(404);
+    });
 };
 
 module.exports.update = (req, res) => {
-  // models.Message.where({ id: req.params.id }).fetch()
-  //   .then(message => {
-  //     if (!message) {
-  //       throw message;
-  //     }
-  //     return message.save(req.body, { method: 'update' });
-  //   })
-  //   .then(() => {
-  //     res.sendStatus(201);
-  //   })
-  //   .error(err => {
-  //     res.status(500).send(err);
-  //   })
-  //   .catch(() => {
-  //     res.sendStatus(404);
-  //   });
-
-  //NYLAS CALL
   const authString = 'Bearer ' + req.session.nylasToken;
   let actionObj = {}; //set depending on type, e.g. trash vs. read email
   if (req.params.type === 'trash') {
@@ -114,6 +83,12 @@ module.exports.update = (req, res) => {
   axios.put('https://api.nylas.com/messages/' + req.params.id, actionObj, {
     headers: { Authorization: authString }
   }).then(response => {
+    return new models.Message({ message_id: req.params.id }).save(actionObj);
+  }).catch(err => { 
+    console.log(`Error updating email ${req.params.id}.`);
+    res.status(400).send();
+  }).then(message => {
+    console.log('Message updated!')
     res.status(200).send(); 
   });
 };
