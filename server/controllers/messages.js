@@ -30,7 +30,7 @@ module.exports.getAll = (req, res) => {
   
   }).then(messages => {
     console.log(`Messages successfully retrieved for account ${req.session.accountId}. Rerouting!`)
-    res.status(200).send(messages.slice(0, 26));// render to the page
+    res.status(200).send(messages);// render to the page
   })
 };
 

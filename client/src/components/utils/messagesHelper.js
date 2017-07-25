@@ -9,7 +9,7 @@ export const parseMessage = (messages, today) => {
     const time = date.getHours() + ':' + ('0' + date.getMinutes()).substr(-2);
 
     return {
-      from: message.from,
+      from: typeof message.from === 'string' ? JSON.parse(message.from) : message.from,
       subject: message.subject,
       snippet: message.snippet,
       unread: message.unread,
