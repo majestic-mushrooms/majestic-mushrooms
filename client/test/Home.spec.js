@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer'
-import ConnectedHome,{Home} from '../src/index.jsx'
+import App from '../src/index.jsx'
 import configureStore from 'redux-mock-store'
 import {Provider} from 'react-redux'
 
@@ -19,22 +19,53 @@ import calculatorReducers from '../src/js/reducers/calculatorReducers'
 
 // });
 
+describe('<App />', () => {
+  it('should render three <BrowserRouter /> components', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.length).toBeTruthy();
+  });
+
+
+
+
+//   it('should render an `.icon-star`', () => {
+//     const wrapper = shallow(<App />);
+//     expect(wrapper.find('.icon-star')).to.have.length(1);
+//   });
+
+//   it('should render children when passed in', () => {
+//     const wrapper = shallow((
+//       <App>
+//         <div className="unique" />
+//       </MyComponent>
+//     ));
+//     expect(wrapper.contains(<div className="unique" />)).to.equal(true);
+//   });
+
+//   it('simulates click events', () => {
+//     const onButtonClick = sinon.spy();
+//     const wrapper = shallow(<Foo onButtonClick={onButtonClick} />);
+//     wrapper.find('button').simulate('click');
+//     expect(onButtonClick.calledOnce).to.equal(true);
+//   });
+});
+
 //*******************************************************************************************************
 describe('>>>H O M E --- Shallow Render REACT COMPONENTS',()=>{
     let wrapper
-     const output = 10
+    //  const output = 10
 
     beforeEach(()=>{
         wrapper = shallow(<App />)
     })
 
-    it('+++ render the DUMB component', () => {
-       expect(wrapper.length).toEqual(1)
-    });
-
-    // it('+++ contains header - h2', () => {
-    //     expect(wrapper.contains(<h2>using React and Redux</h2>)).toBe(true)
+    // it('+++ render the DUMB component', () => {
+    //    expect(wrapper.length).toEqual(1)
     // });
+
+    it('+++ contains Router - <Router', () => {
+        expect(wrapper.contains('<Router')).toBe(true)
+    });
     // it('+++ h2 header value ', () => {
     //     expect(wrapper.find('h2').get(0).props.children).toBe("using React and Redux")
     // });
