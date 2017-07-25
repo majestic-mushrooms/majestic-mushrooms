@@ -3,12 +3,13 @@ import { Divider, Button, Segment, Input, Menu, Icon, Label } from 'semantic-ui-
 import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
 import FolderListItem from './FolderListItem.jsx';
+import { today } from './utils/dateTimeHelper';
+import { parseMessage } from './utils/messagesHelper';
 
 class FolderList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      visible: true,
       activeItem: 'Folders',
       folders: []
     };
@@ -35,10 +36,12 @@ class FolderList extends React.Component {
   }
   
   filterMessages(labelId) {
+    const { setFilteredMessages } = this.props;
+
     console.log('label id', labelId);
     axios.get('/api/folders/' + labelId)
       .then(response => {
-      //set messages state.
+        setFilteredMessages(parseMessage(response.data, today));
       });
   }
  
