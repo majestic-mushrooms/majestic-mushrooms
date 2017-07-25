@@ -44,7 +44,7 @@ class ReadMailEntry extends React.Component {
           {this.state.showButton === true ? 
           ( 
             <div>
-              <Icon name="reply" onClick={ (e) => { onClick(e, messageId); }}/>
+              <Icon name="reply" onClick={ (e) => { onClick(e, messageId, message.unread); }}/>
               <Icon name="trash outline" onClick={ (e) => { this.deleteMessage(e, messageId); }}/>
             </div>
           ) : (
