@@ -34,23 +34,25 @@ module.exports.getAll = (req, res) => {
   })
 };
 
-//@TODO Dont' hard code the message id
 module.exports.create = (req, res) => {
+  console.log('Inside Messages Controller create(): ', req.body);
 
-  console.log('Inside Messages Controller create() ');
-  let newMessage = new models.Message(
-   req.body
-  );
-  console.log('IS IT NEW? ', newMessage.isNew());
-  newMessage
-  .save(null, {method: 'insert'})
-  .then(result => {
-    console.log('Successfully created message: ');
-    res.status(201).send(result);
+  const authString = 'Bearer ' + req.session.nylasToken;
+  axios({
+    method: 'post',
+    url: 'https://api.nylas.com/send',
+    headers: { Authorization: authString },
+    data: req.body,
+    json: true,
+    responseType: 'json'
   })
-  .catch(err => {
-    console.log('Error creating message in DB: ', err);
-    res.status(500).send(err);
+  .then( message => {
+    console.log('Successfully sent message to Nylas: ', message.data);
+    res.status(201).send(message.data);
+    console.log('Inside success AFTER res.send');
+  })
+  .catch( err => {
+    console.log('Error posting message to Nylas: ', err);
   });
 };
 

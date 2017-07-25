@@ -53,10 +53,10 @@ export const createMessage = (formData, fromEmail) => {
       ]
     };
   
-    if (formData.ccInputField) {
-      
+    const ccField = formData.ccInputField;
+    if (ccField && ccField.value !== '') {
       email.cc = [
-        {name: formData.ccInputField.value, email: formData.ccInputField.value}
+        {name: ccField.value, email: ccField.value}
       ];
     }
 
