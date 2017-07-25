@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export const parseMessage = (messages, today) => {
   return messages.slice(0, 21).map((message) => {
-    console.log(message.date_received, 'DATE');
     const date = new Date(message.date_received);
     let day = date.getMonth() + '/' + date.getDate() + '/' + ('' + date.getFullYear()).substr(-2);
     day = day === today ? 'Today' : day;
@@ -15,7 +14,7 @@ export const parseMessage = (messages, today) => {
       snippet: message.snippet,
       unread: message.unread,
       timestamp: day + ' ' + time,
-      message_id: message.id,
+      message_id: message.message_id,
       color: message.color
     };
   });
