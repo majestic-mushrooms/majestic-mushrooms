@@ -10,7 +10,7 @@ module.exports.getAll = (req, res) => {
     if (messages.length === 0) { //no messages stored
       console.log(`No messages stored for account ${req.session.accountId}. Retrieving!`);
       const authString = 'Bearer ' + req.session.nylasToken;
-      return axios.get('https://api.nylas.com/messages?limit=20', {
+      return axios.get('https://api.nylas.com/messages?limit=100', {
         headers: { Authorization: authString }
       }).then(response => {
         const Messages = bookshelf.Collection.extend({
@@ -31,7 +31,7 @@ module.exports.getAll = (req, res) => {
   
   }).then(messages => {
     console.log(`Messages successfully retrieved for account ${req.session.accountId}. Rerouting!`)
-    res.status(200).send(messages);// render to the page
+    res.status(200).send(messages.slice(80));// render to the page
   })
 };
 
