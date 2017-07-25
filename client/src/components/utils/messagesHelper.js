@@ -3,7 +3,8 @@ import axios from 'axios';
 
 export const parseMessage = (messages, today) => {
   return messages.slice(0, 21).map((message) => {
-    const date = new Date(message.date * 1000);
+    console.log(message.date_received, 'DATE');
+    const date = new Date(message.date_received);
     let day = date.getMonth() + '/' + date.getDate() + '/' + ('' + date.getFullYear()).substr(-2);
     day = day === today ? 'Today' : day;
     const time = date.getHours() + ':' + ('0' + date.getMinutes()).substr(-2);
