@@ -40,11 +40,7 @@ class ReadEmail extends React.Component {
     
     const newMessageIndex = this.props.currentMessage.messageIndex + arrowDirection;
     const { messages, setCurrentMessage } = this.props;
-<<<<<<< HEAD
     queryMessageDetails(messages[newMessageIndex].message_id, newMessageIndex, messages[newMessageIndex].unread, setCurrentMessage );
-=======
-    queryMessageDetails(messages[newMessageIndex].message_id, newMessageIndex, setCurrentMessage );
->>>>>>> 533db7bc7f30b1b3c86a8e1580eb1d14073153d8
 
   }
 
