@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { setMessages, setSearchResults, setView } from '../actions';
+import { setMessages } from '../actions';
 import FolderList from '../components/FolderList.jsx';
 
 const mapStateToProps = (state) => {
   return {
-    view: state.view
+    messages: state.messages
   };
 };
 

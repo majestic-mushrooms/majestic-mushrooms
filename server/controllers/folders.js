@@ -40,10 +40,6 @@ module.exports.getAll = (req, res) => {
       , i * 30);
     })
     .then(() =>{
-<<<<<<< HEAD
-      // console.log('this is the arr ============', arr);
-=======
->>>>>>> basic redux implementation
       setTimeout((function() { res.send(arr); }), 2000);
     }).catch(err => {
       res.send(err);
@@ -57,12 +53,10 @@ module.exports.getAll = (req, res) => {
 
 module.exports.filter = (req, res) => {
   const authString = 'Bearer ' + req.session.nylasToken;
-  console.log('parapsm' , req.params);
   axios.get(`https://api.nylas.com/messages?in=${req.params.id}`, {
     headers: { Authorization: authString }
   }).then(response => {
-    console.log(response.data)
-    res.status(200).send('============', response.data);
+    res.status(200).send(response.data);
   }).catch(err => {
     res.send(err);
   });

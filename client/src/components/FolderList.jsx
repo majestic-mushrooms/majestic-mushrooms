@@ -14,12 +14,12 @@ class FolderList extends React.Component {
       folders: []
     };
     this.handleItemClick = this.handleItemClick.bind(this);
+    this.filterMessages = this.filterMessages.bind(this);
   }
 
   componentWillMount() {
     axios.get('/api/folders')
       .then(response => {
-        console.log('this is response frm', response.data);
         this.setState({
           folders: response.data
         });
@@ -37,8 +37,6 @@ class FolderList extends React.Component {
   
   filterMessages(labelId) {
     const { setFilteredMessages } = this.props;
-
-    console.log('label id', labelId);
     axios.get('/api/folders/' + labelId)
       .then(response => {
         setFilteredMessages(parseMessage(response.data, today));
@@ -47,7 +45,6 @@ class FolderList extends React.Component {
  
   render() {
     const { activeItem } = this.state || {};
-
     return (
       <div>
         <Divider hidden />
