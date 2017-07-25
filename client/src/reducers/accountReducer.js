@@ -6,7 +6,6 @@ const defaultAccountState = {
 };
 
 export const accountReducer = (state = defaultAccountState, action) => {
-  console.log('Inside account REDUCER with action: ', action);
   switch (action.type) {
 
   case 'LOGOUT_USER':

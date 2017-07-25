@@ -28,12 +28,11 @@ const LeftMenu = (props) => {
 
     <Sidebar as={Menu} animation='push' visible={true} icon='labeled' vertical inverted fixed="left" className='sideBar'>
       <Menu.Item as={Link} to='/' name='mail'onClick={ () => { setNewView('Inbox'); }} >
-  
         <Icon name='inbox' />
         Inbox
       </Menu.Item>
     
-      <Menu.Item as={Link} to='/compose' name='compose'>
+      <Menu.Item as={Link} to='/compose' name='compose' onClick={ () => { setNewView('Compose'); }}>
         <Icon name='mail' />
           Compose
       </Menu.Item>

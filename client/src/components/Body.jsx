@@ -17,7 +17,6 @@ class Body extends React.Component {
     const { setRetrievedMessages, setAccountDetails } = this.props;
 
     axios.get('/api/account').then( userAccount => { 
-      console.log('Inside Body.jsx successfully retrieved nylas account: ', userAccount.data);
       setAccountDetails(userAccount.data, window.token);
       window.token = null;
     })

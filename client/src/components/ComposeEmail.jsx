@@ -10,41 +10,33 @@ import { createMessage } from './utils/messagesHelper.js';
 class ComposeEmail extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      view: 'compose',
-      toAddress: null
-    };
   }
 
 
   handleSubmit(e) {
-    console.log('Inside composeMail handle Submit: ', e.target.toInputField.value);
+    const { setView } = this.props;
 
     let message = createMessage(e.target, this.props.account.email_address);
 
     console.log('After calling createMessage: ', message);
     axios.post('/api/messages', message)
       .then( newMessage => {
-        console.log('$$$$$$$$$$$$$$$$$$Returned back from /api/messages/', newMessage);
+        setView('Inbox');
       })
       .catch( err => {
-        console.log('$$$$$$$$$$$$$$$$$$$Error after calling to /api/messages ', err);
+        console.log('Error after calling to /api/messages ', err);
       });
   }
 
   render() {
-    console.log('Inside ComposeMessage render: ', this.props);
-    const { view, toAddress } = this.state;
+    const { view } = this.props;
     return (
         <div>
         { 
-        view === 'home' && 
+        view === 'Inbox' && 
         <Redirect from={'/compose'} 
                   push
-                  to={{
-                    pathname: '/',
-                    state: { toAddress: toAddress }
-                  }} /> 
+                  to={'/'} /> 
         }
         <Divider hidden />
           <Segment.Group>

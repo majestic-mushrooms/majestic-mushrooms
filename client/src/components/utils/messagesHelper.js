@@ -35,3 +35,38 @@ export const queryMessageDetails = (messageId, messageIndex, messageUnread, setC
   });
 
 }; 
+
+
+
+
+export const createMessage = (formData, fromEmail) => {
+  if (formData !== null) {
+    
+    let email = {
+      body: formData.emailContentInputField.value,
+      from: [
+        {name: fromEmail, email: fromEmail}
+      ],
+      subject: formData.subjectInputField.value,
+      to: [
+        {name: formData.toInputField.value, email: formData.toInputField.value}
+      ]
+    };
+  
+    if (formData.ccInputField) {
+      
+      email.cc = [
+        {name: formData.ccInputField.value, email: formData.ccInputField.value}
+      ];
+    }
+
+    return email;
+  }
+};
+
+
+// cc: [ 
+//   {name: formData.ccInputField.value, email: formData.ccInputField.value}
+// ],
+
+

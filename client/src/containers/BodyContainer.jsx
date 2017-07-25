@@ -20,7 +20,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setView(viewName));
     },
     setAccountDetails: (account, token) => {
-      console.log('Inside setAccount BodyContainer: ', account, token);
       dispatch(setAccount(account, token));
     },
   };

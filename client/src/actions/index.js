@@ -6,7 +6,6 @@ export const logoutUser = () => {
 };
 
 export const setAccount = (account, token) => {
-  console.log('Inside setAccount ACTION: ', account, token);
   return {
     type:     'SET_ACCOUNT',
     account:   account,
