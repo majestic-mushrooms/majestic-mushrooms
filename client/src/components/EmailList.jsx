@@ -11,12 +11,31 @@ import axios from 'axios';
 class EmailList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      page: 1
+    }
+    this.handlePageNav = this.handlePageNav.bind(this);
   }
 
+  handlePageNav(direction) {
+    if (direction === 'back') {
+      this.setState(prevState => {
+        return { page: prevState.page - 1 > 1 ? prevState.page - 1 : 1 };
+      });
+    } else {
+      const maxPage = Math.floor(this.props.messages.length / 25);
+      this.setState(prevState => {
+        return { page: prevState.page + 1 < maxPage ? prevState.page + 1 : maxPage };
+      });
+    }
+  } 
 
   render() {
     const { view } = this.props;
-    let messages =  (view === 'Search') ? this.props.searchResults : this.props.messages;
+    const { page } = this.state;
+    const messages =  (view === 'Search') ? this.props.searchResults : 
+      this.props.messages.slice(25 * (page - 1), 25 * page);
+
     return (
       <div>
         { view === 'Read' && (
@@ -31,13 +50,14 @@ class EmailList extends React.Component {
             <Table singleLine fixed>
               <Table.Body>
                 {messages.map((message, index, array) => {
+                  index = (25 * (page - 1)) + index;
                   return <EmailListItemContainer key={index} messageIndex={index}  />;
                 })}
               </Table.Body> 
             </Table>
 
-            <Icon name="chevron left" />
-            <Icon name="chevron right" />
+            <Icon name="chevron left" onClick={() => { this.handlePageNav('back'); }} />
+            <Icon name="chevron right" onClick={() => { this.handlePageNav('forward'); }} />
           </div>
           )
         }
