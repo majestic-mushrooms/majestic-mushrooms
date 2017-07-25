@@ -4,7 +4,7 @@ const models = require('../../db/models');
 const messagesConstructor = require('../utils/messagesConstructor');
 
 module.exports.getAll = (req, res) => {
-  models.Message.query('orderBy', 'date_received', 'asc', 'where', 'account_id', '=', req.session.accountId).fetchAll()
+  models.Message.query('orderBy', 'date_received', 'desc', 'where', 'account_id', '=', req.session.accountId).fetchAll()
   .then(messages => {
     if (messages.length === 0) { //no messages stored
       console.log(`No messages stored for account ${req.session.accountId}. Retrieving!`);
