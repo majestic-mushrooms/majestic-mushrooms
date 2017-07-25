@@ -20,11 +20,16 @@ class ReadMail extends React.Component {
       threads: [],
       messageId: this.props.location.state.from.id,
       threadId: this.props.location.state.from.thread_id,
-      currentMessage: this.props.location.state.from
+      currentMessage: this.props.location.state.from,
+      beforeId: this.props.location.state.beforeId,
+      afterId: this.props.location.state.afterId
     }
+    console.log('beforeId is', this.state.beforeId);
   }
 
   componentDidMount() {
+
+    // get thread
     var messageId = this.props.location.state.from.id;
     var threadId = this.props.location.state.from.thread_id;
 
@@ -38,7 +43,7 @@ class ReadMail extends React.Component {
   }
 
   handleMessageClick() {
-    console.log("not yet built.");
+    console.log("handleMessageClick not yet built.");
   }
 
   handleCloseClick() {
@@ -46,11 +51,12 @@ class ReadMail extends React.Component {
   }
 
   handleNextClick() {
-    console.log("not yet built.");
+    console.log("handleNextClick not yet built.");
   }
 
   handleBeforeClick() {
-    console.log("not yet built.");
+    // need key, beforeMailId, afterMailId, handle one email click event as props
+    console.log("handleBeforeClick not yet built. messages:", this.props.location.state);
   }
   
   createMarkup() {
@@ -77,8 +83,8 @@ class ReadMail extends React.Component {
                 <Table.Row height="100px">
                   <Table.HeaderCell colSpan='2'>Title: {this.state.currentMessage.subject}</Table.HeaderCell>
                   <Table.HeaderCell colSpan='1' textAlign='right'> 
-                    <Icon name="chevron left" onClick={this.handleBeforeClick.bind(this)}/>
-                    <Icon name="chevron right" onClick={this.handleNextClick.bind(this)}/>
+                  {this.state.beforeId !== 'end' ? <Icon name="chevron left" onClick={this.handleBeforeClick.bind(this)}/> : null}
+                  {this.state.afterId !== 'end' ? <Icon name="chevron right" onClick={this.handleNextClick.bind(this)}/> : null}
                     <Icon name="remove" onClick={this.handleCloseClick.bind(this)}/>
                   </Table.HeaderCell>
                 </Table.Row>
