@@ -36,6 +36,10 @@ class ReadEmail extends React.Component {
     // this.setState({redirect: true});    
   }
 
+  handleMessageClick() {
+
+  }
+  
   handleArrowClick(arrowDirection) {
     
     const newMessageIndex = this.props.currentMessage.messageIndex + arrowDirection;
