@@ -1,5 +1,4 @@
 const axios = require('axios');
-
 const bookshelf = require('../../db');
 const models = require('../../db/models');
 const messagesConstructor = require('../utils/messagesConstructor');
@@ -69,6 +68,17 @@ module.exports.getOne = (req, res) => {
     .catch(() => {
       res.sendStatus(404);
     });
+
+  // when using Nylus call
+  // const authString = 'Bearer ' + req.session.nylasToken;
+  // axios.get(`https://api.nylas.com/messages/${req.params.id}`, {
+  //   headers: { Authorization: authString }
+  // }).then(response => {
+  //   res.send(response.data);
+  // })
+  // .catch(err => {
+  //   console.log("Retreiving one mail from Nylas: error");
+  // });
 };
 
 module.exports.update = (req, res) => {

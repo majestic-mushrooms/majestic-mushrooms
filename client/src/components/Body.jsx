@@ -17,7 +17,7 @@ class Body extends React.Component {
     const { setRetrievedMessages } = this.props;
   
     axios.get('/api/messages/').then(response => {
-      setRetrievedMessages(parseMessage(response.data, today).reverse());
+      setRetrievedMessages(parseMessage(response.data, today));
     });
   }
 

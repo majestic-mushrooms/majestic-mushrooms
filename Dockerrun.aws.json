@@ -1,10 +1,23 @@
 {
   "AWSEBDockerrunVersion": "2",
+  "volumes": [
+    {
+      "name": "app",
+      "host": {
+        "sourcePath": "/var/app/current/app"
+      }
+    },
+    {
+      "name": "redis",
+      "host": {
+        "sourcePath": "/var/app/current/redis"
+      }
+    }
+  ],
   "containerDefinitions": [
     {
       "name": "app",
       "image": "jenniferwg/timebox:app",
-      "environment": [],
       "essential": true,
       "memory": 128,
       "portMappings": [{
