@@ -2,8 +2,8 @@ import axios from 'axios';
 
 
 export const parseMessage = (messages, today) => {
-  return messages.slice(0, 21).map((message) => {
-    const date = new Date(message.date * 1000);
+  return messages.map((message) => {
+    const date = new Date(message.date_received);
     let day = date.getMonth() + '/' + date.getDate() + '/' + ('' + date.getFullYear()).substr(-2);
     day = day === today ? 'Today' : day;
     const time = date.getHours() + ':' + ('0' + date.getMinutes()).substr(-2);
@@ -14,16 +14,16 @@ export const parseMessage = (messages, today) => {
       snippet: message.snippet,
       unread: message.unread,
       timestamp: day + ' ' + time,
-      message_id: message.id,
+      message_id: message.message_id,
       color: message.color
     };
   });
 };
 
-export const queryMessageDetails = (messageId, messageIndex, setCurrentMessage) => {
+export const queryMessageDetails = (messageId, messageIndex, messageUnread, setCurrentMessage) => {
   const readMessage = [
     () => { return axios.get(`/api/messages/read/${messageId}`); },
-    () => { return axios.put(`/api/messages/${messageId}/read/null`); }
+    () => {  if (messageUnread === true) { return axios.put(`/api/messages/${messageId}/read/null`); } }
   ];
 
   axios.all(readMessage.map(axiosCall => axiosCall()))

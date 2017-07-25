@@ -13,8 +13,8 @@ class EmailListItem extends React.Component {
   }
 
 
-  handleMessageClick(messageId, messageIndex) {
-    queryMessageDetails(messageId, messageIndex, this.props.setCurrentMessage);
+  handleMessageClick(messageId, messageIndex, messageUnread) {
+    queryMessageDetails(messageId, messageIndex, messageUnread, this.props.setCurrentMessage);
   }
 
   deleteMessage(e, messageId) {
@@ -36,7 +36,7 @@ class EmailListItem extends React.Component {
     return (
     
         <Table.Row 
-          onClick={ () => {this.handleMessageClick(message.message_id, messageIndex);} }
+          onClick={ () => {this.handleMessageClick(message.message_id, messageIndex, message.unread);} }
           onMouseEnter={() => {this.setState({ showButton: true });}}
           onMouseLeave={() => { this.setState({ showButton: false }); }}>
 

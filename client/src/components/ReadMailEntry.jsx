@@ -27,7 +27,7 @@ class ReadMailEntry extends React.Component {
     const weight = message.unread === true ? 'bold' : 'regular';
     
     return (
-      <Table.Row onClick={ (e) => { onClick(e, messageId); }} onMouseEnter={() => {this.setState({ showButton: true });}}
+      <Table.Row onClick={ (e) => { onClick(e, messageId, message.unread); }} onMouseEnter={() => {this.setState({ showButton: true });}}
         onMouseLeave={() => {this.setState({ showButton: false });}}>
         <Table.Cell width="4">
           <Label circular color={message.color} style={{marginRight: '8px'}}>
@@ -44,7 +44,7 @@ class ReadMailEntry extends React.Component {
           {this.state.showButton === true ? 
           ( 
             <div>
-              <Icon name="reply" onClick={ (e) => { onClick(e, messageId); }}/>
+              <Icon name="reply" onClick={ (e) => { onClick(e, messageId, message.unread); }}/>
               <Icon name="trash outline" onClick={ (e) => { this.deleteMessage(e, messageId); }}/>
             </div>
           ) : (

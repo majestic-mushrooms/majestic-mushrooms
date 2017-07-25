@@ -9,6 +9,7 @@
     "build-prod": "webpack",
     "build": "webpack --watch",
     "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
     "seed": "knex seed:run"
   },
   "author": "Hack Reactor",

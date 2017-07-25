@@ -31,10 +31,6 @@
         {
           "sourceVolume": "awseb-logs-app",
           "containerPath": "/var/log/app"
-        },
-        {
-          "sourceVolume": "app",
-          "containerPath": "/public"
         }
       ]
     },
@@ -51,10 +47,6 @@
         {
           "sourceVolume": "awseb-logs-redis",
           "containerPath": "/var/log/redis"
-        },
-                {
-          "sourceVolume": "app",
-          "containerPath": "/public"
         }
       ]
     }

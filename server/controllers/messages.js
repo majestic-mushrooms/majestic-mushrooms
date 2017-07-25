@@ -1,37 +1,37 @@
-const models = require('../../db/models');
 const axios = require('axios');
-
-const colors = [
-  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
-]; 
+const bookshelf = require('../../db');
+const models = require('../../db/models');
+const messagesConstructor = require('../utils/messagesConstructor');
 
 module.exports.getAll = (req, res) => {
-  // models.Message.fetch()
-  // .then(messages => {
-  //   res.status(200).send('in getAll');// render to the page
-  //   // res.render('index.ejs', {messages: messages}, function(err, html) {
-  //   })
-  // .error(err => {
-  //   res.status(500).send(err);
-  // })
-  // .catch(() => {
-  //   res.sendStatus(404);
-  // });
-
-  //NYLAS CALL
-  const authString = 'Bearer ' + req.session.nylasToken;
-  axios.get('https://api.nylas.com/messages?limit=20', {
-    headers: { Authorization: authString }
-  }).then(response => {
-    for (let i = 0; i < response.data.length; i++) {
-      response.data[i].color = colors[Math.floor(Math.random() * 12)];
-    }
-    res.send(response.data);
+  models.Message.query('orderBy', 'date_received', 'asc', 'where', 'account_id', '=', req.session.accountId).fetchAll()
+  .then(messages => {
+    if (messages.length === 0) { //no messages stored
+      console.log(`No messages stored for account ${req.session.accountId}. Retrieving!`);
+      const authString = 'Bearer ' + req.session.nylasToken;
+      return axios.get('https://api.nylas.com/messages?limit=100', {
+        headers: { Authorization: authString }
+      }).then(response => {
+        const Messages = bookshelf.Collection.extend({
+          model: models.Message
+        });
+        messages = Messages.forge(messagesConstructor(response.data));
+        return messages.invokeThen('save', null, { method: 'insert' });
+      })
+      .catch(err => {
+        console.log(err);
+        throw Error;
+      });
+    } else { return messages }
+  
+  }).catch(err => {
+    console.log(`Error retrieving messages for account ${req.session.accountId}!`);
+    res.status(404).send('Message retrieval failed.');
+  
+  }).then(messages => {
+    console.log(`Messages successfully retrieved for account ${req.session.accountId}. Rerouting!`)
+    res.status(200).send(messages.slice(0, 26));// render to the page
   })
-  .catch(err => {
-    console.log('Retreiving messages from Nylas: ', err);
-  });
 };
 
 //@TODO Dont' hard code the message id
@@ -55,53 +55,33 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.getOne = (req, res) => {
-  // // when using DB
-  // models.Message.where({ message_id: "abcde12345" }).fetch()
-  // .then(message => {
-  //   if (!message) {
-  //     throw message;
-  //   }
-  //     res.status(200).send(message);
-  //   })
-  //   .error(err => {
-  //     res.status(500).send(err);
-  //   })
-  //   .catch(() => {
-  //     res.sendStatus(404);
-  //   });
+  models.Message.where({ message_id: req.params.id }).fetch()
+  .then(message => {
+    if (!message) {
+      throw message;
+    }
+      res.status(200).send(message);
+    })
+    .error(err => {
+      res.status(500).send(err);
+    })
+    .catch(() => {
+      res.sendStatus(404);
+    });
 
   // when using Nylus call
-  const authString = 'Bearer ' + req.session.nylasToken;
-  axios.get(`https://api.nylas.com/messages/${req.params.id}`, {
-    headers: { Authorization: authString }
-  }).then(response => {
-    res.send(response.data);
-  })
-  .catch(err => {
-    console.log("Retreiving one mail from Nylas: error");
-  });
-
+  // const authString = 'Bearer ' + req.session.nylasToken;
+  // axios.get(`https://api.nylas.com/messages/${req.params.id}`, {
+  //   headers: { Authorization: authString }
+  // }).then(response => {
+  //   res.send(response.data);
+  // })
+  // .catch(err => {
+  //   console.log("Retreiving one mail from Nylas: error");
+  // });
 };
 
 module.exports.update = (req, res) => {
-  // models.Message.where({ id: req.params.id }).fetch()
-  //   .then(message => {
-  //     if (!message) {
-  //       throw message;
-  //     }
-  //     return message.save(req.body, { method: 'update' });
-  //   })
-  //   .then(() => {
-  //     res.sendStatus(201);
-  //   })
-  //   .error(err => {
-  //     res.status(500).send(err);
-  //   })
-  //   .catch(() => {
-  //     res.sendStatus(404);
-  //   });
-
-  //NYLAS CALL
   const authString = 'Bearer ' + req.session.nylasToken;
   let actionObj = {}; //set depending on type, e.g. trash vs. read email
   if (req.params.type === 'trash') {
@@ -113,6 +93,12 @@ module.exports.update = (req, res) => {
   axios.put('https://api.nylas.com/messages/' + req.params.id, actionObj, {
     headers: { Authorization: authString }
   }).then(response => {
+    return new models.Message({ message_id: req.params.id }).save(actionObj);
+  }).catch(err => { 
+    console.log(`Error updating email ${req.params.id}.`);
+    res.status(400).send();
+  }).then(message => {
+    console.log('Message updated!')
     res.status(200).send(); 
   });
 };
