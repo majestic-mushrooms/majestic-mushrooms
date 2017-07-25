@@ -1,13 +1,15 @@
-export const setToken = (token) => {
-  return {
-    type:   'SET_TOKEN',
-    token:  token 
-  };
-};
 
 export const logoutUser = () => {
   return {
     type: 'LOGOUT_USER',
+  };
+};
+
+export const setAccount = (account, token) => {
+  return {
+    type:     'SET_ACCOUNT',
+    account:   account,
+    token:    token
   };
 };
 

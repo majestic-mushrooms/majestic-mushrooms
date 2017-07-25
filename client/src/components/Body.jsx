@@ -14,10 +14,22 @@ class Body extends React.Component {
 
 
   componentDidMount() {
-    const { setRetrievedMessages } = this.props;
+    const { setRetrievedMessages, setAccountDetails } = this.props;
+
+    axios.get('/api/account').then( userAccount => { 
+      setAccountDetails(userAccount.data, window.token);
+      window.token = null;
+    })
+    .catch( err => {
+      console.log('Error getting account info:', err);
+    });
+
   
-    axios.get('/api/messages/').then(response => {
-      setRetrievedMessages(parseMessage(response.data, today));
+    axios.get('/api/messages/').then( messages => {
+      setRetrievedMessages(parseMessage(messages.data, today));
+    })
+    .catch( err => {
+      console.log('Error getting messages: ', err);
     });
   }
 
