@@ -1,8 +1,9 @@
-module.exports = function(messages) {
-  const colors = [
-    'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-    'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
-  ]; 
+const colors = [
+  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
+  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
+]; 
+
+const createMessages = (messages) => {
 
   return messages.map(email => {
     return {
@@ -25,6 +26,31 @@ module.exports = function(messages) {
       events: JSON.stringify(email.events),
       folders: JSON.stringify(email.folder),
       labels: JSON.stringify(email.labels),
-    }
-  })
+    };
+  });
+};
+
+const createDatabaseMessageObject = (message) => {
+  return {
+    message_id:       message.id,
+    account_id:       message.account_id,
+    thread_id:        message.thread_id,
+    subject:          message.subject,
+    color:            colors[Math.floor(Math.random() * 12)],
+    from:             JSON.stringify(message.from),
+    to:               JSON.stringify(message.to),
+    cc:               JSON.stringify(message.cc),
+    reply_to:         JSON.stringify(message.reply_to),
+    date_received:    new Date(message.date),
+    unread:           message.unread,
+    starred:          message.starred,
+    snippet:          message.snippet,
+    body:             message.body,
+    labels:           JSON.stringify(message.labels)
+  };
+};
+
+module.exports = {
+  createMessages:               createMessages,
+  createDatabaseMessageObject:  createDatabaseMessageObject
 };

@@ -17,6 +17,9 @@ export const viewReducer = (state = 'Inbox', action) => {
     return action.view;
   case 'SET_SEARCH':
     return action.view;
+  case 'SET_VIEW_TO_DISPLAY_MESSAGE':
+    return action.view;
+    
     
   default:
     return 'Inbox';
