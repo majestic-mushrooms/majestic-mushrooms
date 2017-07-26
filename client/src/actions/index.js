@@ -87,6 +87,11 @@ export const setView = (viewName = 'Inbox') => {
       type:       'SET_VIEW_TO_LOGOUT',
       view:       viewName
     };
+  case 'DisplayMessage':
+    return {
+      type:       'SET_VIEW_TO_DISPLAY_MESSAGE',
+      view:       viewName
+    };
 
   default:
     return {

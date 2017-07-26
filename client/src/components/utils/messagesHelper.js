@@ -41,23 +41,30 @@ export const queryMessageDetails = (messageId, messageIndex, messageUnread, setC
 
 export const createMessage = (formData, fromEmail) => {
   if (formData !== null) {
+    let toEmails = formData.toInputField.value.split(',');
+    let ccField = formData.ccInputField;
+    console.log('WE HAVE: ', toEmails, ccField);
+    if (ccField && ccField.value !== '') {
+      ccField = ccField.value.split(',');
+    }
+
+    if (!validEmailAddresses(toEmails) || !validEmailAddresses(ccField) ) {
+      return undefined;
+    }  
     
+
     let email = {
       body: formData.emailContentInputField.value,
       from: [
         {name: fromEmail, email: fromEmail}
       ],
       subject: formData.subjectInputField.value,
-      to: [
-        {name: formData.toInputField.value, email: formData.toInputField.value}
-      ]
+      to: createEmailAddressArray(toEmails)
     };
   
-    const ccField = formData.ccInputField;
+    
     if (ccField && ccField.value !== '') {
-      email.cc = [
-        {name: ccField.value, email: ccField.value}
-      ];
+      email.cc = createEmailAddressArray(ccField);
     }
 
     return email;
@@ -65,8 +72,22 @@ export const createMessage = (formData, fromEmail) => {
 };
 
 
-// cc: [ 
-//   {name: formData.ccInputField.value, email: formData.ccInputField.value}
-// ],
+const validEmailAddresses = (emails) => {
+  let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  
+  for (let i=0; i < emails.length; i++) {
+    console.log('Checking ['+emails[i]+']');
+    if (!regex.test(emails[i].trim())) {
+      console.log('Regex False');
+      return false;
+    }
+  }
+  return true;
+};
 
+const createEmailAddressArray = (emails) => {
+  return emails.map( email => {
+    return {name: email, email: email};
+  });
+};
 
