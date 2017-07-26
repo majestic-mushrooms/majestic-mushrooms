@@ -69,4 +69,3 @@ class EmailList extends React.Component {
 }
 
 export default EmailList;
->>>>>>> fix from field parsing
