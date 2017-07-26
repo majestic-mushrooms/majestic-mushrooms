@@ -11,10 +11,6 @@ const routes = [
     exact:         true,
     component:     BodyContainer
   },
-  { path:          '/authenticated',
-    exact:         true,
-    component:     BodyContainer
-  },
   { path:          '/compose',
     exact:         true,
     component:     ComposeEmailContainer

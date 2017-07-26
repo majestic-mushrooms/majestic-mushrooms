@@ -24,7 +24,6 @@ class Body extends React.Component {
       console.log('Error getting account info:', err);
     });
 
-  
     axios.get('/api/messages/').then( messages => {
       setRetrievedMessages(parseMessage(messages.data, today));
     })

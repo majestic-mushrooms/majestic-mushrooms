@@ -21,7 +21,7 @@ class ReadEmail extends React.Component {
 
   componentDidMount() {
     const { currentMessage, setThread } = this.props;
-    var messageId = currentMessage.id;
+    var messageId = currentMessage.message_id;
     var threadId = currentMessage.thread_id;
     axios.get(`api/threads/${threadId}`)
     .then(response => {
@@ -30,6 +30,10 @@ class ReadEmail extends React.Component {
     .catch(error => {
       console.log('getThreads error: ', error);
     });
+  }
+
+  handleMessageClick() {
+    // placeholder for thread click
   }
 
   handleCloseClick() {
