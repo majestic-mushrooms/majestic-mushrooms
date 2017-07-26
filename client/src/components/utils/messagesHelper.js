@@ -37,13 +37,11 @@ export const queryMessageDetails = (messageId, messageIndex, messageUnread, setC
 }; 
 
 
-
-
 export const createMessage = (formData, fromEmail) => {
   if (formData !== null) {
     let toEmails = formData.toInputField.value.split(',');
     let ccField = formData.ccInputField;
-    console.log('WE HAVE: ', toEmails, ccField);
+
     if (ccField && ccField.value !== '') {
       ccField = ccField.value.split(',');
     }
@@ -52,7 +50,6 @@ export const createMessage = (formData, fromEmail) => {
       return undefined;
     }  
     
-
     let email = {
       body: formData.emailContentInputField.value,
       from: [
@@ -76,9 +73,7 @@ const validEmailAddresses = (emails) => {
   let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   
   for (let i=0; i < emails.length; i++) {
-    console.log('Checking ['+emails[i]+']');
     if (!regex.test(emails[i].trim())) {
-      console.log('Regex False');
       return false;
     }
   }
