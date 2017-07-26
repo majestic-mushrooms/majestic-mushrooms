@@ -4,7 +4,7 @@ import { setSearchQueryAndResults } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    view:  state.view
+    view: state.view
   };
 };
 

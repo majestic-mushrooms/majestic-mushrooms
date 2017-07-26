@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  Grid, Header, Input } from 'semantic-ui-react';
+import { Grid, Header, Input } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { parseMessage } from './utils/messagesHelper';
@@ -15,18 +15,20 @@ class Search extends React.Component {
     const { setSearch } = this.props;
     const searchQuery = e.target.value;
 
-    axios.post('api/search',searchQuery ) 
+    axios.post('api/search', searchQuery) 
       .then(response => {
+        console.log('query', searchQuery);
         setSearch(searchQuery, parseMessage(response.data, today));
       })
       .catch(err => { console.log('Error searching emails ', err); });
   }
 
   render() {
+
     const { view } = this.props;
     return (
       <div>
-        { view === 'Search'  && 
+        { view === 'Search' && 
         <Redirect from={'/'} push to={'/'}/>
         }
 

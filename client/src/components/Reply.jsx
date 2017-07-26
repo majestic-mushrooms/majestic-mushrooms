@@ -11,27 +11,53 @@ class Reply extends React.Component {
       expand: false, 
       deleted: false
     };
+    console.log('TOKEN', window.token);
   }
 
   handleSubmit(e) {
-    console.log('Inside composeMail handle Submit: ', e.target.toInputField.value);
-    //@TODO REMOVE HARDCODED VALUES
-    e.target.accountId = 'abcdefghijkl1234567890';
-    e.target.threadId = '1';
-    e.target.fromField = ['???'];
-    e.target.labels = ['inbox'];
-    e.target.messageId = '1';
-    let message = objectBuilder.createMessage(e.target);
+    const { message } = this.props;
+    console.log('===MSG', message);
+    // console.log('Inside Reply handle Submit: ', e.target.toInputField.value);
+    // console.log('body: ', e.target.emailContentInputField.value);
 
-    console.log('After calling createMessage: ', message);
-    axios.post('/api/messages', message)
-      .then( message => {
-        console.log('Returned back from /api/messages/', message);
-        this.setState({ view: 'home', toAddress: message.data.to});
-      })
-      .catch( err => {
-        console.log('Error after calling to /api/messages ', err);
-      });
+    var subject = 'RE: ' + message.subject;
+    var replyToMessageId = message.id;
+    // var fromArr = [{ name: 'person', email: 'andreamiralles686@gmail.com' }];
+    var fromArr = message.to;
+    var to = message.from;
+    var body = e.target.emailContentInputField.value + message.body;
+    // console.log('subject', subject);
+    // console.log('replyMsgId', replyToMessageId);
+    // console.log('fromArr', fromArr);
+    // console.log('to', to);
+
+    const authString = 'Bearer ' + window.token;
+    axios.post('https://api.nylas.com/send', {
+      headers: { Authorization: authString },
+      body: {
+        from: fromArr,
+        to: to,
+        body: body,
+        // reply_to_message_id: replyToMessageId,
+        subject: subject
+      },
+      json: true
+    }).then(response => { console.log(response); })
+    .catch(err => { console.log('Error sending message ', err); });
+
+    console.log('after calling nylas');
+
+
+
+  //   console.log('After calling createMessage: ', message);
+  //   axios.post('/api/messages', message)
+  //     .then( message => {
+  //       console.log('Returned back from /api/messages/', message);
+  //       this.setState({ view: 'home', toAddress: message.data.to});
+  //     })
+  //     .catch( err => {
+  //       console.log('Error after calling to /api/messages ', err);
+  //     });
   }
 
   deleteDraft(e) {
@@ -47,6 +73,10 @@ class Reply extends React.Component {
   }
 
   render() {
+    const { message } = this.props;
+    // console.log('reply msg', message.from[0].email);
+    // console.log('reply this.props', this.props);
+
     return (
       <Table.Cell colSpan='3' onClick={() => { this.setState({ expand: true, deleted: false }); }}>
 
@@ -62,11 +92,11 @@ class Reply extends React.Component {
           </Form>
         ) : (
 
-            
               <Form onSubmit={this.handleSubmit.bind(this)}>
 
                 <Container>
-                  <Label color='blue' horizontal>To </Label> <Input name="toInputField" transparent={true} className="emailFields" placeholder='Who are you talking to ?' />
+                  <Label color='blue' horizontal>To </Label> 
+                  <Input name="toInputField" transparent={true} className="emailFields" defaultValue={message.from[0].email} />
                   <Divider />
                 </Container> 
                 <TextArea name="emailContentInputField" autoHeight placeholder="Click here to Reply" rows="7" />
