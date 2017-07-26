@@ -22,7 +22,8 @@ router.route('/authenticated')
           grant_type: 'authorization_code',
           code: res.req.query.code 
         })
-    ).then(response => {
+    )
+    .then(response => {
       let token = response.data.access_token;
       
       req.session.nylasToken = token;
@@ -30,9 +31,11 @@ router.route('/authenticated')
       return axios.get('https://api.nylas.com/account', {
         headers: { 'Authorization': 'Bearer ' + token }
       });
-    }).catch(err => { 
+    })
+    .catch(err => { 
       console.log('ERROR ', err); 
-    }).then(response => {
+    })
+    .then(response => {
       let account = response.data;
       let accountId = account.account_id;
 
@@ -47,18 +50,37 @@ router.route('/authenticated')
               provider: account.provider,
               org_unit: account.organization_unit,
               sync_state: account.sync_state
-            }).save(null, { method: 'insert' });
+            }).save(null, { method: 'insert' })
           }
 
           console.log('Account', accountId, 'for', account.name, 'already exists!')
           return existing;
         });
-    }).then(account => {
+    })
+    .catch(err => { 
+      console.log('ERROR: Error saving new / retrieving current account info.'); 
+    })
+    .then(account => {
       req.session.accountId = account.get('account_id');
       req.session.accountEmail = account.get('email');
-
+      
+      return axios.post('https://api.nylas.com/delta/latest_cursor', null, {
+        headers: { Authorization: 'Bearer ' + req.session.nylasToken }
+      })
+    })
+    //retrieved cursor, storing in account
+    .then(response => {
+      const cursor = response.data.cursor;
+      req.session.cursorId = cursor;
+      return new models.Account({ account_id: req.session.accountId }).save({ cursor: cursor });
+    })
+    .then(saved => {
+      console.log('Cursor', req.session.cursorId, 'successfully stored!')
       res.redirect('http://localhost:3000');
-    }).catch(err => { console.log('ERROR: Error saving new account info.'); })
+    })
+    .catch(err => { 
+      console.log('ERROR: Error saving cursor info.'); 
+    })
   });
 
 

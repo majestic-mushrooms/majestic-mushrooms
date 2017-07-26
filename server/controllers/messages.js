@@ -15,21 +15,9 @@ module.exports.getAll = (req, res) => {
       return axios.get('https://api.nylas.com/messages?limit=100', {
         headers: { Authorization: authString }
       })
-      //retrieved messages, getting cursor
+      //retrieved messages, saving to db
       .then(response => {
         retrievedMessages = response.data;
-        return axios.post('https://api.nylas.com/delta/latest_cursor', null, {
-          headers: { Authorization: authString }
-        })
-      })
-      //retrieved cursor, storing in account
-      .then(response => {
-        const cursor = response.data.cursor;
-        req.session.cursorId = cursor;
-        return new models.Account({ account_id: req.session.accountId }).save({ cursor: cursor });
-      })
-      .then(saved => {
-        console.log('Cursor', req.session.cursorId, 'successfully stored!')
         const Messages = bookshelf.Collection.extend({
           model: models.Message
         });

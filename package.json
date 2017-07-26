@@ -35,6 +35,7 @@
     "knex": "^0.12.9",
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
+    "nylas": "^3.1.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
@@ -55,8 +56,8 @@
     "webpack": "3"
   },
   "devDependencies": {
-    "babel-loader": "^7.0.0",
     "babel-jest": "^20.0.3",
+    "babel-loader": "^7.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-latest": "^6.24.0",
