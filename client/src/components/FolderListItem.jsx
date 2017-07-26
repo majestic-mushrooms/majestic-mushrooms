@@ -12,7 +12,7 @@ class FolderListItem extends React.Component {
     const { activeItem } = this.state || {};
 
     return (
-      <Menu.Item onClick={()=>{ this.props.filter(this.props.folder.id); }} name={this.props.folder.display_name} active={activeItem === this.props.folder.display_name } name='mail' >
+      <Menu.Item onClick={()=>{ this.props.filter(this.props.folder.id); }} name={this.props.folder.display_name} active={activeItem === this.props.folder.display_name } as={Link} to='/' name='mail' >
         <Label color={this.props.folder.color}>{this.props.folder.count}</Label>
         <Icon name='folder outline'></Icon>
         {this.props.folder.display_name}
