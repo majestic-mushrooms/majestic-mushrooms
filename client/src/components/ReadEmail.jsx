@@ -36,6 +36,7 @@ class ReadEmail extends React.Component {
     // placeholder for thread click
   }
 
+
   handleCloseClick() {
     // this.setState({redirect: true});    
   }
@@ -72,10 +73,8 @@ class ReadEmail extends React.Component {
               <Table.Header>
                 <Table.Row height="100px">
                   <Table.HeaderCell colSpan='2' style={{wordWrap: 'normal'}}>
-                  <h2>{currentMessage.subject}</h2>
+                    <h2>{currentMessage.subject}</h2>
                   </Table.HeaderCell>
-
-
                   <Table.HeaderCell colSpan='1' textAlign='right'> 
                     {currentMessage.messageIndex > 0 ? <Icon name="chevron left" onClick={this.handleArrowClick.bind(this, -1)}/> : null}
                     {currentMessage.messageIndex < messages.length ? <Icon name="chevron right" onClick={this.handleArrowClick.bind(this, 1)}/> : null}
@@ -98,7 +97,7 @@ class ReadEmail extends React.Component {
                   onClick={this.handleMessageClick.bind(this)} />;
                   })}
               <Table.Row>
-                <Reply />
+                <Reply message={thread[0]}/>
               </Table.Row>
             </Table.Body> 
           </Table>
