@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'; 
-import { Form, TextArea, Divider, Button, Segment, Container, Input, Label } from 'semantic-ui-react';
+import { Form, TextArea, Divider, Button, Segment, Container, Input, Label, Message } from 'semantic-ui-react';
 import axios from 'axios';
 import { createMessage } from './utils/messagesHelper.js';
 
@@ -16,14 +16,20 @@ class ComposeEmail extends React.Component {
   handleSubmit(e) {
     const { setView } = this.props;
     let message = createMessage(e.target, this.props.account.email_address);
-
-    axios.post('/api/messages', message)
+    if (message === undefined) {
+      setView('DisplayMessage');
+    } else {
+      axios.post('/api/messages', message)
       .then( newMessage => {
         setView('Inbox');
       })
       .catch( err => {
         console.log('Error after calling to /api/messages ', err);
       });
+    }
+
+    console.log('AFTER WITH MESSAGE: ', message);
+
   }
 
   render() {
@@ -37,6 +43,15 @@ class ComposeEmail extends React.Component {
                   to={'/'} /> 
         }
         <Divider hidden />
+        { view === 'DisplayMessage' && 
+        <Message negative>
+          <Message.Header>We are unable to send your message.</Message.Header>
+          <p>It seems one of your email address is in the incorrect format.
+            Please re-submit your message.
+          </p>
+        </Message>
+        }
+
           <Segment.Group>
           <Segment padded={true}>
           <Form onSubmit={this.handleSubmit.bind(this)}>
