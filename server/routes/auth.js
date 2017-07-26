@@ -67,22 +67,7 @@ router.route('/authenticated')
     .then(account => {
       req.session.accountId = account.get('account_id');
       req.session.accountEmail = account.get('email');
-      
-      return axios.post('https://api.nylas.com/delta/latest_cursor', null, {
-        headers: { Authorization: 'Bearer ' + req.session.nylasToken }
-      });
-    })
-    //retrieved cursor, storing in account
-    .then(response => {
-      const cursor = response.data.cursor;
-      req.session.cursorId = cursor;
-      //start watching cursor
-      deltaWatcher(req, cursor, CLIENT_ID, CLIENT_SECRET, ee);
-
-      return new models.Account({ account_id: req.session.accountId }).save({ cursor: cursor });
-    })
-    .then(saved => {
-      console.log('Cursor', req.session.cursorId, 'successfully stored!')
+ 
       res.redirect('http://localhost:3000');
     })
     .catch(err => { 
