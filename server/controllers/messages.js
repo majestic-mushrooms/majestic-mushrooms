@@ -1,7 +1,7 @@
 const axios = require('axios');
 const bookshelf = require('../../db');
 const models = require('../../db/models');
-const messagesConstructor = require('../utils/messagesConstructor');
+const {createMessages, createDatabaseMessageObject} = require('../utils/messagesConstructor');
 
 module.exports.getAll = (req, res) => {
   models.Message.query('orderBy', 'date_received', 'desc', 'where', 'account_id', '=', req.session.accountId).fetchAll()
@@ -15,14 +15,14 @@ module.exports.getAll = (req, res) => {
         const Messages = bookshelf.Collection.extend({
           model: models.Message
         });
-        messages = Messages.forge(messagesConstructor(response.data));
+        messages = Messages.forge(createMessages(response.data));
         return messages.invokeThen('save', null, { method: 'insert' });
       })
       .catch(err => {
         console.log(err);
         throw Error;
       });
-    } else { return messages }
+    } else { return messages; }
   
   }).catch(err => {
     console.log(`Error retrieving messages for account ${req.session.accountId}!`);
@@ -49,11 +49,18 @@ module.exports.create = (req, res) => {
   .then( message => {
     console.log('Successfully sent message to Nylas: ', message.data);
     res.status(201).send(message.data);
-    console.log('Inside success AFTER res.send');
+
+    new models.Message(createDatabaseMessageObject(message.data))
+    .save(null, {method: 'insert'})
+    .then(result => { console.log('Successfully created message in DATABASE: ', result);})
+    .catch(err => { res.status(500).send(err); });
   })
   .catch( err => {
     console.log('Error posting message to Nylas: ', err);
   });
+
+
+
 };
 
 module.exports.getOne = (req, res) => {
