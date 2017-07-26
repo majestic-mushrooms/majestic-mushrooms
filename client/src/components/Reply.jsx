@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon, Table, Segment, Label, Form, TextArea, Divider, Button, Container, Input, Message } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { createReply } from './utils/messagesHelper.js';
 
 
 class Reply extends React.Component {
@@ -9,77 +10,39 @@ class Reply extends React.Component {
     super(props);
     this.state = {
       expand: false, 
-      deleted: false
+      deleted: false,
+      sent: false
     };
-    console.log('TOKEN', window.token);
   }
 
   handleSubmit(e) {
     const { message } = this.props;
-    console.log('===MSG', message);
-    // console.log('Inside Reply handle Submit: ', e.target.toInputField.value);
-    // console.log('body: ', e.target.emailContentInputField.value);
-
-    var subject = 'RE: ' + message.subject;
-    var replyToMessageId = message.id;
-    // var fromArr = [{ name: 'person', email: 'andreamiralles686@gmail.com' }];
-    var fromArr = message.to;
-    var to = message.from;
-    var body = e.target.emailContentInputField.value + message.body;
-    // console.log('subject', subject);
-    // console.log('replyMsgId', replyToMessageId);
-    // console.log('fromArr', fromArr);
-    // console.log('to', to);
-
-    const authString = 'Bearer ' + window.token;
+    const reply = createReply(e.target, message);
+    const authString = 'Bearer ' + 'aL6hAD90qniB0At9uN8Nmj0IYnX1XY';
+    this.setState({sent: true});
     axios({
       method: 'post',
       url: 'https://api.nylas.com/send',
       headers: { Authorization: authString },
-      body: {
-        from: fromArr,
-        to: to,
-        body: body,
-        // reply_to_message_id: replyToMessageId,
-        subject: subject
-      },
+      data: reply,
       json: true,
       responseType: 'json'
     }).then(message => { console.log('got reply msg', message); })
     .catch(err => { console.log('Error posting reply message to Nylas', err); });
-
-  //   console.log('After calling createMessage: ', message);
-  //   axios.post('/api/messages', message)
-  //     .then( message => {
-  //       console.log('Returned back from /api/messages/', message);
-  //       this.setState({ view: 'home', toAddress: message.data.to});
-  //     })
-  //     .catch( err => {
-  //       console.log('Error after calling to /api/messages ', err);
-  //     });
   }
 
   deleteDraft(e) {
     e.stopPropagation();
-    this.setState({ expand: false, deleted: true });
-    // {this.state.deleted ? 
-    //   (<Message
-    //     warning style={{fontWeight: 'bold'}}
-    //     content="Message discarded."
-    //   />) : null
-    // }
-            
+    this.setState({ expand: false, deleted: true });       
   }
 
   render() {
     const { message } = this.props;
-    // console.log('reply msg', message.from[0].email);
-    // console.log('reply this.props', this.props);
 
     return (
       <Table.Cell colSpan='3' onClick={() => { this.setState({ expand: true, deleted: false }); }}>
 
-        {!this.state.expand ? (
+        {!this.state.expand || this.state.sent ? (
           <Form warning>
             {this.state.deleted ? 
               (<Message
@@ -87,7 +50,7 @@ class Reply extends React.Component {
                 content="Message discarded."
               />) : null
             }          
-            <TextArea name="emailContentInputField" placeholder="Click here to Reply" rows="3" />
+            <TextArea name="emailContentInputField" placeholder="Click here to Reply" rows="3" value=''/>
           </Form>
         ) : (
 

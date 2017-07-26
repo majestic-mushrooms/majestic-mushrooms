@@ -16,9 +16,10 @@ class ComposeEmail extends React.Component {
   handleSubmit(e) {
     const { setView } = this.props;
     let message = createMessage(e.target, this.props.account.email_address);
-
+    console.log('compose msg', message);
     axios.post('/api/messages', message)
       .then( newMessage => {
+        console.log('newMessage', newMessage);
         setView('Inbox');
       })
       .catch( err => {
