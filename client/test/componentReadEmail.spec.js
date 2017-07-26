@@ -16,10 +16,5 @@ describe('>>> <div /> --- Shallow Render REACT COMPONENTS', () => {
     it('+++ render the DUMB component', () => {
         expect(wrapper.length).toEqual(1);
     });
-
-    it('should render <div /> components', () => {
-        const wrapper = shallow(<div />);
-        expect(wrapper.length).toBeTruthy();
-    });
     
 });
