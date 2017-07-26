@@ -6,29 +6,50 @@ const messagesConstructor = require('../utils/messagesConstructor');
 module.exports.getAll = (req, res) => {
   models.Message.query('orderBy', 'date_received', 'desc', 'where', 'account_id', '=', req.session.accountId).fetchAll()
   .then(messages => {
-    if (messages.length === 0) { //no messages stored
+    let retrievedMessages = null;
+
+    //if no messages stored for new user, retrieve via nylas call
+    if (messages.length === 0) {
       console.log(`No messages stored for account ${req.session.accountId}. Retrieving!`);
       const authString = 'Bearer ' + req.session.nylasToken;
       return axios.get('https://api.nylas.com/messages?limit=100', {
         headers: { Authorization: authString }
-      }).then(response => {
+      })
+      //retrieved messages, getting cursor
+      .then(response => {
+        retrievedMessages = response.data;
+        return axios.post('https://api.nylas.com/delta/latest_cursor', null, {
+          headers: { Authorization: authString }
+        })
+      })
+      //retrieved cursor, storing in account
+      .then(response => {
+        const cursor = response.data.cursor;
+        req.session.cursorId = cursor;
+        return new models.Account({ account_id: req.session.accountId }).save({ cursor: cursor });
+      })
+      .then(saved => {
+        console.log('Cursor', req.session.cursorId, 'successfully stored!')
         const Messages = bookshelf.Collection.extend({
           model: models.Message
         });
-        messages = Messages.forge(messagesConstructor(response.data));
+        messages = Messages.forge(messagesConstructor(retrievedMessages));
         return messages.invokeThen('save', null, { method: 'insert' });
       })
       .catch(err => {
         console.log(err);
         throw Error;
       });
-    } else { return messages }
+
+    //if messages already exist
+    } else { return messages; }
   
   }).catch(err => {
     console.log(`Error retrieving messages for account ${req.session.accountId}!`);
     res.status(404).send('Message retrieval failed.');
   
-  }).then(messages => {
+  })
+  .then(messages => {
     console.log(`Messages successfully retrieved for account ${req.session.accountId}. Rerouting!`)
     res.status(200).send(messages);// render to the page
   })

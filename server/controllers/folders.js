@@ -53,7 +53,7 @@ module.exports.getAll = (req, res) => {
 
 module.exports.filter = (req, res) => {
   const authString = 'Bearer ' + req.session.nylasToken;
-  axios.get(`https://api.nylas.com/messages?in=${req.params.id}`, {
+  axios.get(`https://api.nylas.com/messages?in=${req.params.id}&limit=50`, {
     headers: { Authorization: authString }
   }).then(response => {
     res.status(200).send(response.data);
