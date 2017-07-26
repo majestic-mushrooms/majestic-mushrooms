@@ -19,7 +19,6 @@ class ComposeEmail extends React.Component {
 
     axios.post('/api/messages', message)
       .then( newMessage => {
-        console.log('newMessage', newMessage);
         setView('Inbox');
       })
       .catch( err => {
