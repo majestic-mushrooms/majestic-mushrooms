@@ -68,6 +68,20 @@ export const createMessage = (formData, fromEmail) => {
   }
 };
 
+export const createReply = (formData, message) => {
+  if (formData !== null) {
+    
+    let email = {
+      body: formData.emailContentInputField.value,
+      from: message.to,
+      subject: 'RE: ' + message.subject,
+      to: message.from
+    };
+    console.log('EMAIL', email);
+    return email;
+  }
+};
+
 
 const validEmailAddresses = (emails) => {
   let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

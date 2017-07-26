@@ -4,6 +4,8 @@ const models = require('../../db/models');
 const {createMessages, createDatabaseMessageObject} = require('../utils/messagesConstructor');
 
 module.exports.getAll = (req, res) => {
+  console.log('TOKEN', req.session.nylasToken);
+
   models.Message.query('orderBy', 'date_received', 'desc', 'where', 'account_id', '=', req.session.accountId).fetchAll()
   .then(messages => {
     let retrievedMessages = null;
@@ -35,17 +37,15 @@ module.exports.getAll = (req, res) => {
   }).catch(err => {
     console.log(`Error retrieving messages for account ${req.session.accountId}!`);
     res.status(404).send('Message retrieval failed.');
-  
   })
   .then(messages => {
     console.log(`Messages successfully retrieved for account ${req.session.accountId}. Rerouting!`)
     res.status(200).send(messages);// render to the page
-  })
+  });
 };
 
 module.exports.create = (req, res) => {
   console.log('Inside Messages Controller create(): ', req.body);
-
   const authString = 'Bearer ' + req.session.nylasToken;
   axios({
     method: 'post',
@@ -67,9 +67,6 @@ module.exports.create = (req, res) => {
   .catch( err => {
     console.log('Error posting message to Nylas: ', err);
   });
-
-
-
 };
 
 module.exports.getOne = (req, res) => {
@@ -78,8 +75,8 @@ module.exports.getOne = (req, res) => {
     if (!message) {
       throw message;
     }
-      res.status(200).send(message);
-    })
+    res.status(200).send(message);
+  })
     .error(err => {
       res.status(500).send(err);
     })
@@ -116,7 +113,7 @@ module.exports.update = (req, res) => {
     console.log(`Error updating email ${req.params.id}.`);
     res.status(400).send();
   }).then(message => {
-    console.log('Message updated!')
+    console.log('Message updated!');
     res.status(200).send(); 
   });
 };
