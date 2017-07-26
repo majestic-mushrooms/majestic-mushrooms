@@ -32,7 +32,9 @@ class Reply extends React.Component {
     // console.log('to', to);
 
     const authString = 'Bearer ' + window.token;
-    axios.post('https://api.nylas.com/send', {
+    axios({
+      method: 'post',
+      url: 'https://api.nylas.com/send',
       headers: { Authorization: authString },
       body: {
         from: fromArr,
@@ -41,13 +43,10 @@ class Reply extends React.Component {
         // reply_to_message_id: replyToMessageId,
         subject: subject
       },
-      json: true
-    }).then(response => { console.log(response); })
-    .catch(err => { console.log('Error sending message ', err); });
-
-    console.log('after calling nylas');
-
-
+      json: true,
+      responseType: 'json'
+    }).then(message => { console.log('got reply msg', message); })
+    .catch(err => { console.log('Error posting reply message to Nylas', err); });
 
   //   console.log('After calling createMessage: ', message);
   //   axios.post('/api/messages', message)
