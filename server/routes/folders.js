@@ -5,8 +5,8 @@ const FolderController = require('../controllers').Folders;
 
 router.route('/')
   .get(FolderController.getAll);
-
-  router.route('/:id')
+  // .post(ProfileController.create)
+router.route('/:id')
   .get(FolderController.filter);
   
 module.exports = router;

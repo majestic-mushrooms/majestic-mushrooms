@@ -7,7 +7,7 @@ import FolderList from './components/FolderList.jsx';
 import { Grid, Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react';
 import { Provider } from 'react-redux';
 import store from './store';
-import FolderContainer from './containers/FolderContainer.jsx';
+
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest);
   return (
@@ -39,7 +39,7 @@ const App = () => {
             </Grid.Column> 
 
             <Grid.Column className='foldersTable' width={3}>
-              <FolderContainer />
+              <FolderList />
             </Grid.Column>
           </Grid.Row>
         </Grid>
