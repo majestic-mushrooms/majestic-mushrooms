@@ -2,9 +2,11 @@ const express = require('express');
 const middleware = require('../middleware');
 const axios = require('axios');
 const querystring = require('querystring');
+
 const models = require('../../db/models');
 const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
 const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
+const deltaWatcher = require('../utils/deltaWatcher');
 
 const router = express.Router();
 
@@ -35,6 +37,7 @@ router.route('/authenticated')
     .catch(err => { 
       console.log('ERROR ', err); 
     })
+    //retrieve account info, save if new
     .then(response => {
       let account = response.data;
       let accountId = account.account_id;
@@ -66,12 +69,15 @@ router.route('/authenticated')
       
       return axios.post('https://api.nylas.com/delta/latest_cursor', null, {
         headers: { Authorization: 'Bearer ' + req.session.nylasToken }
-      })
+      });
     })
     //retrieved cursor, storing in account
     .then(response => {
       const cursor = response.data.cursor;
       req.session.cursorId = cursor;
+      //start watching cursor
+      deltaWatcher(req, cursor, CLIENT_ID, CLIENT_SECRET);
+
       return new models.Account({ account_id: req.session.accountId }).save({ cursor: cursor });
     })
     .then(saved => {
