@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-// import App from '../src/index.jsx'
+import {EmailListItemContainer} from '../../src/containers/EmailListItemContainer.jsx'
 
 
 describe('>>> <div /> --- Shallow Render REACT COMPONENTS', () => {
