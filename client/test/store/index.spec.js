@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-// import App from '../src/index.jsx'
+import {store} from '../../src/store/index.js'
 
 
 describe('>>> <div /> --- Shallow Render REACT COMPONENTS', () => {
