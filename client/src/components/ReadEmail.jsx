@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Redirect } from 'react-router-dom';
-import { Message, Divider, Table, Icon, Label, Image } from 'semantic-ui-react';
+import { Redirect, Link } from 'react-router-dom';
+import { Message, Divider, Table, Icon, Label, Image, Menu } from 'semantic-ui-react';
 import axios from 'axios';
 import ReadMailEntry from './ReadMailEntry.jsx';
+import EmailListItemContainer from '../containers/EmailListItemContainer.jsx';
 import Reply from './Reply.jsx';
 import { queryMessageDetails } from './utils/messagesHelper.js';
 
@@ -34,15 +35,7 @@ class ReadEmail extends React.Component {
 
   handleMessageClick() {
     // placeholder for thread click
-  }
-
-
-  handleCloseClick() {
-    // this.setState({redirect: true});    
-  }
-
-  handleMessageClick() {
-
+    console.log("message clicked. not yet rigged");
   }
   
   handleArrowClick(arrowDirection) {
@@ -78,33 +71,34 @@ class ReadEmail extends React.Component {
                   <Table.HeaderCell colSpan='1' textAlign='right'> 
                     {currentMessage.messageIndex > 0 ? <Icon name="chevron left" onClick={this.handleArrowClick.bind(this, -1)}/> : null}
                     {currentMessage.messageIndex < messages.length ? <Icon name="chevron right" onClick={this.handleArrowClick.bind(this, 1)}/> : null}
-                      <Icon name="remove" onClick={this.handleCloseClick.bind(this)}/>
-                  </Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                {<ReadMailEntry message={thread[0]} messageId={thread[0].message_id} />}
-                <Table.Row>
-                  <Table.Cell colSpan='3'>
+                    <Menu.Item as={Link} to='/' > <Icon name='remove' /> </Menu.Item>
+                    
+                    </Table.HeaderCell>
+                    </Table.Row>
+                    </Table.Header>
+                    
+                    <Table.Body>
+                    {<ReadMailEntry message={thread[0]} messageId={thread[0].message_id} />}
+                    <Table.Row>
+                    <Table.Cell colSpan='3'>
                     <div dangerouslySetInnerHTML={this.createMarkup()} ></div>
-                  </Table.Cell>
-                </Table.Row>
-                  {thread.slice(1, thread.length).map((message, index) => {
-                    currentColor++;
-                    if (currentColor > thread.length) { currentColor = -1; }
-                    return <ReadMailEntry key={index} message={message} messageId={message.message_id} 
-                  onClick={this.handleMessageClick.bind(this)} />;
-                  })}
-              <Table.Row>
-                <Reply message={thread[0]}/>
-              </Table.Row>
-            </Table.Body> 
-          </Table>
-        )}
-      </div>
-    );
-  }
-}
+                    </Table.Cell>
+                    </Table.Row>
+                    {thread.slice(1, thread.length).map((message, index) => {
+                      currentColor++;
+                      if (currentColor > thread.length) { currentColor = -1; }
+                      return <ReadMailEntry key={index} message={message} messageId={message.message_id} />;
+                    })}
 
-export default ReadEmail;
+                    <Table.Row>
+                    <Reply />
+                    </Table.Row>
+                    </Table.Body> 
+                    </Table>
+                  )}
+                  </div>
+                );
+              }
+            }
+            
+            export default ReadEmail;
