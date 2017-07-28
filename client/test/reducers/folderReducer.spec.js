@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-// import App from '../src/index.jsx'
+import {foldersReducer} from '../../src/reducers/foldersReducer.js';
 
 
 describe('>>> <div /> --- Shallow Render REACT COMPONENTS', () => {
@@ -15,11 +15,6 @@ describe('>>> <div /> --- Shallow Render REACT COMPONENTS', () => {
 
     it('+++ render the DUMB component', () => {
         expect(wrapper.length).toEqual(1);
-    });
-
-    it('should render three <div /> components', () => {
-        const wrapper = shallow(<div />);
-        expect(wrapper.length).toBeTruthy();
     });
     
 });
