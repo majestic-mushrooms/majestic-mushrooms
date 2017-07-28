@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'; 
-import { Form, TextArea, Divider, Button, Segment, Container, Input, Label, Message } from 'semantic-ui-react';
+import { Form, TextArea, Divider, Button, Segment, Container, Input, Label, Message, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import { createMessage } from './utils/messagesHelper.js';
+import { WAIT_IMAGE } from './utils/stylesHelper.js';
 
 
 const handleSubmit = (props, e) => {
-  
   const { setView } = props;
+
+  setView('Waiting');
   let message = createMessage(e.target, props.account.email_address);
   if (message === undefined) {
     setView('DisplayMessage');
@@ -21,21 +23,25 @@ const handleSubmit = (props, e) => {
       console.log('Error after calling to /api/messages ', err);
     });
   }
-}
+};
 
 
 const ComposeEmail = (props) => {
 
   const { view } = props;
-
   return (
       <div>
+      { 
+      view === 'Waiting' && 
+          <Image src={WAIT_IMAGE} centered size='small'/>
+      }
       { 
       view === 'Inbox' && 
       <Redirect from={'/compose'} 
                 push
                 to={'/'} /> 
       }
+      
       <Divider hidden />
       { view === 'DisplayMessage' && 
       <Message negative>
@@ -45,7 +51,8 @@ const ComposeEmail = (props) => {
         </p>
       </Message>
       }
-
+      { 
+      (view === 'Compose' || view === 'DisplayMessage') && 
         <Segment.Group>
         <Segment padded={true}>
         <Form onSubmit={handleSubmit.bind(this, props)}>
@@ -66,6 +73,7 @@ const ComposeEmail = (props) => {
         </Form>
         </Segment>
         </Segment.Group>
+      }
       </div>
   );
   

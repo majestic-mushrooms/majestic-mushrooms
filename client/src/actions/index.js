@@ -92,6 +92,11 @@ export const setView = (viewName = 'Inbox') => {
       type:       'SET_VIEW_TO_DISPLAY_MESSAGE',
       view:       viewName
     };
+  case 'Waiting':
+    return {
+      type:       'SET_VIEW_TO_WAITING',
+      view:       viewName
+    };
 
   default:
     return {
