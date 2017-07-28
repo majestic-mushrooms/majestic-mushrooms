@@ -13,6 +13,8 @@ server.listen(PORT, '0.0.0.0', '', () => {
 });
 
 io.on('connection', (socket) => {
+  console.log('socket connected!');
+  
   ee.on('delta', (delta) => {
     console.log('=======EMITTING DELTA=======');
     socket.emit('delta', delta);

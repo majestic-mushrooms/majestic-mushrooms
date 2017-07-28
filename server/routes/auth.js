@@ -6,8 +6,6 @@ const querystring = require('querystring');
 const models = require('../../db/models');
 const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
 const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
-const deltaWatcher = require('../utils/deltaWatcher');
-const ee = require('../socket.js');
 
 const router = express.Router();
 
@@ -69,9 +67,6 @@ router.route('/authenticated')
       req.session.accountEmail = account.get('email');
 
       res.redirect('http://localhost:3000');
-    })
-    .catch(err => { 
-      console.log('ERROR: Error saving cursor info.'); 
     })
   });
 

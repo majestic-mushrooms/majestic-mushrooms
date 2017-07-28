@@ -18,10 +18,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     setNewView: (viewName) => {
       dispatch(setView(viewName));
-    },
-    setAccountDetails: (account, token) => {
-      dispatch(setAccount(account, token));
-    },
+    }
   };
 };
 

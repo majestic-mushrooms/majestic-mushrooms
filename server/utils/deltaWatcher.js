@@ -1,7 +1,10 @@
 const models = require('../../db/models');
 const messagesConstructor = require('../utils/messagesConstructor');
+const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
+const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
+const ee = require('../socket.js');
 
-module.exports = function(req, cursor, CLIENT_ID, CLIENT_SECRET, ee) {
+module.exports = function(req) {
   const Nylas = require('nylas').config({
     appId: CLIENT_ID,
     appSecret: CLIENT_SECRET 
@@ -11,8 +14,13 @@ module.exports = function(req, cursor, CLIENT_ID, CLIENT_SECRET, ee) {
 
   nylas.deltas.latestCursor(function(error, cursor) {
 
-    // Start the stream and add event handlers.
+    //start stream and add event handlers AFTER retrieving latest cursor
     var stream = nylas.deltas.startStream(cursor, params);
+
+    //store latest cursor
+    new models.Account({ account_id: req.session.accountId }).save({ cursor: cursor });
+    req.session.cursorId = cursor;
+
     console.log('Nylas stream started from cursor: ', cursor);
 
     stream.on('delta', function(delta) {
