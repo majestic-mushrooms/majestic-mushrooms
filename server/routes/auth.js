@@ -67,7 +67,7 @@ router.route('/authenticated')
     .then(account => {
       req.session.accountId = account.get('account_id');
       req.session.accountEmail = account.get('email');
- 
+
       res.redirect('http://localhost:3000');
     })
     .catch(err => { 
