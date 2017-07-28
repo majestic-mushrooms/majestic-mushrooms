@@ -7,6 +7,7 @@ const models = require('../../db/models');
 const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
 const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
 const deltaWatcher = require('../utils/deltaWatcher');
+const ee = require('../socket.js');
 
 const router = express.Router();
 
@@ -76,7 +77,7 @@ router.route('/authenticated')
       const cursor = response.data.cursor;
       req.session.cursorId = cursor;
       //start watching cursor
-      deltaWatcher(req, cursor, CLIENT_ID, CLIENT_SECRET);
+      deltaWatcher(req, cursor, CLIENT_ID, CLIENT_SECRET, ee);
 
       return new models.Account({ account_id: req.session.accountId }).save({ cursor: cursor });
     })

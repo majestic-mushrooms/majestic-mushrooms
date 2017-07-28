@@ -1,7 +1,7 @@
 const models = require('../../db/models');
 const messagesConstructor = require('../utils/messagesConstructor');
 
-module.exports = function(req, cursor, CLIENT_ID, CLIENT_SECRET) {
+module.exports = function(req, cursor, CLIENT_ID, CLIENT_SECRET, ee) {
   const Nylas = require('nylas').config({
     appId: CLIENT_ID,
     appSecret: CLIENT_SECRET 
@@ -25,10 +25,19 @@ module.exports = function(req, cursor, CLIENT_ID, CLIENT_SECRET) {
       //if message, update message db
       if (delta.object === 'message') {
         let saveObj = {};
-        if (delta.event === 'create') { saveObj = {method: 'insert'}; }
-        models.Message.forge(messagesConstructor([delta.attributes])[0]).save(null, saveObj)
-        .then( saved => { console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); } )
-        .catch( err => { console.log('ERROR: Message not successfully created/update.'); } );
+        if (delta.event === 'delete') {
+          //@TODO fix - seems to error out when event is delete (on messagesContructor -> email.id is not defined)
+          console.log('=========DELETE delta received:', delta);
+        } else {
+          if (delta.event === 'create') { saveObj = {method: 'insert'}; }
+          models.Message.forge(messagesConstructor([delta.attributes])[0]).save(null, saveObj)
+          .then( saved => { 
+            console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); 
+            //emit delta event to socket.io
+            ee.emit('delta', { event: delta.event, attributes: delta.attributes });
+          })
+          .catch( err => { console.log('ERROR: Message not successfully created/update.'); } );
+        }
       }
 
     }).on('error', function(err) {
