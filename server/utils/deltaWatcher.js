@@ -38,7 +38,8 @@ module.exports = function(req) {
           console.log('=========DELETE delta received:', delta);
         } else {
           //not ideal - additional db check
-          //whyL some deltas are missed depending on refresh timing, so modify events might come in existing but not stored msgs
+          //why: some deltas are missed depending on refresh timing, so modify events might come in existing but not stored msgs
+          //CLIENT NOTE: currently not displaying a missed delta until refresh, due to potential for unexpected insertions
           let saveObj = {};
           models.Message.where({ message_id: delta.id }).fetch()
             .then( existing => {
