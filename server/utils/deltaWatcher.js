@@ -42,7 +42,7 @@ module.exports = function(req) {
           .then( saved => { 
             console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); 
             //emit delta event to socket.io
-            ee.emit('delta', { event: delta.event, attributes: delta.attributes });
+            ee.emit('delta', { event: delta.event, attributes: saved });
           })
           .catch( err => { console.log('ERROR: Message not successfully created/update.'); } );
         }

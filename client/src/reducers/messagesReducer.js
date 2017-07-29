@@ -1,23 +1,12 @@
 
-const message = (state, action) => {
-  switch (action.type) {
-  case 'ADD_MESSAGE':
-    return {
-      id: action.messageId,
-      subject: action.subject,
-    };
-  default: 
-    return state;
-  }
-};
-  
 export const messagesReducer = (state = [], action) => {
   switch (action.type) {
   case 'ADD_MESSAGE':
     return [
-      ...state,
-      message(undefined, action)
-    ];
+      action,
+      ...state
+    ]
+
   case 'REMOVE_MESSAGE':
     return state.filter( message => message.id !== action.messageId);
 
@@ -29,6 +18,15 @@ export const messagesReducer = (state = [], action) => {
   
   case 'CLEAR_MESSAGES':
     return [];
+
+  case 'MODIFY_MESSAGE':
+    return state.map( message => {
+      if (message.message_id === action.message.message_id) {
+        console.log('~~~~~~~~~~~~~~~REDUCER:', action.message)
+        return { ...action.message };
+      }
+      return message;
+    });
     
   case 'SET_SEARCH_RESULTS':
     return action.messages;

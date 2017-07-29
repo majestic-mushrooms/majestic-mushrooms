@@ -19,7 +19,6 @@ class Body extends React.Component {
 
     axios.get('/api/messages/').then( messages => {
       setRetrievedMessages(parseMessage(messages.data, today));
-      console.log('INTIAL RETRIEVE OF MESSAGES DONE');
     })
     .catch( err => {
       console.log('Error getting messages: ', err);

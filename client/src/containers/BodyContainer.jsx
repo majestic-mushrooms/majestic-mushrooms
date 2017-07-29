@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setMessages, setSearchResults, setView, setAccount } from '../actions';
+import { setMessages, setSearchResults, setView } from '../actions';
 import Body from '../components/Body.jsx';
 
 const mapStateToProps = (state) => {

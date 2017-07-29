@@ -31,7 +31,7 @@ class EmailListItem extends React.Component {
     const message = this.props.messages[messageIndex];
     // console.log('Inside EmailListItem: ', this.props.messages, messageIndex, view);
     const fromStr = message.from.reduce((fromStr, sender) => fromStr + sender.name, '');
-    const weight = message.unread === true ? 'bold' : 'regular';
+    const weight = message.unread === true ? 'bold' : 'normal';
 
     return (
     

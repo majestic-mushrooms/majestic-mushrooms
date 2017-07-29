@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
-import { setAccount } from '../actions';
+import { setAccount, modifyMessage, addMessage } from '../actions';
 import App from '../App.jsx';
-
-console.log(App, 'APP')
 
 const mapStateToProps = (state) => {
   return {
+    messages: state.messages,
     view:     state.view 
   };
 };
@@ -14,6 +13,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setAccountDetails: (account, token) => {
       dispatch(setAccount(account, token));
+    },
+    modifyMessage: (modifiedMessage) => {
+      dispatch(modifyMessage(modifiedMessage));
+    },
+    addMessage: (newMessage) => {
+      dispatch(addMessage(newMessage));
     }
   };
 };

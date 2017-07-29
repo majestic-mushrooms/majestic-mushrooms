@@ -32,6 +32,7 @@ class EmailList extends React.Component {
   } 
 
   render() {
+    console.log('EMAIL LIST RENDERING', this.props.messages)
     const { view } = this.props;
     const { page } = this.state;
     const messages =  (view === 'Search') ? this.props.searchResults : 

@@ -17,10 +17,22 @@ export const setAccount = (account, token) => {
 export const addMessage = (messageObj) => {
   return {
     type:       'ADD_MESSAGE',
-    messageId:  messageObj.id,
-    subject:    messageObj.subject
+    color:      messageObj.color,
+    from:       messageObj.from,
+    message_id: messageObj.message_id,
+    subject:    messageObj.subject,
+    snippet:    messageObj.snippet,
+    timestamp:  messageObj.timestamp,
+    unread:     messageObj.unread
   };
 };
+
+export const modifyMessage = (message) => {
+  return {
+    type:      'MODIFY_MESSAGE',
+    message:    message
+  };
+}
 
 export const removeMessage = (messageId) => {
   return {
@@ -43,7 +55,6 @@ export const setMessages = (messages) => {
     messages:   messages
   };
 };
-
 
 export const setSearchResults = (messages) => {
   return {
