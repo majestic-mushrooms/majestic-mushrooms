@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Redirect } from 'react-router-dom'; 
 import { Form, TextArea, Divider, Button, Segment, Container, Input, Label, Message, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import { createMessage } from './utils/messagesHelper.js';
 import { WAIT_IMAGE } from './utils/stylesHelper.js';
+import UserMessage from './UserMessage.jsx';
 
 
 const handleSubmit = (props, e) => {
@@ -35,22 +35,28 @@ const ComposeEmail = (props) => {
       view === 'Waiting' && 
           <Image src={WAIT_IMAGE} centered size='small'/>
       }
+
       { 
       view === 'Inbox' && 
-      <Redirect from={'/compose'} 
-                push
-                to={'/'} /> 
+      <Redirect from={'/compose'} push to={
+      {
+        pathname: '/',
+        messageSent: true
+      }}/>
+
       }
-      
+
+     
       <Divider hidden />
-      { view === 'DisplayMessage' && 
-      <Message negative>
-        <Message.Header>We are unable to send your message.</Message.Header>
-        <p>It seems one of your email address is in the incorrect format.
-          Please re-submit your message.
-        </p>
-      </Message>
+   
+      <UserMessage view={view} message={ 
+      {
+        title: 'We are unable to send your message',
+        body: 'It seems that one of your email addresses is not in the correct format.',
+        color: 'red'
       }
+      }/>
+      
       { 
       (view === 'Compose' || view === 'DisplayMessage') && 
         <Segment.Group>
@@ -81,3 +87,7 @@ const ComposeEmail = (props) => {
 
 export default ComposeEmail;
 
+
+
+
+                     
