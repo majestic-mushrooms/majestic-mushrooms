@@ -24,7 +24,7 @@ class EmailList extends React.Component {
         return { page: prevState.page - 1 > 1 ? prevState.page - 1 : 1 };
       });
     } else {
-      const maxPage = Math.floor(this.props.messages.length / 25);
+      const maxPage = Math.ceil(this.props.messages.length / 25);
       this.setState(prevState => {
         return { page: prevState.page + 1 < maxPage ? prevState.page + 1 : maxPage };
       });
@@ -59,7 +59,7 @@ class EmailList extends React.Component {
             </Table>
 
             <Icon name="chevron left" onClick={() => { this.handlePageNav('back'); }} />
-              {(page - 1) * 25}-{page * 25} / {this.props.messages.length} 
+              {page} / {Math.ceil(this.props.messages.length / 25)} 
             <Icon name="chevron right" onClick={() => { this.handlePageNav('forward'); }} />
           </div>
           )
