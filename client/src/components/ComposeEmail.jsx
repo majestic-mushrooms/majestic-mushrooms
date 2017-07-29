@@ -43,7 +43,6 @@ const ComposeEmail = (props) => {
         pathname: '/',
         messageSent: true
       }}/>
-
       }
 
      

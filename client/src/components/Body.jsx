@@ -1,8 +1,9 @@
 import React from 'react';
 import { Divider} from 'semantic-ui-react';
+import axios from 'axios';
+
 import EmailListContainer from '../containers/EmailListContainer.jsx';
 import SearchContainer from '../containers/SearchContainer.jsx';
-import axios from 'axios';
 import { parseMessage } from './utils/messagesHelper';
 import { today } from './utils/dateTimeHelper';
 import UserMessage from './UserMessage.jsx';
@@ -15,15 +16,7 @@ class Body extends React.Component {
 
 
   componentDidMount() {
-    const { setRetrievedMessages, setAccountDetails } = this.props;
-
-    axios.get('/api/account').then( userAccount => { 
-      setAccountDetails(userAccount.data, window.token);
-      window.token = null;
-    })
-    .catch( err => {
-      console.log('Error getting account info:', err);
-    });
+    const { setRetrievedMessages } = this.props;
 
     axios.get('/api/messages/').then( messages => {
       setRetrievedMessages(parseMessage(messages.data, today));

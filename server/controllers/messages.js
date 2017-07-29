@@ -6,28 +6,35 @@ const {createMessages, createDatabaseMessageObject} = require('../utils/messages
 module.exports.getAll = (req, res) => {
   models.Message.query('orderBy', 'date_received', 'desc', 'where', 'account_id', '=', req.session.accountId).fetchAll()
   .then(messages => {
-    if (messages.length === 0) { //no messages stored
+    let retrievedMessages = null;
+
+    //if no messages stored for new user, retrieve via nylas call
+    if (messages.length === 0) {
       console.log(`No messages stored for account ${req.session.accountId}. Retrieving!`);
       const authString = 'Bearer ' + req.session.nylasToken;
       return axios.get('https://api.nylas.com/messages?limit=100', {
         headers: { Authorization: authString }
-      }).then(response => {
+      })
+      //retrieved messages, saving to db
+      .then(response => {
+        retrievedMessages = response.data;
         const Messages = bookshelf.Collection.extend({
           model: models.Message
         });
-        messages = Messages.forge(createMessages(response.data));
+        messages = Messages.forge(messagesConstructor(retrievedMessages));
         return messages.invokeThen('save', null, { method: 'insert' });
       })
       .catch(err => {
         console.log(err);
         throw Error;
       });
+      
+    //if messages already exist
     } else { return messages; }
   
   }).catch(err => {
     console.log(`Error retrieving messages for account ${req.session.accountId}!`);
     res.status(404).send('Message retrieval failed.');
-  
   }).then(messages => {
     console.log(`Messages successfully retrieved for account ${req.session.accountId}. Rerouting!`);
     res.status(200).send(messages);// render to the page
