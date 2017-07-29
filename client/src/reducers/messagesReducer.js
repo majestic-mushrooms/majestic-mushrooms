@@ -22,7 +22,6 @@ export const messagesReducer = (state = [], action) => {
   case 'MODIFY_MESSAGE':
     return state.map( message => {
       if (message.message_id === action.message.message_id) {
-        console.log('~~~~~~~~~~~~~~~REDUCER:', action.message)
         return { ...action.message };
       }
       return message;
