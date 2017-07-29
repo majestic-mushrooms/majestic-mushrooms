@@ -29,6 +29,9 @@ export const messagesReducer = (state = [], action) => {
     
   case 'SET_SEARCH_RESULTS':
     return action.messages;
+    
+  case 'FILTER_MESSAGES':
+    return action.messages;
   
   default: 
     return state;

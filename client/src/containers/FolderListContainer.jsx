@@ -1,17 +1,21 @@
 import { connect } from 'react-redux';
-import { setMessages, setPage } from '../actions';
+import { filterMessages, setFolders, setPage } from '../actions';
 import FolderList from '../components/FolderList.jsx';
 
 const mapStateToProps = (state) => {
   return {
-    messages: state.messages
+    messages: state.messages,
+    folders: state.folders
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setRetrievedFolders: (folders) => {
+      dispatch(setFolders(folders));
+    },
     setFilteredMessages: (newMessages) => {
-      dispatch(setMessages(newMessages));
+      dispatch(filterMessages(newMessages));
     },
     setPage: (page) => {
       dispatch(setPage(page));

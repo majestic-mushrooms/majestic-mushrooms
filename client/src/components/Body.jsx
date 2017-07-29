@@ -24,6 +24,10 @@ class Body extends React.Component {
     .catch( err => {
       console.log('Error getting messages: ', err);
     });
+    
+    axios.get('/api/folders').then(response => {
+      setRetrievedFolders(response.data);
+    });
   }
 
 

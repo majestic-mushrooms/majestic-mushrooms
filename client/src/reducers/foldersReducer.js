@@ -1,8 +1,8 @@
 export const foldersReducer = (state = [], action) => {
   switch (action.type) {
   
-  case 'FILTER_MESSAGES':
-    return action.messages;
+  case 'SET_FOLDERS':
+    return action.folders;
   
   default: 
     return state;

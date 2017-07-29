@@ -17,8 +17,8 @@ exports.up = function (knex, Promise) {
       table.varchar('account_id').references('accounts.account_id');
       table.string('name', 50).nullable(); //could be enum
       table.string('display_name', 100).nullable();
-      // table.string('color', 6).notNullable();
-      // table.integer('name');
+      table.string('color', 6).notNullable();
+      table.integer('count').nullable();
     }),
     knex.schema.createTableIfNotExists('messages', function(table) {
       table.varchar('message_id').primary();
@@ -26,8 +26,13 @@ exports.up = function (knex, Promise) {
       table.varchar('account_id').references('accounts.account_id');
       table.varchar('thread_id').nullable(); //foreign key to threads if we import threads
       table.varchar('subject').nullable();
+<<<<<<< HEAD
       table.string('color', 7).notNullable();
       table.json('from').notNullable(); //arrays need to be JSON.stringified 
+=======
+      table.string('color', 6).notNullable();
+      table.json('from').notNullable(); //arrays need to be JSON.stringified
+>>>>>>> throttle calls to server
       table.json('to').notNullable();
       table.json('cc').nullable();
       table.json('bcc').nullable();

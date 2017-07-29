@@ -52,7 +52,11 @@
     "redux-devtools": "^3.4.0",
     "sass": "^1.0.0-beta.2",
     "semantic-ui-react": "^0.71.0",
+<<<<<<< HEAD
     "socket.io": "^2.0.3",
+=======
+    "throttled-queue": "^1.0.4",
+>>>>>>> throttle calls to server
     "webpack": "3"
   },
   "devDependencies": {
