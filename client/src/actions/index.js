@@ -153,3 +153,10 @@ export const setSearchQueryAndResults = (searchQuery, searchResults) => {
     view:         'Search'
   };
 };
+
+export const setPage = (newPage) => {
+  return {
+    type:         'SET_PAGE',
+    page:         newPage
+  };
+};

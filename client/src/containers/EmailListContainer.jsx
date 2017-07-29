@@ -1,19 +1,26 @@
 import { connect } from 'react-redux';
-import { setView, setCurrentMessage } from '../actions';
+import { setView, setCurrentMessage, setPage } from '../actions';
 import EmailList from '../components/EmailList.jsx';
 
 const mapStateToProps = (state) => {
   return {
     messages:       state.messages,
     view:           state.view,
-    searchResults:  state.search.searchResults
+    searchResults:  state.search.searchResults,
+    page:           state.page
   };
 };
 
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setPage: (page) => {
+      dispatch(setPage(page));
+    }
+  };
+};
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(EmailList);
 

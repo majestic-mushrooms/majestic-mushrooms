@@ -12,29 +12,23 @@ import UserMessage from './UserMessage.jsx';
 class EmailList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: 1
-    }
     this.handlePageNav = this.handlePageNav.bind(this);
   }
 
   handlePageNav(direction) {
+    const { page, setPage } = this.props;
+    console.log('THIS', this, this.props);
+
     if (direction === 'back') {
-      this.setState(prevState => {
-        return { page: prevState.page - 1 > 1 ? prevState.page - 1 : 1 };
-      });
+      if (page - 1 > 0) { setPage(page - 1); }
     } else {
       const maxPage = Math.ceil(this.props.messages.length / 25);
-      this.setState(prevState => {
-        return { page: prevState.page + 1 < maxPage ? prevState.page + 1 : maxPage };
-      });
+      if (page + 1 <= maxPage) { setPage(page + 1); }
     }
   } 
 
   render() {
-    console.log('EMAIL LIST RENDERING', this.props.messages)
-    const { view } = this.props;
-    const { page } = this.state;
+    const { view, page } = this.props;
     const messages =  (view === 'Search') ? this.props.searchResults : 
       this.props.messages.slice(25 * (page - 1), 25 * page);
 
