@@ -8,6 +8,7 @@ import { parseMessage } from './utils/messagesHelper';
 import { today } from './utils/dateTimeHelper';
 import UserMessage from './UserMessage.jsx';
 
+
 class Body extends React.Component {
   constructor(props) {
     super(props);

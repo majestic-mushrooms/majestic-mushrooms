@@ -26,8 +26,6 @@ const handleSubmit = (props, e) => {
 };
 
 
-
-
 const ComposeEmail = (props) => {
 
   const { view } = props;
@@ -45,7 +43,6 @@ const ComposeEmail = (props) => {
         pathname: '/',
         messageSent: true
       }}/>
-
       }
 
      
