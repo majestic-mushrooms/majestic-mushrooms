@@ -24,7 +24,7 @@ services:
     ports:
       - "3030:3030"
     volumes: 
-      - /var/app/current/app
+      - /var/log
     depends_on:
       - postgres
       - redis
