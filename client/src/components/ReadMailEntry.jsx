@@ -3,6 +3,7 @@ import { Icon, Table, Segment, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 class ReadMailEntry extends React.Component {
   constructor(props) {
     super(props);
@@ -25,12 +26,12 @@ class ReadMailEntry extends React.Component {
     const { message, messageId, show, onClick } = this.props;
     const fromStr = message.from.reduce((fromStr, sender) => fromStr + sender.name, '');
     const weight = message.unread === true ? 'bold' : 'regular';
-    
+
     return (
       <Table.Row onClick={ (e) => { onClick(e, messageId, message.unread); }} onMouseEnter={() => {this.setState({ showButton: true });}}
         onMouseLeave={() => {this.setState({ showButton: false });}}>
         <Table.Cell width="4">
-          <Label circular color={message.color} style={{marginRight: '8px'}}>
+          <Label circular style={{marginRight:'8px', background:message.color, color:'white'}}>
             { fromStr.charAt(0).toUpperCase() }
           </Label>
           <span style={{fontWeight: weight}}>

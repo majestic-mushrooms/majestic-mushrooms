@@ -1,5 +1,6 @@
 const models = require('../../db/models');
 const axios = require('axios');
+const createMessages = require('../utils/messagesConstructor.js').createMessages;
 
 const colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
@@ -26,11 +27,9 @@ module.exports.getAll = (req, res) => {
   axios.get(`https://api.nylas.com/messages?thread_id=`+req.params.id, {
     headers: { Authorization: authString }
   }).then(response => {
-    for (let i = 0; i < response.data.length; i++) {
-      response.data[i].color = colors[Math.floor(Math.random() * 12)];
-    }
+    let retrievedMessages = createMessages(response.data);
     console.log("Retrieving threads from Nylas success. req.params is: ", req.params.id);
-    res.send(response.data);
+    res.send(retrievedMessages);
   })
   .catch(err => {
     console.log("Retreiving threads from Nylas: ", err);

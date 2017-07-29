@@ -8,12 +8,8 @@ import EmailListItemContainer from '../containers/EmailListItemContainer.jsx';
 import Reply from './Reply.jsx';
 import { queryMessageDetails } from './utils/messagesHelper.js';
 import { WAIT_IMAGE } from './utils/stylesHelper.js';
-
-const colors = [
-  'red', 'orange', 'yellow', 'olive', 'green', 'teal',
-  'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
-]; 
-var currentColor = -1;
+import { parseMessage } from './utils/messagesHelper';
+import { today } from './utils/dateTimeHelper';
 
 
 class ReadEmail extends React.Component {
@@ -27,7 +23,7 @@ class ReadEmail extends React.Component {
     var threadId = currentMessage.thread_id;
     axios.get(`api/threads/${threadId}`)
     .then(response => {
-      setThread(response.data);
+      setThread(parseMessage(response.data, today));
     })
     .catch(error => {
       console.log('getThreads error: ', error);
@@ -86,8 +82,6 @@ class ReadEmail extends React.Component {
                     </Table.Cell>
                     </Table.Row>
                     {thread.slice(1, thread.length).map((message, index) => {
-                      currentColor++;
-                      if (currentColor > thread.length) { currentColor = -1; }
                       return <ReadMailEntry key={index} message={message} messageId={message.message_id} />;
                     })}
 

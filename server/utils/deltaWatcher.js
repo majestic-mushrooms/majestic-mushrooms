@@ -58,7 +58,16 @@ module.exports = function(req) {
             //emit delta event to socket.io
             ee.emit('delta', { event: delta.event, attributes: saved });
           })
-          .catch( err => { console.log('ERROR: Message not successfully created/update:', err); } );
+          .catch( err => { 
+            //try inserting it if it's an error of the message not existing
+            console.log('FIRST TRY ERRORED. Trying again.')
+            return models.Message.forge(createMessages([delta.attributes])[0]).save(null, {method: 'insert'})
+            .then( saved => {
+              console.log('SECOND TRY SUCCESS. Emitting delta.');
+              ee.emit('delta', { event: delta.event, attributes: saved });
+            });
+          })
+          .catch( err => { console.log('ERROR: Message not successfully created/update:', err); });
         }
       }
 
