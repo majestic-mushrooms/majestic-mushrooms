@@ -51,7 +51,7 @@ class App extends React.Component {
         console.log('Delta received - id:', delta.attributes.message_id, '/ event:', delta.event);
 
         //refresh messages
-        const parsedMessage = parseMessage([delta.attributes])[0];
+        const parsedMessage = parseMessage([delta.attributes], today)[0];
         if (delta.event === 'create') {
           addMessage(parsedMessage);
         } else if (delta.event === 'modify') {
