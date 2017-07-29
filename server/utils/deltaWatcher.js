@@ -1,5 +1,5 @@
 const models = require('../../db/models');
-const messagesConstructor = require('../utils/messagesConstructor');
+const createMessages = require('./messagesConstructor').createMessages;
 const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
 const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
 const ee = require('../socket.js');
@@ -40,25 +40,25 @@ module.exports = function(req) {
           //not ideal - additional db check
           //why: some deltas are missed depending on refresh timing, so modify events might come in existing but not stored msgs
           //CLIENT NOTE: currently not displaying a missed delta until refresh, due to potential for unexpected insertions
-
-          //without db check:
-          // let saveObj = {};
-          // if (delta.event === 'create') { { saveObj = {method: 'insert'}; } }
-          // models.Message.forge(messagesConstructor([delta.attributes])[0]).save(null, saveObj)
-          // .then(saved ...
-
+          /* REVERTED bc db check doesn't necessarily come back before the next delta -> could try to do two inserts
           let saveObj = {};
           models.Message.where({ message_id: delta.id }).fetch()
             .then( existing => {
               if (existing === null) { { saveObj = {method: 'insert'}; } }
-              return models.Message.forge(messagesConstructor([delta.attributes])[0]).save(null, saveObj);
+              return models.Message.forge(createMessages([delta.attributes])[0]).save(null, saveObj);
             })
-            .then( saved => { 
-              console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); 
-              //emit delta event to socket.io
-              ee.emit('delta', { event: delta.event, attributes: saved });
-            })
-            .catch( err => { console.log('ERROR: Message not successfully created/update.'); } );
+          */
+
+          //without db check:
+          let saveObj = {};
+          if (delta.event === 'create') { { saveObj = {method: 'insert'}; } }
+          models.Message.forge(createMessages([delta.attributes])[0]).save(null, saveObj)
+          .then( saved => { 
+            console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); 
+            //emit delta event to socket.io
+            ee.emit('delta', { event: delta.event, attributes: saved });
+          })
+          .catch( err => { console.log('ERROR: Message not successfully created/update:', err); } );
         }
       }
 

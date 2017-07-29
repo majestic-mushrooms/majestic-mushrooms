@@ -21,7 +21,7 @@ module.exports.getAll = (req, res) => {
         const Messages = bookshelf.Collection.extend({
           model: models.Message
         });
-        messages = Messages.forge(messagesConstructor(retrievedMessages));
+        messages = Messages.forge(createMessages(retrievedMessages));
         return messages.invokeThen('save', null, { method: 'insert' });
       })
       .catch(err => {
