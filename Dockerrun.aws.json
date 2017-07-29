@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "jenniferwg/timebox:app",
+    "Name": "jenniferwg/timebox:web",
     "Update": "true"
   },
   "Ports": [
@@ -10,5 +10,5 @@
     }
   ],
   "Volumes": [],
-  "Logging": "/var/log/app"
+  "Logging": "/var/log/web"
 }
