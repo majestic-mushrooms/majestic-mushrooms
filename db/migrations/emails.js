@@ -24,7 +24,7 @@ exports.up = function (knex, Promise) {
       table.varchar('account_id').references('accounts.account_id');
       table.varchar('thread_id').nullable(); //foreign key to threads if we import threads
       table.varchar('subject').nullable();
-      table.string('color', 6).notNullable();
+      table.string('color', 7).notNullable();
       table.json('from').notNullable(); //arrays need to be JSON.stringified 
       table.json('to').notNullable();
       table.json('cc').nullable();
