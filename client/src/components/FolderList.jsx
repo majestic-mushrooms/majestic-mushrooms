@@ -36,10 +36,11 @@ class FolderList extends React.Component {
   }
   
   filterMessages(labelId) {
-    const { setFilteredMessages } = this.props;
+    const { setFilteredMessages, setPage } = this.props;
     axios.get('/api/folders/' + labelId)
       .then(response => {
         setFilteredMessages(parseMessage(response.data, today));
+        setPage(1);
       });
   }
  

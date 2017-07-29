@@ -5,8 +5,7 @@ import axios from 'axios';
 
 import MainRoutes from './components/Navigation/MainRoutes.jsx';
 import LeftMenuContainer from './containers/LeftMenuContainer.jsx';
-import FolderList from './components/FolderList.jsx';
-import FolderContainer from './containers/FolderContainer.jsx';
+import FolderListContainer from './containers/FolderListContainer.jsx';
 import AppContainer from './containers/AppContainer.jsx';
 import { parseMessage } from './components/utils/messagesHelper';
 import { today } from './components/utils/dateTimeHelper';
@@ -77,7 +76,7 @@ class App extends React.Component {
             </Grid.Column> 
 
             <Grid.Column className='foldersTable' width={3}>
-              <FolderContainer />
+              <FolderListContainer />
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -17,7 +17,6 @@ class EmailList extends React.Component {
 
   handlePageNav(direction) {
     const { page, setPage } = this.props;
-    console.log('THIS', this, this.props);
 
     if (direction === 'back') {
       if (page - 1 > 0) { setPage(page - 1); }
