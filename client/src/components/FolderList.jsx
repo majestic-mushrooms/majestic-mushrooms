@@ -21,19 +21,12 @@ class FolderList extends React.Component {
   }
   
   filterMessages(labelId) {
-<<<<<<< HEAD
     const { setFilteredMessages, setPage } = this.props;
     axios.get('/api/folders/' + labelId)
       .then(response => {
         setFilteredMessages(parseMessage(response.data, today));
         setPage(1);
       });
-=======
-    const { setFilteredMessages } = this.props;
-    axios.get('/api/folders/' + labelId).then(response => {
-      setFilteredMessages(parseMessage(response.data, today));
-    });
->>>>>>> throttle calls to server
   }
  
   render() {

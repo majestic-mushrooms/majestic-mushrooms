@@ -16,6 +16,7 @@ module.exports.getAll = (req, res) => {
               headers: { Authorization: authString }
             })
             .then(response => {
+              console.log(response.data);
               folder.count = response.data.count;
             });
         };
@@ -33,27 +34,27 @@ module.exports.getAll = (req, res) => {
               response.data[i].folder_id = response.data[i].id;
               delete response.data[i].id;
               delete response.data[i].object;
+              delete response.data[i].name;
               arr.push(response.data[i]);
             }
           })
           .then(() => {
-            var throttle = throttledQueue(2, 1000);
-            return Promise.map(arr, (folder, i) => {
-              console.log(i , 'i');
+            var throttle = throttledQueue(3, 800);
+            return Promise.each(arr, (folder, i) => {
               throttle(function() {
-                console.log('throttleings', i);
                 getCount(folder);
               });
             }).then(() => {
               const Folders = bookshelf.Collection.extend({
-                folder: models.Folder
+                model: models.Folder
               });
               setTimeout(function() {
-                console.log('ADD TO DBs');
+                console.log('arrrr===========', arr );
                 folders = Folders.forge(arr);
+                console.log(folders.models[0].attributes)
                 return folders.invokeThen('save', null, { method: 'insert' });
 
-              }, 7000);
+              }, arr.length / 3 * 1000);
             });
           })
           .catch(err => {
@@ -67,6 +68,7 @@ module.exports.getAll = (req, res) => {
     res.status(404).send('Message retrieval failed.');
   
   }).then(folders => {
+    console.log(folders);
     console.log(`Folders successfully retrieved for account ${req.session.accountId}. Rerouting!`);
     res.status(200).send(folders);// render to the page
   });
@@ -81,7 +83,8 @@ module.exports.filter = (req, res) => {
   }).catch(err => {
     res.send(err);
   });
-  
+};
+
 module.exports.create = (req, res) => {
   console.log('Inside Folders Controller create()', req.body);
 };

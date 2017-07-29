@@ -56,8 +56,6 @@ export const setMessages = (messages) => {
   };
 };
 
-<<<<<<< HEAD
-=======
 export const setFolders = (folders) => {
   return {
     type:       'SET_FOLDERS',
@@ -65,7 +63,6 @@ export const setFolders = (folders) => {
   };
 };
 
->>>>>>> throttle calls to server
 export const setSearchResults = (messages) => {
   return {
     type:       'SET_SEARCH_RESULTS',

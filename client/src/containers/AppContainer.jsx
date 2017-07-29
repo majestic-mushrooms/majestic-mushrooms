@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setAccount, modifyMessage, addMessage } from '../actions';
+import { setAccount, modifyMessage, addMessage, setFolders } from '../actions';
 import App from '../App.jsx';
 
 const mapStateToProps = (state) => {
@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     addMessage: (newMessage) => {
       dispatch(addMessage(newMessage));
+    },
+    setRetrievedFolders: (folders) => {
+      dispatch(setFolders(folders));
     }
   };
 };
