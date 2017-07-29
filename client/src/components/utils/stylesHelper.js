@@ -1,0 +1,1 @@
+export const WAIT_IMAGE = 'https://s-media-cache-ak0.pinimg.com/originals/d9/93/3c/d9933c4e2c272f33b74ef18cdf11a7d5.gif';

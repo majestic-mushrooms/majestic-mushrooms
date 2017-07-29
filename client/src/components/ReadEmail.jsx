@@ -7,6 +7,7 @@ import ReadMailEntry from './ReadMailEntry.jsx';
 import EmailListItemContainer from '../containers/EmailListItemContainer.jsx';
 import Reply from './Reply.jsx';
 import { queryMessageDetails } from './utils/messagesHelper.js';
+import { WAIT_IMAGE } from './utils/stylesHelper.js';
 
 const colors = [
   'red', 'orange', 'yellow', 'olive', 'green', 'teal',
@@ -60,8 +61,8 @@ class ReadEmail extends React.Component {
         <div>
           <Divider hidden />
           {thread.length === 0 ? (
-            <Image src='https://s-media-cache-ak0.pinimg.com/originals/d9/93/3c/d9933c4e2c272f33b74ef18cdf11a7d5.gif' centered size='small'/>
-          ) : (
+            <Image src={WAIT_IMAGE} centered size='small'/>            
+            ) : (
             <Table fixed>
               <Table.Header>
                 <Table.Row height="100px">

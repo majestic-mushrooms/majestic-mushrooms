@@ -4,6 +4,7 @@ config/production.json
 config/staging.json
 config/test.json
 config/nylasToken.js
+config/default.json
 secret.sh
 
 # OS X
