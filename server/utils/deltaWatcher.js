@@ -37,14 +37,20 @@ module.exports = function(req) {
           //@TODO fix - seems to error out when event is delete (on messagesContructor -> email.id is not defined)
           console.log('=========DELETE delta received:', delta);
         } else {
-          if (delta.event === 'create') { saveObj = {method: 'insert'}; }
-          models.Message.forge(messagesConstructor([delta.attributes])[0]).save(null, saveObj)
-          .then( saved => { 
-            console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); 
-            //emit delta event to socket.io
-            ee.emit('delta', { event: delta.event, attributes: saved });
-          })
-          .catch( err => { console.log('ERROR: Message not successfully created/update.'); } );
+          //not ideal - additional db check
+          //whyL some deltas are missed depending on refresh timing, so modify events might come in existing but not stored msgs
+          let saveObj = {};
+          models.Message.where({ message_id: delta.id }).fetch()
+            .then( existing => {
+              if (existing === null) { { saveObj = {method: 'insert'}; } }
+              return models.Message.forge(messagesConstructor([delta.attributes])[0]).save(null, saveObj);
+            })
+            .then( saved => { 
+              console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); 
+              //emit delta event to socket.io
+              ee.emit('delta', { event: delta.event, attributes: saved });
+            })
+            .catch( err => { console.log('ERROR: Message not successfully created/update.'); } );
         }
       }
 
