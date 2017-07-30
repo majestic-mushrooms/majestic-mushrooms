@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import EmailListContainer from '../containers/EmailListContainer.jsx';
 import SearchContainer from '../containers/SearchContainer.jsx';
+import ContactContainer from '../containers/ContactContainer.jsx'
 import { parseMessage } from './utils/messagesHelper';
 import { today } from './utils/dateTimeHelper';
 import UserMessage from './UserMessage.jsx';
@@ -14,15 +15,22 @@ class Body extends React.Component {
     super(props);
   }
 
-
   componentDidMount() {
-    const { setRetrievedMessages } = this.props;
+    const { setRetrievedMessages, setRetrievedContacts } = this.props;
 
     axios.get('/api/messages').then( messages => {
       setRetrievedMessages(parseMessage(messages.data, today));
     })
     .catch( err => {
       console.log('Error getting messages: ', err);
+    });
+
+    axios.get('/api/contacts').then( contacts => {
+      console.log("Body.jsx axios.get(/api/contacts) result data", contacts.data)
+      setRetrievedContacts(contacts.data);
+    })
+    .catch( err => {
+      console.log('Error getting contacts: ', err);
     });
   }
 

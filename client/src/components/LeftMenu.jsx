@@ -27,7 +27,7 @@ const LeftMenu = (props) => {
       )}
 
     <Sidebar as={Menu} animation='push' visible={true} icon='labeled' vertical inverted fixed="left" className='sideBar'>
-      <Menu.Item as={Link} to='/' name='mail'onClick={ () => { setNewView('Inbox'); setPage(1); }} >
+      <Menu.Item as={Link} to='/' name='mail' onClick={ () => { setNewView('Inbox'); setPage(1); }} >
         <Icon name='inbox' />
         Inbox
       </Menu.Item>
@@ -37,7 +37,7 @@ const LeftMenu = (props) => {
           Compose
       </Menu.Item>
 
-      <Menu.Item as={Link} to='/contacts' name='contacts' >
+      <Menu.Item as={Link} to='/contacts' name='contacts' onClick={ () => { setNewView('Contacts'); }} >
         <Icon name='address book' />
         Contacts
       </Menu.Item>
