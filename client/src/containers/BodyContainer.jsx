@@ -1,5 +1,9 @@
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import { setSearchResults, setView } from '../actions';
+=======
+import { setMessages, setSearchResults, setView, setContacts } from '../actions';
+>>>>>>> setRetrivedContacts dispatches setContacts
 import Body from '../components/Body.jsx';
 
 const mapStateToProps = (state) => {
@@ -15,7 +19,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     setNewView: (viewName) => {
       dispatch(setView(viewName));
-    }
+    },
+    setRetrievedContacts: (newContacts) => {
+      dispatch(setContacts(newContacts));
+    },
   };
 };
 
