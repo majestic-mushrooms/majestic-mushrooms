@@ -5,6 +5,7 @@ import { threadsReducer } from './threadsReducer.js';
 import { searchReducer } from './searchReducer.js';
 import { foldersReducer } from './foldersReducer.js';
 import { pageReducer } from './pageReducer.js';
+import { contactReducer } from './contactReducer.js';
 import { combineReducers } from 'redux';
   
 const emailApp = combineReducers( {
@@ -14,7 +15,8 @@ const emailApp = combineReducers( {
   view:           viewReducer,
   threads:        threadsReducer,
   folders:        foldersReducer,
-  page:           pageReducer
+  page:           pageReducer,
+  contacts:        contactReducer,  
 });
 
 
