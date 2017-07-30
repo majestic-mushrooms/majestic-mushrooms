@@ -42,8 +42,6 @@ class App extends React.Component {
       window.token = null;
     });
     axios.get('/api/folders').then(response => {
-      console.log(response.data)
-      console.log('hrdfy');
       setRetrievedFolders(response.data);
     });
     //start listening to deltas

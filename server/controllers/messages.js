@@ -17,6 +17,7 @@ module.exports.getAll = (req, res) => {
       })
       //retrieved messages, saving to db
       .then(response => {
+        //parse data for sharedTable here
         retrievedMessages = response.data;
         const Messages = bookshelf.Collection.extend({
           model: models.Message

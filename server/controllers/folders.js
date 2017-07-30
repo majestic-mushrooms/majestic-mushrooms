@@ -39,7 +39,7 @@ module.exports.getAll = (req, res) => {
             }
           })
           .then(() => {
-            var throttle = throttledQueue(3, 800);
+            let throttle = throttledQueue(3, 800);
             return Promise.each(arr, (folder, i) => {
               throttle(function() {
                 getCount(folder);
@@ -49,12 +49,11 @@ module.exports.getAll = (req, res) => {
                 model: models.Folder
               });
               setTimeout(function() {
-                console.log('arrrr===========', arr );
                 folders = Folders.forge(arr);
                 console.log(folders.models[0].attributes)
                 return folders.invokeThen('save', null, { method: 'insert' });
 
-              }, arr.length / 3 * 1000);
+              }, arr.length / 3 * 900);
             });
           })
           .catch(err => {
@@ -68,7 +67,6 @@ module.exports.getAll = (req, res) => {
     res.status(404).send('Message retrieval failed.');
   
   }).then(folders => {
-    console.log(folders);
     console.log(`Folders successfully retrieved for account ${req.session.accountId}. Rerouting!`);
     res.status(200).send(folders);// render to the page
   });
@@ -79,6 +77,7 @@ module.exports.filter = (req, res) => {
   axios.get(`https://api.nylas.com/messages?in=${req.params.id}&limit=50`, {
     headers: { Authorization: authString }
   }).then(response => {
+    console.log(response.data)
     res.status(200).send(response.data);
   }).catch(err => {
     res.send(err);

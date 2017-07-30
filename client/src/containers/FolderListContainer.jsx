@@ -11,9 +11,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setRetrievedFolders: (folders) => {
-      dispatch(setFolders(folders));
-    },
     setFilteredMessages: (newMessages) => {
       dispatch(filterMessages(newMessages));
     },
