@@ -37,7 +37,7 @@ const LeftMenu = (props) => {
           Compose
       </Menu.Item>
 
-      <Menu.Item as={Link} to='/contacts' name='contacts' >
+      <Menu.Item as={Link} to='/contacts' name='contacts' onClick={ () => { setNewView('Contacts'); }} >
         <Icon name='address book' />
         Contacts
       </Menu.Item>
