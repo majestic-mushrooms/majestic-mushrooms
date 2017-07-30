@@ -159,6 +159,13 @@ export const clearCurrentThread = () => {
   };
 };
 
+export const setAreResults = (boolean) => {
+  return {
+    type:         'SET_ARE_RESULTS',
+    areResults:   boolean
+  };
+};
+
 export const setSearchQueryAndResults = (searchQuery, searchResults) => {
   return {
     type:         'SET_SEARCH',

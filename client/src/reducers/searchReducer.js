@@ -1,11 +1,11 @@
 
 const initialSearchState = {
   searchQuery: '',
-  searchResults: []
+  searchResults: [],
+  areResults: true
 };
 
-export const searchReducer = (state = {}, action) => {
-
+export const searchReducer = (state = initialSearchState, action) => {
   switch (action.type) {
   case 'SET_SEARCH':
     return {
@@ -16,6 +16,10 @@ export const searchReducer = (state = {}, action) => {
     return {
       searchQuery:    '',
       searchResults:  []
+    };  
+  case 'SET_ARE_RESULTS':
+    return {
+      areResults:    action.areResults
     };
 
   

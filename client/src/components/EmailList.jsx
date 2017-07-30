@@ -1,8 +1,7 @@
 
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
 import EmailListItemContainer from '../containers/EmailListItemContainer.jsx';
-import { Table, Grid, Dimmer, Loader, Image, Icon } from 'semantic-ui-react';
+import { Table, Grid, Dimmer, Loader, Image, Icon, Segement } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { WAIT_IMAGE } from './utils/stylesHelper.js';
@@ -27,8 +26,8 @@ class EmailList extends React.Component {
   } 
 
   render() {
-    const { view, page } = this.props;
-    const messages =  (view === 'Search') ? this.props.searchResults : 
+    const { view, page, areResults } = this.props;
+    const messages = (view === 'Search') ? this.props.searchResults : 
       this.props.messages.slice(25 * (page - 1), 25 * page);
 
     return (
@@ -37,6 +36,13 @@ class EmailList extends React.Component {
           <Redirect from={'/'} push to={'/message'}/>
         )}
 
+        {areResults === false ? (
+          <Segment>
+            No messages match your search.
+            <Image src='https://www.spreadshirt.com/image-server/v1/designs/10836588,width=178,height=178/no-one-likes-a-sad-panda.png' centered size='small' />
+          </Segment>
+          ) : null
+        }
 
         {messages.length === 0 ? (
           <Image src={WAIT_IMAGE} centered size='small'/>          
@@ -46,7 +52,7 @@ class EmailList extends React.Component {
               <Table.Body>
                 {messages.map((message, index, array) => {
                   index = (25 * (page - 1)) + index;
-                  return <EmailListItemContainer key={index} messageIndex={index}  />;
+                  return <EmailListItemContainer key={index} messageIndex={index} />;
                 })}
               </Table.Body> 
             </Table>

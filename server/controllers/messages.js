@@ -35,12 +35,12 @@ module.exports.getAll = (req, res) => {
       
     //if messages already exist
     } else { return messages; }
-  
   }).catch(err => {
     console.log(`Error retrieving messages for account ${req.session.accountId}!`);
     res.status(404).send('Message retrieval failed.');
   }).then(messages => {
-    console.log(`Messages successfully retrieved for account ${req.session.accountId}. Rerouting!`);
+    // console.log('=========THE MSGS', messages);
+    // console.log(`Messages successfully retrieved for account ${req.session.accountId}. Rerouting!`);
     res.status(200).send(messages);// render to the page
   });
 };

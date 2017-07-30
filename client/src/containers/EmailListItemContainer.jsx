@@ -5,7 +5,8 @@ import EmailListItem from '../components/EmailListItem.jsx';
 const mapStateToProps = (state) => {
   return {
     messages:       state.messages,
-    view:           state.view
+    view:           state.view,
+    searchResults:  state.search.searchResults
   };
 };
 

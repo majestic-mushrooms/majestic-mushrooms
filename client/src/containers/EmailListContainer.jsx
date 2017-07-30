@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
     messages:       state.messages,
     view:           state.view,
     searchResults:  state.search.searchResults,
-    page:           state.page
+    page:           state.page,
+    areResults:     state.search.areResults
   };
 };
 

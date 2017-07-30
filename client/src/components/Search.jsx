@@ -12,20 +12,43 @@ class Search extends React.Component {
   }
 
   handleSearch(e) {
-    const { setSearch } = this.props;
-    const searchQuery = e.target.value;
-
+    const { setSearchQueryAndResults, setAreResults } = this.props;
+    const searchQuery = e.target.value.trim();
+    console.log('setAreResults', setAreResults);
     axios.post('api/search', searchQuery) 
       .then(response => {
-        console.log('query', searchQuery);
-        setSearch(searchQuery, parseMessage(response.data, today));
-      })
-      .catch(err => { console.log('Error searching emails ', err); });
+        console.log('searched', response);
+        console.log('response', response.data);
+        if (response.data.length > 0) {
+          console.log(response.data.length); 
+          setSearchQueryAndResults(searchQuery, parseMessage(response.data, today));
+        } else { 
+          console.log('INNN get more msgs');
+          this.getMoreMessages(searchQuery); 
+          console.log('search props NOW', this.props.search);
+        }
+      }).catch(err => { console.log('Error searching emails ', err); });
+  }
+
+  getMoreMessages(searchQuery) {
+    console.log('getMoreMessages CALLED');
+    const { setAreResults } = this.props;
+    axios.get('api/search', {params: {query: searchQuery}})
+      .then(response => {
+        if (response.data > 0) {
+          setSearchQueryAndResults(searchQuery, parseMessage(response.data, today));
+        } else {
+          console.log('****setAreResults set to FALSE');
+          setAreResults(false);
+        }
+      });
   }
 
   render() {
-
     const { view } = this.props;
+    const { areResults } = this.props.search;
+    console.log('----- areResults in SEARCH', areResults);
+
     return (
       <div>
         { view === 'Search' && 
