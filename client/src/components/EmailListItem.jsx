@@ -29,6 +29,7 @@ class EmailListItem extends React.Component {
   render() {
     const {view, messageIndex } = this.props;
     const messages = (view === 'Search') ? this.props.searchResults : this.props.messages;
+
     const message = messages[messageIndex];
     const fromStr = message.from.reduce((fromStr, sender) => fromStr + sender.name, '');
     const weight = message.unread === true ? 'bold' : 'normal';

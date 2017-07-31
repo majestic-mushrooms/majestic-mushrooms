@@ -13,7 +13,6 @@ router.route('/')
 router.route('/')
   .get( middleware.auth.verify, (req, res) => {
     console.log('Inside Routes search GET');
-    console.log('{{{REQ', req);
     SearchController.getNylasResults(req, res);
   });
 

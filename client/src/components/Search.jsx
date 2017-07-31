@@ -15,42 +15,34 @@ class Search extends React.Component {
     const { setSearchQueryAndResults, setAreResults } = this.props;
     const searchQuery = e.target.value.trim();
     setAreResults(true);
-    console.log('setAreResults', setAreResults);
     axios.post('api/search', searchQuery) 
       .then(response => {
-        console.log('searched', response);
-        console.log('response', response.data);
         if (response.data.length > 0) {
-          console.log(response.data.length); 
           setSearchQueryAndResults(searchQuery, parseMessage(response.data, today));
         } else { 
-          console.log('INNN get more msgs');
           this.getMoreMessages(searchQuery); 
-          console.log('search props NOW', this.props.search);
         }
       }).catch(err => { console.log('Error searching emails ', err); });
   }
 
   getMoreMessages(searchQuery) {
-    console.log('getMoreMessages CALLED');
-    const { setAreResults } = this.props;
+    const { setSearchQueryAndResults, setAreResults } = this.props;
+    console.log('Asking API for more messages...');
     axios.get('api/search', {params: {query: searchQuery}})
       .then(response => {
-        if (response.data > 0) {
+        if (response.data.length > 0) {
           setSearchQueryAndResults(searchQuery, parseMessage(response.data, today));
         } else {
-          console.log('****setAreResults set to FALSE');
-          console.log('****setAreResults = ', setAreResults);
-
+          console.log('No extra search results found');
           setAreResults(false);
         }
-      });
+      })
+      .catch(err => { console.log('Error getting extra search matches from Nylas'); });
   }
 
   render() {
     const { view } = this.props;
     const { areResults } = this.props.search;
-    console.log('----- areResults in SEARCH', areResults);
 
     return (
       <div>
