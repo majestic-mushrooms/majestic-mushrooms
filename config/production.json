@@ -1,0 +1,17 @@
+{
+  "knex": {
+    "client": "postgresql",
+    "connection": {
+      "database":   "placeholder",
+      "user":       "placeholder",
+      "password":   "placeholder",
+      "host":       "placeholder",
+      "port":       "placeholder" 
+    },
+    "debug": false,
+    "pool": {
+      "min": 2,
+      "max": 10
+    }
+  }
+}
