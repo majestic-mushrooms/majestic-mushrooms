@@ -14,6 +14,7 @@ class Search extends React.Component {
   handleSearch(e) {
     const { setSearchQueryAndResults, setAreResults } = this.props;
     const searchQuery = e.target.value.trim();
+    setAreResults(true);
     console.log('setAreResults', setAreResults);
     axios.post('api/search', searchQuery) 
       .then(response => {
@@ -39,6 +40,8 @@ class Search extends React.Component {
           setSearchQueryAndResults(searchQuery, parseMessage(response.data, today));
         } else {
           console.log('****setAreResults set to FALSE');
+          console.log('****setAreResults = ', setAreResults);
+
           setAreResults(false);
         }
       });

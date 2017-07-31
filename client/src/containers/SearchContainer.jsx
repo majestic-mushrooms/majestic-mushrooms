@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Search from '../components/Search.jsx';
-import { setSearchQueryAndResults } from '../actions';
+import { setSearchQueryAndResults, setAreResults } from '../actions';
 
 const mapStateToProps = (state) => {
   return {

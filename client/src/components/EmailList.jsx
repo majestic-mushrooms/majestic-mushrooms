@@ -1,7 +1,7 @@
 
 import React from 'react';
 import EmailListItemContainer from '../containers/EmailListItemContainer.jsx';
-import { Table, Grid, Dimmer, Loader, Image, Icon, Segement } from 'semantic-ui-react';
+import { Table, Grid, Dimmer, Loader, Image, Icon, Segment, Divider } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { WAIT_IMAGE } from './utils/stylesHelper.js';
@@ -37,16 +37,14 @@ class EmailList extends React.Component {
         )}
 
         {areResults === false ? (
-          <Segment>
+          <Segment size ='big' textAlign='center'>
             No messages match your search.
-            <Image src='https://www.spreadshirt.com/image-server/v1/designs/10836588,width=178,height=178/no-one-likes-a-sad-panda.png' centered size='small' />
+            <Divider hidden />
+            <Image src='https://openclipart.org/image/2400px/svg_to_png/241842/sad_panda.png' centered size='large' />
           </Segment>
-          ) : null
-        }
-
-        {messages.length === 0 ? (
-          <Image src={WAIT_IMAGE} centered size='small'/>          
-        ) : (
+          ) : messages.length === 0 ? (
+            <Image src={WAIT_IMAGE} centered size='small'/>          
+         ) : (
           <div>
             <Table singleLine fixed>
               <Table.Body>

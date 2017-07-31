@@ -19,7 +19,7 @@ const onClickLogOut = (props) => {
 };
 
 const LeftMenu = (props) => {
-  const { view, setNewView, setPage } = props;
+  const { view, setNewView, setPage, setAreResults } = props;
   return (
     <div>
       { view === 'Logout' && (
@@ -27,7 +27,7 @@ const LeftMenu = (props) => {
       )}
 
     <Sidebar as={Menu} animation='push' visible={true} icon='labeled' vertical inverted fixed="left" className='sideBar'>
-      <Menu.Item as={Link} to='/' name='mail'onClick={ () => { setNewView('Inbox'); setPage(1); }} >
+      <Menu.Item as={Link} to='/' name='mail'onClick={ () => { setNewView('Inbox'); setPage(1); setAreResults(true); }} >
         <Icon name='inbox' />
         Inbox
       </Menu.Item>
