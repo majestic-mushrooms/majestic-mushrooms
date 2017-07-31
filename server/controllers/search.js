@@ -1,7 +1,7 @@
 const axios = require('axios');
 const models = require('../../db/models');
 const bookshelf = require('../../db');
-const {createMessages, createDatabaseMessageObject} = require('../utils/messagesConstructor');
+const {createMessages} = require('../utils/messagesConstructor');
 
 
 module.exports.getAll = (req, res) => {
@@ -34,9 +34,10 @@ module.exports.getNylasResults = (req, res) => {
     const Messages = bookshelf.Collection.extend({
       model: models.Message
     });
-    var messages = Messages.forge(createMessages(response.data));
+    var formattedMsgs = createMessages(response.data);
+    var messages = Messages.forge(formattedMsgs);
     messages.invokeThen('save', null, { method: 'insert' });
-    res.status(200).send(createMessages(response.data)); 
+    res.status(200).send(formattedMsgs); 
   }).catch(err => { 
     console.log('Error getting search matches from db', err); 
     res.status(500);
