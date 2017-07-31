@@ -11,26 +11,11 @@ class FolderList extends React.Component {
     super(props);
     this.state = { 
       activeItem: 'Folders',
-      folders: []
     };
     this.handleItemClick = this.handleItemClick.bind(this);
     this.filterMessages = this.filterMessages.bind(this);
   }
 
-  componentWillMount() {
-    axios.get('/api/folders')
-      .then(response => {
-        this.setState({
-          folders: response.data
-        });
-      });
-    // axios.get('https://api.nylas.com/labels', {
-    //   authorization: window.token
-    //   //  { authorization: window.token }
-    // }).then(response => {
-    //   console.log('resp ==================== ', response.data);
-    // });
-  }
   handleItemClick(e, { name }) {
     this.setState({ activeItem: name });
   }
@@ -47,10 +32,10 @@ class FolderList extends React.Component {
   render() {
     const { activeItem } = this.state || {};
     return (
-      <div>
+      <div className='rightBar'>
         <Divider hidden />
         <Menu fluid vertical>
-          {this.state.folders.map((folder, key) => {
+          {this.props.folders.map((folder, key) => {
             return <FolderListItem folder={folder} filter={this.filterMessages} key={key}/>;
           })}
         </Menu>

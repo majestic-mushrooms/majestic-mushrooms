@@ -15,8 +15,9 @@ exports.up = function (knex, Promise) {
       table.varchar('folder_id').primary();
       table.unique('folder_id');
       table.varchar('account_id').references('accounts.account_id');
-      table.string('name', 50).nullable(); //could be enum
       table.string('display_name', 100).nullable();
+      table.string('color', 6).notNullable();
+      table.integer('count').nullable();
     }),
     knex.schema.createTableIfNotExists('messages', function(table) {
       table.varchar('message_id').primary();

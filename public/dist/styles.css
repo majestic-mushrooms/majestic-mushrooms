@@ -15,8 +15,14 @@ body {
 
 .foldersTable {
   margin-left: 10px;
+  overflow: auto;
 }
 
 .sideBar {
   background-color: #cf8dea !important;
+}
+
+.rightBar {
+  position: fixed;
+  width: 18.5%;
 }

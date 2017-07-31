@@ -56,6 +56,13 @@ export const setMessages = (messages) => {
   };
 };
 
+export const setFolders = (folders) => {
+  return {
+    type:       'SET_FOLDERS',
+    folders:    folders
+  };
+};
+
 export const setSearchResults = (messages) => {
   return {
     type:       'SET_SEARCH_RESULTS',
@@ -68,6 +75,13 @@ export const setSearchResults = (messages) => {
 export const clearMessages = () => {
   return {
     type:       'CLEAR_MESSAGES'
+  };
+};
+
+export const filterMessages = (messages) => {
+  return {
+    type:       'FILTER_MESSAGES',
+    messages:   messages
   };
 };
 

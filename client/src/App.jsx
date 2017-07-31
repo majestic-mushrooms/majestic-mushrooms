@@ -34,14 +34,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { setAccountDetails, modifyMessage, addMessage } = this.props;
-
+    const { setAccountDetails, modifyMessage, addMessage, setRetrievedFolders } = this.props;
+    console.log(this.props);
     //do account call - start server listening to deltas
     axios.get('/api/account').then( userAccount => { 
       setAccountDetails(userAccount.data, window.token);
       window.token = null;
     });
-
+    axios.get('/api/folders').then(response => {
+      setRetrievedFolders(response.data);
+    });
     //start listening to deltas
     socket.on('connect', () => {
       console.log('socket connected!');
