@@ -15,8 +15,8 @@ server.listen(PORT, '0.0.0.0', '', () => {
 io.on('connection', (socket) => {
   console.log('socket connected!');
   
-  ee.on('delta', (delta) => {
+  ee.on('delta', (id, delta) => {
     console.log('=======EMITTING DELTA=======');
-    socket.emit('delta', delta);
+    socket.broadcast.to(id).emit('delta', delta);
   });
 });
