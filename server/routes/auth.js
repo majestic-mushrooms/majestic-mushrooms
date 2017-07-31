@@ -6,6 +6,7 @@ const querystring = require('querystring');
 const models = require('../../db/models');
 const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
 const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
+const MAIN_PAGE = process.env.MAIN_PAGE || 'http://localhost:3000/';
 
 const router = express.Router();
 
@@ -34,7 +35,7 @@ router.route('/authenticated')
       });
     })
     .catch(err => { 
-      console.log('ERROR ', err); 
+      console.log('Error retrieving token: ', err); 
     })
     //retrieve account info, save if new
     .then(response => {
@@ -66,7 +67,7 @@ router.route('/authenticated')
       req.session.accountId = account.get('account_id');
       req.session.accountEmail = account.get('email');
 
-      res.redirect('http://localhost:3000');
+      res.redirect(MAIN_PAGE);
     })
   });
 

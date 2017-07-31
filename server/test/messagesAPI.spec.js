@@ -15,9 +15,9 @@ describe('Messages API', function () {
     dbUtils.rollback(done);
   });
 
-  it('accepts GET requests to /api/messages', function (done) {
+  it('accepts GET requests to /api/messages/read/:id', function (done) {
     request(app)
-      .get('/api/messages')
+      .get('/api/messages/read/abcde12345')
       .expect(res => {
         res.body = {
           length: res.body.length

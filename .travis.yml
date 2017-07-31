@@ -1,13 +1,7 @@
-sudo: required
-
 language: node_js
 
 node_js:
   - "7"
 
-services: 
-  - docker
-
 script:
-  - docker-compose build
-  - docker-compose run yarn test
+  - yarn test

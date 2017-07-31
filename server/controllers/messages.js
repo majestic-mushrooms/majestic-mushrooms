@@ -4,7 +4,10 @@ const models = require('../../db/models');
 const {createMessages, createDatabaseMessageObject} = require('../utils/messagesConstructor');
 
 module.exports.getAll = (req, res) => {
-  models.Message.query('orderBy', 'date_received', 'desc', 'where', 'account_id', '=', req.session.accountId).fetchAll()
+  models.Message.query( qb => {
+    qb.orderBy('date_received', 'desc');
+    qb.where('account_id', '=', req.session.accountId);
+  }).fetchAll()
   .then(messages => {
     let retrievedMessages = null;
 

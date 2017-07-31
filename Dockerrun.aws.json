@@ -1,54 +1,14 @@
 {
-  "AWSEBDockerrunVersion": "2",
-  "volumes": [
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "jenniferwg/timebox:web",
+    "Update": "true"
+  },
+  "Ports": [
     {
-      "name": "app",
-      "host": {
-        "sourcePath": "/var/app/current/app"
-      }
-    },
-    {
-      "name": "redis",
-      "host": {
-        "sourcePath": "/var/app/current/redis"
-      }
+      "ContainerPort": "3030"
     }
   ],
-  "containerDefinitions": [
-    {
-      "name": "app",
-      "image": "jenniferwg/timebox:app",
-      "essential": true,
-      "memory": 128,
-      "portMappings": [{
-        "hostPort": 3030,
-        "containerPort": 3030
-      }],
-      "links": [
-        "redis"
-      ],
-      "mountPoints": [
-        {
-          "sourceVolume": "awseb-logs-app",
-          "containerPath": "/var/log/app"
-        }
-      ]
-    },
-    {
-      "name": "redis",
-      "image": "redis:alpine",
-      "essential": true,
-      "memory": 128,
-      "portMappings": [{
-        "hostPort": 3032,
-        "containerPort": 6379
-      }],
-      "mountPoints": [
-        {
-          "sourceVolume": "awseb-logs-redis",
-          "containerPath": "/var/log/redis"
-        }
-      ]
-    }
-  ]
+  "Volumes": [],
+  "Logging": "/var/log/web"
 }
