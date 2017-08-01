@@ -1,7 +1,7 @@
 const db = require('../');
 
-const sortedMessage = db.Model.extend({
+const SortedMessage = db.Model.extend({
   tableName: 'sortedMessages'
 });
 
-module.exports = db.model('sortedMessage', sortedMessage);
+module.exports = db.model('SortedMessage', SortedMessage);
