@@ -38,7 +38,7 @@ class EmailList extends React.Component {
 
         {areResults === false ? (
           <Segment size ='big' textAlign='center'>
-            No messages match your search.
+            No messages found.
             <Divider hidden />
             <Image src='https://openclipart.org/image/2400px/svg_to_png/241842/sad_panda.png' centered size='large' />
           </Segment>

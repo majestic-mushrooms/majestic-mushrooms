@@ -81,7 +81,6 @@ module.exports.filter = (req, res) => {
   axios.get(`https://api.nylas.com/messages?in=${req.params.id}&limit=50`, {
     headers: { Authorization: authString }
   }).then(response => {
-    console.log(response.data)
     res.status(200).send(response.data);
   }).catch(err => {
     res.send(err);
