@@ -30,6 +30,7 @@ class Search extends React.Component {
     console.log('Asking API for more messages...');
     axios.get('api/search', {params: {query: searchQuery}})
       .then(response => {
+        console.log('reS ', response);
         if (response.data.length > 0) {
           setSearchQueryAndResults(searchQuery, parseMessage(response.data, today));
         } else {

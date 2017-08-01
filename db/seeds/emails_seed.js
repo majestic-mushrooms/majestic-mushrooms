@@ -28,6 +28,7 @@ exports.seed = function (knex, Promise) {
         account_id: account.get('account_id'),
         thread_id: 'placeholder',
         subject: 'this is a test',
+        color: 'red',
         from: '["test@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -47,6 +48,7 @@ exports.seed = function (knex, Promise) {
         account_id: account.get('account_id'),
         thread_id: 'placeholder',
         subject: 'this is a test',
+        color: 'yellow',        
         from: '["test@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -66,6 +68,7 @@ exports.seed = function (knex, Promise) {
         account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder',
         subject: 'this is a test2',
+        color: 'red',
         from: '["test1@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -82,9 +85,10 @@ exports.seed = function (knex, Promise) {
       console.log('saving message for', account.get('account_id') + '!')
       return models.Message.forge({
         message_id: 'abcde12348',
-        account_id:'abcdefghijkl1234567890',
+        account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder',
         subject: 'this is a test3',
+        color: 'blue',
         from: '["test1@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -104,6 +108,7 @@ exports.seed = function (knex, Promise) {
         account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder1',
         subject: 'this is a test4',
+        color: 'green',
         from: '["test1@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -123,6 +128,7 @@ exports.seed = function (knex, Promise) {
         account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder1',
         subject: 'this is a test5',
+        color: 'blue',        
         from: '["test@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -142,6 +148,7 @@ exports.seed = function (knex, Promise) {
         account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder1',
         subject: 'this is a test6',
+        color: 'purple',        
         from: '["test@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -162,7 +169,9 @@ exports.seed = function (knex, Promise) {
       return models.Folder.forge({
         folder_id: 'abcd1234',
         account_id: message.get('account_id'),
-        name: 'inbox',
+        // name: 'inbox',
+        color: 'blue',
+        count: 30,
         display_name: 'inbox'
       }).save(null, saveObj);
     })
@@ -171,7 +180,9 @@ exports.seed = function (knex, Promise) {
       return models.Folder.forge({
         folder_id: 'abcd1236',
         account_id: 'abcdefghijkl1234567890',
-        name: 'sent',
+        // name: 'sent',
+        color: 'red',
+        count: 99,
         display_name: 'sent'
       }).save(null, saveObj);
     })
@@ -179,8 +190,10 @@ exports.seed = function (knex, Promise) {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
         folder_id: 'abcd1237',
-        account_id:'abcdefghijkl1234567890',
-        name: 'null',
+        account_id: 'abcdefghijkl1234567890',
+        // name: 'null',
+        color: 'purple',
+        count: 10,
         display_name: 'mymail'
       }).save(null, saveObj);
     })
@@ -189,7 +202,9 @@ exports.seed = function (knex, Promise) {
       return models.Folder.forge({
         folder_id: 'abcd1235',
         account_id: 'abcdefghijkl1234567890',
-        name: 'null',
+        // name: 'null',
+        color: 'green',
+        count: 22,
         display_name: 'mymail2'
       }).save(null, saveObj);
     })
@@ -198,7 +213,9 @@ exports.seed = function (knex, Promise) {
       return models.Folder.forge({
         folder_id: 'abcd1238',
         account_id: 'abcdefghijkl1234567890',
-        name: 'trash',
+        // name: 'trash',
+        color: 'orange',
+        count: 4,
         display_name: 'trashbin'
       }).save(null, saveObj);
     })
@@ -233,7 +250,7 @@ exports.seed = function (knex, Promise) {
       console.error('ERROR: failed to create contact!');
     })
     .catch(() => {
-      console.log('WARNING: potential save issues encountered.');
+      console.log('WARNING: potential save issues encountered.', err);
     });
 
 };

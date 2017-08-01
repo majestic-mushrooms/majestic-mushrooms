@@ -69,7 +69,7 @@ module.exports.create = (req, res) => {
 
     new models.Message(createDatabaseMessageObject(message.data))
     .save(null, {method: 'insert'})
-    .then(result => { console.log('Successfully created message in DATABASE: ', result);})
+    .then(result => { console.log('Successfully created message in DATABASE: ', result); })
     .catch(err => { res.status(500).send(err); });
   })
   .catch( err => {

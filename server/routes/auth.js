@@ -45,7 +45,7 @@ router.route('/authenticated')
       return models.Account.where({ account_id: accountId }).fetch()
         .then(existing => {
           if (existing === null) {
-            console.log('CREATING new account', accountId, 'for', account.name + '!')
+            console.log('CREATING new account', accountId, 'for', account.name + '!');
             return models.Account.forge({
               account_id: accountId,
               name: account.name,
@@ -53,10 +53,10 @@ router.route('/authenticated')
               provider: account.provider,
               org_unit: account.organization_unit,
               sync_state: account.sync_state
-            }).save(null, { method: 'insert' })
+            }).save(null, { method: 'insert' });
           }
 
-          console.log('Account', accountId, 'for', account.name, 'already exists!')
+          console.log('Account', accountId, 'for', account.name, 'already exists!');
           return existing;
         });
     })
@@ -68,36 +68,15 @@ router.route('/authenticated')
       req.session.accountEmail = account.get('email');
 
       res.redirect(MAIN_PAGE);
-    })
+    });
   });
-
-
-// router.route('/login')
-//   .get((req, res) => {
-//     res.render('login.ejs', { message: 'You should login' });
-//   })
-//   .post(middleware.passport.authenticate);
-
-// router.route('/signup')
-//   .get((req, res) => {
-//     res.render('signup.ejs', { message: 'You should signup' });
-//   })
-//   .post(middleware.passport.authenticate); 
-
-// router.route('/profile')
-//   .get(middleware.auth.verify, (req, res) => {
-//     res.render('profile.ejs', {
-//       user: req.user // get the user out of session and pass to template
-//     });
-//   });
-
 
   
 router.route('/logout')
   .get( (req, res) => {
     console.log('Inside LOGOUT');
     req.session.destroy( (err) => {
-      if (err){
+      if (err) {
         console.log('Error destroying request session', err);
         res.status(500).send(err);
       } else {

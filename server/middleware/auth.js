@@ -12,9 +12,9 @@ const redisClient = redis.createClient({
 
 module.exports.verify = (req, res, next) => {
   console.log('Inside middleware.auth.verify');
-  if (req.session.isAuthenticated()) {
-    return next();
-  }
+  // if (req.session.isAuthenticated()) {
+  //   return next();
+  // }
   res.redirect(`https://api.nylas.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&scope=email&redirect_uri=${REDIRECT_URI}`);
 };
 
