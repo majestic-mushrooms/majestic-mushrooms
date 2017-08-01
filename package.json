@@ -5,7 +5,7 @@
     "start-prod": "node server",
     "start": "nodemon server",
     "test": "NODE_ENV=test grunt test",
-    "front-test": "jest --watch",
+    "front-test": "jest --coverage --watchAll",
     "build-prod": "webpack",
     "build": "webpack --watch",
     "migrate": "knex migrate:latest",
