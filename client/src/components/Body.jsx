@@ -14,19 +14,6 @@ class Body extends React.Component {
     super(props);
   }
 
-
-  componentDidMount() {
-    const { setRetrievedMessages } = this.props;
-
-    axios.get('/api/messages').then( messages => {
-      setRetrievedMessages(parseMessage(messages.data, today));
-    })
-    .catch( err => {
-      console.log('Error getting messages: ', err);
-    });
-  }
-
-
   render() {
     return (
       <div>
