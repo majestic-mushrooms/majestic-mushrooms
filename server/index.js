@@ -12,11 +12,15 @@ server.listen(PORT, '0.0.0.0', '', () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
 
-// io.on('connection', (socket) => {
-//   console.log('socket connected on', socket.id);
-  
-//   ee.on('delta', function(delta) {
-//     console.log('=======EMITTING DELTA=======');
-//     io.sockets.socket(socket.id).emit('delta', delta);
-//   });
-// });
+io.on('connection', (socket) => {
+  console.log('====socket connected on', socket.id);
+
+  socket.on('room', function(room) {
+    socket.join(room);
+  });
+
+  ee.on('delta', function(delta) {
+    console.log('=======emitting delta to', delta.email);
+    io.sockets.in(delta.email).emit('delta', delta);
+  });
+});
