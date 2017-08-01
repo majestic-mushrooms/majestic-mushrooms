@@ -21,11 +21,16 @@ class FolderList extends React.Component {
   }
   
   filterMessages(labelId) {
-    const { setFilteredMessages, setPage } = this.props;
+    const { setFilteredMessages, setPage, setAreResults } = this.props;
     axios.get('/api/folders/' + labelId)
       .then(response => {
-        setFilteredMessages(parseMessage(response.data, today));
-        setPage(1);
+        if(response.data.length > 0){
+          setFilteredMessages(parseMessage(response.data, today));
+          setPage(1);
+        } else {
+          console.log('No folder messages found');
+          setAreResults(false);
+        }
       });
   }
  
@@ -33,12 +38,21 @@ class FolderList extends React.Component {
     const { activeItem } = this.state || {};
     return (
       <div className='rightBar'>
-        <Divider hidden />
-        <Menu fluid vertical>
-          {this.props.folders.map((folder, key) => {
-            return <FolderListItem folder={folder} filter={this.filterMessages} key={key}/>;
-          })}
-        </Menu>
+        {this.props.folders.length === 0 ? (
+          <div></div>
+        ) : (
+          <div>
+            <Divider hidden />
+            <Menu fluid vertical>
+              {this.props.folders.map((folder, key) => {
+                return <FolderListItem folder={folder} filter={this.filterMessages} key={key}/>;
+              })}
+            </Menu>
+
+          </div>
+        )
+
+        }
       </div>
     );
   }

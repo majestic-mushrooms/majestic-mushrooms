@@ -57,6 +57,18 @@ const createMessages = (messages) => {
     };
   });
 };
+const createSortedMessages = (messages) => {
+  var sortedMessages = [];
+  messages.map(email => {
+    for (var i = 0; i < email.labels.length; i++) {
+      sortedMessages.push({
+        message_id: email.id,
+        folder_id: email.labels[i].id,
+      });
+    }
+  });
+  return sortedMessages;
+};
 
 const createDatabaseMessageObject = (message) => {
   return {
@@ -80,5 +92,6 @@ const createDatabaseMessageObject = (message) => {
 
 module.exports = {
   createMessages:               createMessages,
-  createDatabaseMessageObject:  createDatabaseMessageObject
+  createDatabaseMessageObject:  createDatabaseMessageObject,
+  createSortedMessages:         createSortedMessages
 };

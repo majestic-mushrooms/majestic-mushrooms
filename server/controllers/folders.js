@@ -5,9 +5,16 @@ const bookshelf = require('../../db');
 const throttledQueue = require('throttled-queue');
 
 module.exports.getAll = (req, res) => {
-  models.Folder
-    .query('where', 'account_id', '=', req.session.accountId)
-    .fetchAll()
+  let arr = [];
+  const delay = time => {
+    return new Promise( resolve => { 
+      setTimeout(resolve, time);
+    });
+  };
+
+  models.Folder.query( qb => {
+    qb.where('account_id', '=', req.session.accountId);
+  }).fetchAll()
     .then(folders => {
       if (folders.length === 0) {
         const getCount = folder => {
@@ -16,12 +23,10 @@ module.exports.getAll = (req, res) => {
               headers: { Authorization: authString }
             })
             .then(response => {
-              console.log(response.data);
               folder.count = response.data.count;
             });
         };
         const authString = 'Bearer ' + req.session.nylasToken;
-        let arr = [];
         let colors = [ 'red', 'orange', 'yellow', 'olive', 'green', 'teal', 'blue', 'violet', 'purple', 'pink', 'brown', 'grey', 'black'
         ];
 
@@ -39,7 +44,7 @@ module.exports.getAll = (req, res) => {
             }
           })
           .then(() => {
-            let throttle = throttledQueue(3, 800);
+            let throttle = throttledQueue(1, 350);
             return Promise.each(arr, (folder, i) => {
               throttle(function() {
                 getCount(folder);
@@ -48,28 +53,27 @@ module.exports.getAll = (req, res) => {
               const Folders = bookshelf.Collection.extend({
                 model: models.Folder
               });
-              setTimeout(function() {
+              delay(arr.length * 400).then( () => {
                 folders = Folders.forge(arr);
-                console.log(folders.models[0].attributes)
                 return folders.invokeThen('save', null, { method: 'insert' });
-
-              }, arr.length / 3 * 900);
+              }).then((folders) => {
+                console.log(`Folderss successfully retrieved for account ${req.session.accountId}. Rerouting!`);
+                res.status(200).send(folders);// render to the page
+              });
             });
           })
           .catch(err => {
+            console.log(`Error retrieving folders for sadfasdfasdfsadf account ${req.session.accountId}!`);
             res.send(err);
           });
       } else {
-        return folders;
+        res.status(200).send(folders);// render to the page
       }
     }).catch(err => {
     console.log(`Error retrieving folders for account ${req.session.accountId}!`);
-    res.status(404).send('Message retrieval failed.');
+    res.status(404).send('Folder retrieval failed.');
   
-  }).then(folders => {
-    console.log(`Folders successfully retrieved for account ${req.session.accountId}. Rerouting!`);
-    res.status(200).send(folders);// render to the page
-  });
+  })
 };
 
 module.exports.filter = (req, res) => {
@@ -77,7 +81,6 @@ module.exports.filter = (req, res) => {
   axios.get(`https://api.nylas.com/messages?in=${req.params.id}&limit=50`, {
     headers: { Authorization: authString }
   }).then(response => {
-    console.log(response.data)
     res.status(200).send(response.data);
   }).catch(err => {
     res.send(err);

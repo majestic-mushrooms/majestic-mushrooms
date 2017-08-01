@@ -1,7 +1,7 @@
 const axios = require('axios');
 const bookshelf = require('../../db');
 const models = require('../../db/models');
-const {createMessages, createDatabaseMessageObject} = require('../utils/messagesConstructor');
+const {createMessages, createDatabaseMessageObject, createSortedMessages} = require('../utils/messagesConstructor');
 
 module.exports.getAll = (req, res) => {
   models.Message.query( qb => {
@@ -27,6 +27,14 @@ module.exports.getAll = (req, res) => {
         });
         messages = Messages.forge(createMessages(retrievedMessages));
         return messages.invokeThen('save', null, { method: 'insert' });
+      })
+      .then( (messages) => {
+        const SortedMessages = bookshelf.Collection.extend({
+          model: models.SortedMessage
+        });
+        let sortedMessages = SortedMessages.forge(createSortedMessages(retrievedMessages));
+        sortedMessages.invokeThen('save', null, { method: 'insert' });
+        return messages;
       })
       .catch(err => {
         console.log(err);

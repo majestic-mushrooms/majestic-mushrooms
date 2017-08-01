@@ -25,4 +25,8 @@ body {
 .rightBar {
   position: fixed;
   width: 18.5%;
+  overflow-y: scroll;
+  height: 95%;
+  top: 0;
+  bottom: 0;
 }

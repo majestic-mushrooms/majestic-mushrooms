@@ -49,13 +49,11 @@ class App extends React.Component {
       setAccountDetails(userAccount.data, window.token);
       window.token = null;
     });
+
     axios.get('/api/folders').then(response => {
       setRetrievedFolders(response.data);
     })
-
-    //retrieve updated messages from db every 3:30
-    getMessages();
-    setInterval(getMessages, 18300); 
+    .then(() => { getMessages(); });
   }
 
   render() {

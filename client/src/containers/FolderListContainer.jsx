@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { filterMessages, setFolders, setPage } from '../actions';
+import { filterMessages, setFolders, setPage, setAreResults } from '../actions';
 import FolderList from '../components/FolderList.jsx';
 
 const mapStateToProps = (state) => {
@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setPage: (page) => {
       dispatch(setPage(page));
+    },
+    setAreResults: (boolean) => {
+      dispatch(setAreResults(boolean));
     }
   };
 };
