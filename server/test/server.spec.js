@@ -1,13 +1,22 @@
-// 'use strict';
-// const request = require('supertest');
-// const express = require('express');
-// const expect = require('chai').expect;
-// const app = require('../app.js');
+'use strict';
+const request = require('supertest');
+const express = require('express');
+const expect = require('chai').expect;
+const app = require('../app.js');
+const server = require('../index.js');
 
-// describe('basic server', function() {
-//   it('sends back hello world', function(done) {
+
+describe('Express Server', function() {
+  var dbConnection;
+
+  // beforeEach(function(done) {
+  //   dbConnection = 
+  // });
+
+// describe('GET /api/search', function() {
+//   it('respond with object', function(done) {
 //     request(app)
-//       .get('/api')
+//       .get('/api/search')
 //       .expect(200)
 //       .expect(function(res) {
 //         expect(res.text).to.equal('Hello World!');
