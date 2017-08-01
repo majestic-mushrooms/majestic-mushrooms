@@ -10,4 +10,10 @@ router.route('/')
     SearchController.getAll(req, res);
   });
 
+router.route('/')
+  .get( middleware.auth.verify, (req, res) => {
+    console.log('Inside Routes search GET');
+    SearchController.getNylasResults(req, res);
+  });
+
 module.exports = router;

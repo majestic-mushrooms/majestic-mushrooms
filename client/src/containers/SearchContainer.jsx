@@ -1,17 +1,21 @@
 import { connect } from 'react-redux';
 import Search from '../components/Search.jsx';
-import { setSearchQueryAndResults } from '../actions';
+import { setSearchQueryAndResults, setAreResults } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    view: state.view
+    view: state.view,
+    search: state.search
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSearch: (searchQuery, searchResults) => {
+    setSearchQueryAndResults: (searchQuery, searchResults) => {
       dispatch(setSearchQueryAndResults(searchQuery, searchResults));
+    },
+    setAreResults: (boolean) => {
+      dispatch(setAreResults(boolean));
     }
   };
 };

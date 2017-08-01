@@ -28,16 +28,17 @@ class EmailListItem extends React.Component {
 
   render() {
     const {view, messageIndex } = this.props;
-    const message = this.props.messages[messageIndex];
-    // console.log('Inside EmailListItem: ', this.props.messages, messageIndex, view);
+    const messages = (view === 'Search') ? this.props.searchResults : this.props.messages;
+
+    const message = messages[messageIndex];
     const fromStr = message.from.reduce((fromStr, sender) => fromStr + sender.name, '');
     const weight = message.unread === true ? 'bold' : 'normal';
 
     return (
     
         <Table.Row 
-          onClick={ () => {this.handleMessageClick(message.message_id, messageIndex, message.unread);} }
-          onMouseEnter={() => {this.setState({ showButton: true });}}
+          onClick={ () => { this.handleMessageClick(message.message_id, messageIndex, message.unread); }}
+          onMouseEnter={() => { this.setState({ showButton: true }); }}
           onMouseLeave={() => { this.setState({ showButton: false }); }}>
 
           <Table.Cell width="4">
