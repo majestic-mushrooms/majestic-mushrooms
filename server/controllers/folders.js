@@ -12,10 +12,11 @@ module.exports.getAll = (req, res) => {
     });
   };
 
-  models.Folder
-    .query('where', 'account_id', '=', req.session.accountId)
-    .fetchAll()
+  models.Folder.query( qb => {
+    qb.where('account_id', '=', req.session.accountId);
+  }).fetchAll()
     .then(folders => {
+      console.log(folders.length, 'asdfasfasdfasfgadfgadfgdafs');
       if (folders.length === 0) {
         const getCount = folder => {
           axios
@@ -57,23 +58,24 @@ module.exports.getAll = (req, res) => {
                 folders = Folders.forge(arr);
                 return folders.invokeThen('save', null, { method: 'insert' });
               }).then((folders) => {
+                console.log(`Folderss successfully retrieved for account ${req.session.accountId}. Rerouting!`);
                 res.status(200).send(folders);// render to the page
               });
             });
           })
           .catch(err => {
+            console.log(`Error retrieving folders for sadfasdfasdfsadf account ${req.session.accountId}!`);
             res.send(err);
           });
       } else {
-        return folders;
+        res.status(200).send(folders);// render to the page
       }
     }).catch(err => {
     console.log(`Error retrieving folders for account ${req.session.accountId}!`);
-    res.status(404).send('Message retrieval failed.');
+    res.status(404).send('Folder retrieval failed.');
   
   })
   // .then(folders => {
-  //   console.log(`Folders successfully retrieved for account ${req.session.accountId}. Rerouting!`);
     
   //   setTimeout(function() {
   //     console.log('folder ===========', folders);
