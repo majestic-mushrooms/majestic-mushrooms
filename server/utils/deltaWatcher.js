@@ -56,9 +56,10 @@ module.exports = function(req) {
           .then( saved => { 
             console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); 
             //emit delta event to socket.io
-            ee.emit('delta', { event: delta.event, attributes: saved });
+            // ee.emit('delta', { event: delta.event, attributes: saved });
           })
-          .catch( err => { 
+          .catch( err => {
+
             //try inserting it if it's an error of the message not existing
             console.log('FIRST TRY ERRORED. Trying again.')
             return models.Message.forge(createMessages([delta.attributes])[0]).save(null, {method: 'insert'})
@@ -67,7 +68,7 @@ module.exports = function(req) {
               ee.emit('delta', { event: delta.event, attributes: saved });
             });
           })
-          .catch( err => { console.log('ERROR: Message not successfully created/update:', err); });
+          .catch( err => { console.log('ERROR: Message not successfully created/updated:', err); });
         }
       }
 

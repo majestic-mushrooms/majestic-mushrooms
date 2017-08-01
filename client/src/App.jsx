@@ -10,8 +10,8 @@ import AppContainer from './containers/AppContainer.jsx';
 import { parseMessage } from './components/utils/messagesHelper';
 import { today } from './components/utils/dateTimeHelper';
 
-import io from 'socket.io-client';
-const socket = io();
+// import io from 'socket.io-client';
+// const socket = io();
 
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest);
@@ -34,8 +34,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { setAccountDetails, modifyMessage, addMessage, setRetrievedFolders } = this.props;
-    console.log(this.props);
+    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders } = this.props;
+    const getMessages = () => {
+      axios.get('/api/messages').then( messages => {
+        setRetrievedMessages(parseMessage(messages.data, today));
+      })
+      .catch( err => {
+        console.log('Error getting messages: ', err)
+      });
+    };
+
     //do account call - start server listening to deltas
     axios.get('/api/account').then( userAccount => { 
       setAccountDetails(userAccount.data, window.token);
@@ -43,24 +51,11 @@ class App extends React.Component {
     });
     axios.get('/api/folders').then(response => {
       setRetrievedFolders(response.data);
-    });
-    //start listening to deltas
-    socket.on('connect', () => {
-      console.log('socket connected!');
+    })
 
-      socket.on('delta', (delta) => { 
-        //DELTA WILL ALWAYS BE A MESSAGE AS OF NOW
-        console.log('Delta received - id:', delta.attributes.message_id, '/ event:', delta.event);
-
-        //refresh messages
-        const parsedMessage = parseMessage([delta.attributes], today)[0];
-        if (delta.event === 'create') {
-          addMessage(parsedMessage);
-        } else if (delta.event === 'modify') {
-          modifyMessage(parsedMessage);
-        }
-      });
-    });
+    //retrieve updated messages from db every 3:30
+    getMessages();
+    setInterval(getMessages, 18300); 
   }
 
   render() {
