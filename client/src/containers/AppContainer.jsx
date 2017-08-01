@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
-import { setAccount, setMessages, setFolders } from '../actions';
+import { setAccount, setMessages, setFolders, addMessage, modifyMessage } from '../actions';
 import App from '../App.jsx';
 
 const mapStateToProps = (state) => {
   return {
     messages: state.messages,
-    view:     state.view 
+    view:     state.view,
+    account:  state.account
   };
 };
 
@@ -19,6 +20,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     setRetrievedFolders: (folders) => {
       dispatch(setFolders(folders));
+    },
+    addMessage: (message) => {
+      dispatch(addMessage(message));
+    },
+    modifyMessage: (message) => {
+      dispatch(modifyMessage(message));
     }
   };
 };

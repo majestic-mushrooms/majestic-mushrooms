@@ -2,7 +2,7 @@ const defaultAccountState = {
   nylasToken:       undefined,
   isAuthenticated:  () => {
     return false;
-  }
+  },
 };
 
 export const accountReducer = (state = defaultAccountState, action) => {
@@ -23,7 +23,7 @@ export const accountReducer = (state = defaultAccountState, action) => {
     }
     
     return {
-      ...action.account,
+      ...action.account
     };
   
     

@@ -86,7 +86,7 @@ class ReadEmail extends React.Component {
                     })}
 
                     <Table.Row>
-                    <Reply />
+                    <Reply message={currentMessage}/>
                     </Table.Row>
                     </Table.Body> 
                     </Table>
