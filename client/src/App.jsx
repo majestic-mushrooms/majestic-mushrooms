@@ -53,12 +53,7 @@ class App extends React.Component {
     axios.get('/api/folders').then(response => {
       setRetrievedFolders(response.data);
     })
-    .then(() => { getMessages(); })
-    .catch(err => {
-      console.log(err);
-    })
-
-    //retrieve updated messages from db every 3:30
+    .then(() => { getMessages(); });
   }
 
   render() {

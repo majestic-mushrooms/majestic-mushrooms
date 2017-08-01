@@ -16,7 +16,6 @@ module.exports.getAll = (req, res) => {
     qb.where('account_id', '=', req.session.accountId);
   }).fetchAll()
     .then(folders => {
-      console.log(folders.length, 'asdfasfasdfasfgadfgadfgdafs');
       if (folders.length === 0) {
         const getCount = folder => {
           axios
@@ -75,13 +74,6 @@ module.exports.getAll = (req, res) => {
     res.status(404).send('Folder retrieval failed.');
   
   })
-  // .then(folders => {
-    
-  //   setTimeout(function() {
-  //     console.log('folder ===========', folders);
-  //     res.status(200).send(folders);// render to the page
-  //   }, arr.length * 600);
-  // });
 };
 
 module.exports.filter = (req, res) => {
