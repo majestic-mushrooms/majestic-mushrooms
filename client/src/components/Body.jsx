@@ -17,7 +17,7 @@ class Body extends React.Component {
 
   componentDidMount() {
     const { setRetrievedMessages, setRetrievedContacts } = this.props;
-
+    
     axios.get('/api/messages').then( messages => {
       setRetrievedMessages(parseMessage(messages.data, today));
     })
@@ -25,16 +25,9 @@ class Body extends React.Component {
       console.log('Error getting messages: ', err);
     });
 
-    axios.get('/api/contacts').then( contacts => {
-      console.log("Body.jsx axios.get(/api/contacts) result data", contacts.data)
-      setRetrievedContacts(contacts.data);
-    })
-    .catch( err => {
-      console.log('Error getting contacts: ', err);
-    });
   }
 
-
+  
   render() {
     return (
       <div>

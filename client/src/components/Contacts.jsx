@@ -1,5 +1,6 @@
 import React from 'react';
 import ContactContainer from '../containers/ContactContainer.jsx';
+
 import { Message, Divider, Table, Icon, Label, Image, Menu } from 'semantic-ui-react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -11,7 +12,19 @@ class Contacts extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    const { setRetrievedContacts } = this.props;
+
+    axios.get('/api/contacts').then( contacts => {
+      setRetrievedContacts(contacts.data);
+    })
+    .catch( err => {
+      console.log('Error getting contacts: ', err);
+    });
+  }
+
   handlePageNav(direction) {
+    
     const { page, setPage } = this.props;
 
     if (direction === 'back') {
@@ -23,36 +36,41 @@ class Contacts extends React.Component {
   } 
 
   render() {
-    const { view, page } = this.props;
-    const contacts = this.props.contacts ? this.props.contacts.slice(25 * (page - 1), 25 * page) 
-                      : console.log(this.props.contacts);
-    console.log(this.props);
-    // return (
-    //   <div>
+    const contacts = this.props.contacts.contacts;
 
-    //   {contacts.length === 0 ? (
-    //       <Image src={WAIT_IMAGE} centered size='small'/>          
-    //     ) : (
-    //       <div>
-    //         <Table singleLine fixed>
-    //           <Table.Body>
-    //             {contacts.map((contact, index, array) => {
-    //               index = (25 * (page - 1)) + index;
-    //               return <ContactItemContainer key={index} contactIndex={index}  />;
-    //             })}
-    //           </Table.Body> 
-    //         </Table>
+    return (<div> 
+      <Table singleLine fixed>
+        <Table.Header>
+        <Table.Row>
+        <Table.HeaderCell>Name</Table.HeaderCell>
+        <Table.HeaderCell>Email</Table.HeaderCell>
+        <Table.HeaderCell>Phone</Table.HeaderCell>
+        </Table.Row>
+        
+        </Table.Header>
+      
+        <Table.Body>
+        {contacts.slice(1, contacts.length).map((contact, index) => {
+            return <ContactItem key={index} contact={contact} contactId={contact.contact_id} />;
+          })}
+      
+      
+        </Table.Body>
+        </Table>
 
-    //         <Icon name="chevron left" onClick={() => { this.handlePageNav('back'); }} />
-    //           {page} / {Math.ceil(this.props.messages.length / 25)} 
-    //         <Icon name="chevron right" onClick={() => { this.handlePageNav('forward'); }} />
-    //       </div>
-    //       )
-    //     }
-    //   </div>
-    // );
-    return (<div>Testing</div>);
-  }
-}
-            
-export default Contacts;
+
+        </div>);
+      }
+    }
+    
+    export default Contacts;
+
+    // const contacts = this.props.contacts.contacts.slice(25 * (page - 1), 25 * page);
+    
+    // {contacts.map((contact, index) => {
+    //   return <ContactItem key={index} contact={contact} contactId={contact.contact_id} />;
+    // })}
+
+    // <Icon name="chevron left" onClick={() => { this.handlePageNav('back'); }} />
+    // {page} / {Math.ceil(this.props.contacts.length / 25)} 
+    // <Icon name="chevron right" onClick={() => { this.handlePageNav('forward'); }} />
