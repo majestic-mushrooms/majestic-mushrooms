@@ -1,12 +1,11 @@
 
-const initialContactsState = {
+const initialContactState = {
     contacts: []
 }
     
-export const ContactsReducer = (state = initialContactsState, action) => {
+export const contactReducer = (state = initialContactState, action) => {
   
   switch (action.type) {
-
     case 'SET_CONTACTS':
       return {
         ...state,

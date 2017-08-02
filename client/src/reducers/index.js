@@ -7,7 +7,7 @@ import { foldersReducer } from './foldersReducer.js';
 import { pageReducer } from './pageReducer.js';
 import { contactReducer } from './contactReducer.js';
 import { combineReducers } from 'redux';
-  
+
 const emailApp = combineReducers( {
   messages:       messagesReducer,
   search:         searchReducer,
@@ -16,7 +16,7 @@ const emailApp = combineReducers( {
   threads:        threadsReducer,
   folders:        foldersReducer,
   page:           pageReducer,
-  contacts:        contactReducer,  
+  contacts:       contactReducer,
 });
 
 
