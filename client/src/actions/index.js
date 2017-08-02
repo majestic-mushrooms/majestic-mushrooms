@@ -188,6 +188,7 @@ export const setPage = (newPage) => {
 };
 
 export const setContacts = (contacts) => {
+  // console.log("inside actions/index.js setContacts/contacts:  ", contacts);
   return {
     type:       'SET_CONTACTS',
     contacts:   contacts,
