@@ -15,5 +15,11 @@ describe('>>> <div /> --- Shallow Render REACT COMPONENTS', () => {
     it('+++ render the DUMB component', () => {
         expect(wrapper.length).toEqual(1);
     });
-    
+
+    it('+++ render the DUMB component')
+    it('+++ render the DUMB component')
+    it('+++ render the DUMB component')    
+
+
 });
+

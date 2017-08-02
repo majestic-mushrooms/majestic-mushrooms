@@ -122,6 +122,11 @@ export const setView = (viewName = 'Inbox') => {
       type:       'SET_VIEW_TO_WAITING',
       view:       viewName
     };
+  case 'Contacts':
+  return {
+    type:       'SET_VIEW_TO_CONTACTS',
+    view:       viewName
+  };
 
   default:
     return {
@@ -180,4 +185,12 @@ export const setPage = (newPage) => {
     type:         'SET_PAGE',
     page:         newPage
   };
+};
+
+export const setContacts = (contacts) => {
+  // console.log("inside actions/index.js setContacts/contacts:  ", contacts);
+  return {
+    type:       'SET_CONTACTS',
+    contacts:   contacts,
+    view:         'Contacts'   };
 };

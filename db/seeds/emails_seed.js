@@ -22,7 +22,7 @@ exports.seed = function (knex, Promise) {
       throw err;
     })
     .then(account => {
-      console.log('saving message for', account.get('account_id') + '!')
+      console.log('saving message for abcde12345', account.get('account_id') + '!')
       return models.Message.forge({
         message_id: 'abcde12345',
         account_id: account.get('account_id'),
@@ -219,6 +219,18 @@ exports.seed = function (knex, Promise) {
     })
     .error(err => {
       console.error('ERROR: failed to save to join table');
+    })
+    .then(contact => {
+      console.log('saving contact for', contact.get('contact_id') + '!')
+      return models.Folder.forge({
+        contact_id: 'contactid001',
+        email: 'abd@abd.com',
+        name: 'Abrahm Bad Dog',
+        phone_numbers: '[{mobile: "1-000-000-0000"}]'
+      }).save(null, saveObj);
+    })
+    .error(err => {
+      console.error('ERROR: failed to create contact!');
     })
     .catch(() => {
       console.log('WARNING: potential save issues encountered.');

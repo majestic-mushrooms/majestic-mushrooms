@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setSearchResults, setView } from '../actions';
+import { setMessages, setSearchResults, setView } from '../actions';
 import Body from '../components/Body.jsx';
 
 const mapStateToProps = (state) => {
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setNewView: (viewName) => {
       dispatch(setView(viewName));
+    },
+    setRetrievedMessages: (newMessages) => {
+      dispatch(setMessages(newMessages));
     }
   };
 };

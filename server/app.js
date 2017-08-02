@@ -26,5 +26,6 @@ app.use('/api/folders', routes.folders);
 app.use('/api/search', routes.search);
 app.use('/api/threads', routes.threads);
 app.use('/api/account', routes.account);
+app.use('/api/contacts', routes.contacts);
 
 module.exports = app;

@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom'
 import BodyContainer from '../../containers/BodyContainer.jsx';
 import ComposeEmailContainer from '../../containers/ComposeEmailContainer.jsx';
 import ReadEmailContainer from '../../containers/ReadEmailContainer.jsx';
+import ContactContainer from '../../containers/ContactContainer.jsx';
+
 import { withRouter } from 'react-router';
 
 //Associate each route URL path with a component
@@ -18,6 +20,10 @@ const routes = [
   { path:          '/message',
     exact:         true,
     component:     ReadEmailContainer
+  },
+  { path:          '/contacts',
+    exact:         true,
+    component:     ContactContainer
   }
 ];
 
