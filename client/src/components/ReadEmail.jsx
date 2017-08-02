@@ -15,6 +15,9 @@ import { today } from './utils/dateTimeHelper';
 class ReadEmail extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      contentHeight: '0px'
+    }
   }
 
   componentDidMount() {
@@ -24,6 +27,9 @@ class ReadEmail extends React.Component {
     axios.get(`api/threads/${threadId}`)
     .then(response => {
       setThread(parseMessage(response.data, today));
+      let iframedoc = this.messageBody.contentDocument || this.messageBody.contentWindow.document;
+      iframedoc.body.innerHTML = currentMessage.body;
+      this.setState({ contentHeight: iframedoc.body.scrollHeight + 50 + 'px' })
     })
     .catch(error => {
       console.log('getThreads error: ', error);
@@ -44,8 +50,8 @@ class ReadEmail extends React.Component {
   }
 
   createMarkup() {
-    const { currentMessage } = this.props;
-    return {__html: currentMessage.body};
+    // const { currentMessage } = this.props;
+    // return {__html: currentMessage.body};
   }
 
   render() {
@@ -77,8 +83,12 @@ class ReadEmail extends React.Component {
                     <Table.Body>
                     {<ReadMailEntry message={thread[0]} messageId={thread[0].message_id} />}
                     <Table.Row>
-                    <Table.Cell colSpan='3'>
-                    <div dangerouslySetInnerHTML={this.createMarkup()} ></div>
+                    <Table.Cell colSpan='3' verticalAlign='top' style={{position:'relative', height:this.state.contentHeight}}>
+                    <iframe 
+                      style={{position:'absolute', width:'97.5%', height:'100%'}} 
+                      ref={input => this.messageBody = input}
+                      frameBorder='0'
+                    ></iframe>
                     </Table.Cell>
                     </Table.Row>
                     {thread.slice(1, thread.length).map((message, index) => {
