@@ -26,7 +26,6 @@ module.exports.getAll = (req, res) => {
   axios.get(`https://api.nylas.com/contacts`, {
     headers: { Authorization: authString }
   }).then(response => {
-    console.log("Retrieving contacts from Nylas success. req.params is: ", req.params.id);
     res.send(response.data);
   })
   .catch(err => {
