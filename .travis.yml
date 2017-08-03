@@ -24,7 +24,7 @@ before_script:
   - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'CREATE DATABASE tests_tmp;' -U postgres; fi"
 
 script:
-  - yarn build
+  - yarn build-prod
   - yarn test
 
 after_success: 
