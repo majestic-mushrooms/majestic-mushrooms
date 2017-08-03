@@ -27,7 +27,6 @@ class FolderList extends React.Component {
     axios.get('/api/folders/' + labelId)
       .then(response => {
         if (response.data.length > 0){
-          console.log('what im here!!!!!!!!!!!!!!!!!!!!!!!!!!!')
           setAreResults(true);
           setFilteredMessages(response.data);
         } else {
