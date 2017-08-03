@@ -65,7 +65,6 @@ const createMessages = (messages) => {
   });
 };
 const createSortedMessages = (messages) => {
-  console.log(messages, 'increatesorted');
   let sortedMessages = [];
   messages.map(email => {
     for (let i = 0; i < email.labels.length; i++) {
