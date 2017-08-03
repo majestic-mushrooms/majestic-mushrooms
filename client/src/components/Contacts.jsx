@@ -63,13 +63,3 @@ class Contacts extends React.Component {
 }
     
 export default Contacts;
-
-// const contacts = this.props.contacts.contacts.slice(25 * (page - 1), 25 * page);
-
-// {contacts.map((contact, index) => {
-//   return <ContactItem key={index} contact={contact} contactId={contact.contact_id} />;
-// })}
-
-// <Icon name="chevron left" onClick={() => { this.handlePageNav('back'); }} />
-// {page} / {Math.ceil(this.props.contacts.length / 25)} 
-// <Icon name="chevron right" onClick={() => { this.handlePageNav('forward'); }} />
