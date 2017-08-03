@@ -194,12 +194,19 @@ export const setFolders = (folders) => {
   return {
     type:       'SET_FOLDERS',
     folders:     folders
-  }
-}
+  };
+};
 
 export const setInbox = (inboxId) => {
   return {
     type:       'SET_INBOX',
     inboxId:     inboxId
-  }
-}
+  };
+};
+
+export const setCurrentFolder = (currentId) => {
+  return {
+    type:       'SET_CURRENT_FOLDER',
+    currentId:   currentId
+  };
+};

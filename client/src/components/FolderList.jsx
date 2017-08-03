@@ -21,9 +21,10 @@ class FolderList extends React.Component {
   }
   
   filterMessages(labelId) {
-    const { setFilteredMessages, setPage, setAreResults, setNewView } = this.props;
+    const { setFilteredMessages, setPage, setAreResults, setNewView, setCurrentFolder } = this.props;
     setNewView('Inbox');
     setPage(1);
+    setCurrentFolder(labelId);
     axios.get('/api/folders/' + labelId)
       .then(response => {
         if (response.data.length > 0){

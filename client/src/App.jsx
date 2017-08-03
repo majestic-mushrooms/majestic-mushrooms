@@ -34,7 +34,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders, setInbox, addMessage, modifyMessage } = this.props;
+    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders, setInbox, addMessage, modifyMessage, setCurrentFolder } = this.props;
 
     axios.get('/api/folders').then( response => {
       setRetrievedFolders(response.data);
@@ -42,6 +42,7 @@ class App extends React.Component {
       response.data.forEach(folder => {
         if (folder.display_name === 'Inbox') { inboxId = folder.folder_id; }
       });
+      setCurrentFolder(inboxId);
       setInbox(inboxId);
     })
     .then(() => axios.get('/api/messages'))
@@ -50,7 +51,6 @@ class App extends React.Component {
       setRetrievedMessages(parseMessage(response.data, today));
     });
 
-    let newDeltas = {};
     socket.on('connect', () => {
       //do account call - start server listening to deltas
       axios.get('/api/account').then( userAccount => { 
@@ -69,10 +69,11 @@ class App extends React.Component {
         //refresh messages
         const parsedMessage = parseMessage([delta.attributes], today)[0];
         if (delta.event === 'create') {
-          //@TODO: fix duplicates, workaround:
-          if (newDeltas[delta.attributes.message_id] === undefined) { addMessage(parsedMessage); }
-
-          newDeltas[delta.attributes.message_id] = true;
+          console.log('IN CREATE, FETCH FOLDERS', this.props.folders.currentId)
+          axios.get('/api/folders/' + this.props.folders.currentId).then( response => {
+            console.log(response.data);
+            setRetrievedMessages(parseMessage(response.data, today));
+          });
         } else if (delta.event === 'modify') {
           modifyMessage(parsedMessage);
         }

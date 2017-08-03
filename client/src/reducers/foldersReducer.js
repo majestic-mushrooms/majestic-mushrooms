@@ -1,6 +1,7 @@
 const initialFolderState = { 
   folders: [], 
-  inboxId: null 
+  inboxId: null,
+  currentId: null
 };
 
 export const foldersReducer = (state = initialFolderState, action) => {
@@ -14,6 +15,11 @@ export const foldersReducer = (state = initialFolderState, action) => {
     return {
       ...state,
       inboxId: action.inboxId
+    }
+  case 'SET_CURRENT_FOLDER':
+    return {
+      ...state,
+      currentId: action.currentId
     }
   
   default: 

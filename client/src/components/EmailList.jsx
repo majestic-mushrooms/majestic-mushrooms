@@ -29,7 +29,7 @@ class EmailList extends React.Component {
     const { view, page, areResults } = this.props;
     const messages = (view === 'Search') ? this.props.searchResults : 
       this.props.messages.slice(25 * (page - 1), 25 * page);
-
+    console.log('rendering!')
     return (
       <div>
         { view === 'Read' && (

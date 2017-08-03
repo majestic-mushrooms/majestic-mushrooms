@@ -21,9 +21,10 @@ const onClickLogOut = (props) => {
 };
 
 const onClickInbox = (props) => {
-  const {setFilteredMessages, setNewView, setPage, setAreResults} = props;
+  const { setFilteredMessages, setNewView, setPage, setAreResults, setCurrentFolder } = props;
   setNewView('Inbox'); 
   setPage(1);
+  setCurrentFolder(this.props.folders.inboxId);
   axios.get('/api/folders/' + this.props.folders.inboxId).then(response => {
     setFilteredMessages(parseMessage(response.data, today)); 
     setAreResults(true); 
@@ -39,7 +40,7 @@ const LeftMenu = (props) => {
       )}
 
     <Sidebar as={Menu} animation='push' visible={true} icon='labeled' vertical inverted fixed="left" className='sideBar'>
-      <Menu.Item as={Link} to='/' name='mail' onClick={onClickInbox.bind(this, props)} >
+      <Menu.Item as={Link} to='/' onClick={onClickInbox.bind(this)} name='mail' >
         <Icon name='inbox' />
         Inbox
       </Menu.Item>
