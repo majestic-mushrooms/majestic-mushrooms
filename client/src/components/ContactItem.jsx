@@ -6,6 +6,9 @@ import axios from 'axios';
 class ContactsItem extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      activeItem: 'Contacts' 
+    }
   }
 
   render() {
