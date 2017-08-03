@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import LeftMenu from '../components/LeftMenu.jsx';
-import { setView, setPage, setAreResults } from '../actions';
+import { setView, setPage, setAreResults, filterMessages } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setAreResults: (boolean) => {
       dispatch(setAreResults(boolean));
+    },
+    setFilteredMessages: (newMessages) => {
+      dispatch(filterMessages(newMessages));
     }
   };
 };

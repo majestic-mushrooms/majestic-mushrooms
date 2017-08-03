@@ -13,7 +13,11 @@ export const viewReducer = (state = 'Inbox', action) => {
     return action.view;
   case 'SET_VIEW_TO_LOGOUT':
     return action.view;
+  case 'SET_VIEW_TO_FILTER':
+    return action.view;
   case 'SET_CURRENT_MESSAGE':
+    return action.view;
+  case 'SET_CURRENT_THREAD':
     return action.view;
   case 'SET_SEARCH':
     return action.view;

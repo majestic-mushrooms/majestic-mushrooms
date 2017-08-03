@@ -27,6 +27,8 @@ class EmailListItem extends React.Component {
   }
 
   render() {
+    console.log('emailListItem vview ======', this.props.view);
+
     const {view, messageIndex } = this.props;
     const messages = (view === 'Search') ? this.props.searchResults : this.props.messages;
 
@@ -42,7 +44,7 @@ class EmailListItem extends React.Component {
           onMouseLeave={() => { this.setState({ showButton: false }); }}>
 
           <Table.Cell width="4">
-            <Label circular style={{marginRight:'8px', background:message.color, color:'white'}}>
+            <Label circular style={{marginRight:'8px', background: message.color, color:'white'}}>
               { fromStr.charAt(0).toUpperCase() }
             </Label>
             <span style={{fontWeight: weight}}>

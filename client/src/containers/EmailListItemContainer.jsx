@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setView, setCurrentMessage } from '../actions';
+import { setCurrentMessage } from '../actions';
 import EmailListItem from '../components/EmailListItem.jsx';
 
 const mapStateToProps = (state) => {

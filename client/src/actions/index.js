@@ -154,6 +154,7 @@ export const clearCurrentMessage = () => {
 export const setCurrentThread = (currentThread) => {
   return {
     type:         'SET_CURRENT_THREAD',
+    view:         'Read',
     thread:       currentThread
   };
 };
