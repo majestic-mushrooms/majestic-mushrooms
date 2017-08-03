@@ -13,7 +13,6 @@ const router = express.Router();
 
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
-    console.log('returned to auth index render')
     res.render('index.ejs', {token: req.session.nylasToken});
   });
 
