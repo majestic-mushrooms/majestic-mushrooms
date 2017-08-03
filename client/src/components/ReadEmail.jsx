@@ -24,16 +24,18 @@ class ReadEmail extends React.Component {
     const { currentMessage, setThread } = this.props;
     var messageId = currentMessage.message_id;
     var threadId = currentMessage.thread_id;
-    axios.get(`api/threads/${threadId}`)
-    .then(response => {
-      setThread(parseMessage(response.data, today));
-      let iframedoc = this.messageBody.contentDocument || this.messageBody.contentWindow.document;
-      iframedoc.body.innerHTML = currentMessage.body;
-      this.setState({ contentHeight: iframedoc.body.scrollHeight + 50 + 'px' })
-    })
-    .catch(error => {
-      console.log('getThreads error: ', error);
-    });
+    threadId ?
+      axios.get(`api/threads/${threadId}`)
+      .then(response => {
+        setThread(parseMessage(response.data, today));
+        let iframedoc = this.messageBody.contentDocument || this.messageBody.contentWindow.document;
+        iframedoc.body.innerHTML = currentMessage.body;
+        this.setState({ contentHeight: iframedoc.body.scrollHeight + 50 + 'px' })
+      })
+      .catch(error => {
+        console.log('getThreads error: ', error);
+      })
+    : null;
   }
   
   handleArrowClick(arrowDirection) {
