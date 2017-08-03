@@ -34,20 +34,21 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders, addMessage, modifyMessage } = this.props;
-    const getMessages = () => {
-      axios.get('/api/messages').then( messages => {
-        setRetrievedMessages(parseMessage(messages.data, today));
-      })
-      .catch( err => {
-        console.log('Error getting messages: ', err)
-      });
-    };
+    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders, setInbox, addMessage, modifyMessage } = this.props;
 
-    axios.get('/api/folders').then(response => {
+    axios.get('/api/folders').then( response => {
       setRetrievedFolders(response.data);
+      let inboxId = null;
+      response.data.forEach(folder => {
+        if (folder.display_name === 'Inbox') { inboxId = folder.folder_id; }
+      });
+      setInbox(inboxId);
     })
-    .then(() => { getMessages(); });
+    .then(() => axios.get('/api/messages'))
+    .then(() => axios.get('/api/folders/' + this.props.folders.inboxId))
+    .then( response => { 
+      setRetrievedMessages(parseMessage(response.data, today));
+    });
 
     let newDeltas = {};
     socket.on('connect', () => {

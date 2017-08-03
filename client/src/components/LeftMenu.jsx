@@ -3,6 +3,8 @@ import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui
 import { Redirect, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
+import { today } from './utils/dateTimeHelper';
+import { parseMessage } from './utils/messagesHelper';
 
 
 const onClickLogOut = (props) => {
@@ -19,11 +21,11 @@ const onClickLogOut = (props) => {
 };
 
 const onClickInbox = (props) => {
-  setNewView('Inbox'); 
   const {setFilteredMessages, setNewView, setPage, setAreResults} = props;
-  axios.get('/api/messages').then(response => {
-    setFilteredMessages(response.data);
-    setPage(1); 
+  setNewView('Inbox'); 
+  setPage(1);
+  axios.get('/api/folders/' + this.props.folders.inboxId).then(response => {
+    setFilteredMessages(parseMessage(response.data, today)); 
     setAreResults(true); 
   });
 };

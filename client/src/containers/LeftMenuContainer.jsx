@@ -4,7 +4,8 @@ import { setView, setPage, setAreResults, filterMessages } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    view:  state.view
+    view:  state.view,
+    folders: state.folders
   };
 };
 

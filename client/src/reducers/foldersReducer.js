@@ -1,8 +1,20 @@
-export const foldersReducer = (state = [], action) => {
+const initialFolderState = { 
+  folders: [], 
+  inboxId: null 
+};
+
+export const foldersReducer = (state = initialFolderState, action) => {
   switch (action.type) {
   
   case 'SET_FOLDERS':
-    return action.folders;
+    return {
+      folders: action.folders
+    };
+  case 'SET_INBOX':
+    return {
+      ...state,
+      inboxId: action.inboxId
+    }
   
   default: 
     return state;
