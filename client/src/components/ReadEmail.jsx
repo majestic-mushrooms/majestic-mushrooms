@@ -44,15 +44,6 @@ class ReadEmail extends React.Component {
 
   }
 
-  createMarkup() {
-    // const { currentMessage } = this.props;
-    // return {__html: currentMessage.body};
-  }
-  
-  handleCloseClick() {
-
-  }
-
   render() {
     
     const { currentMessage, thread, messages, view } = this.props;
@@ -79,34 +70,34 @@ class ReadEmail extends React.Component {
                     {currentMessage.messageIndex < messages.length ? <Icon name="chevron right" onClick={this.handleArrowClick.bind(this, 1)}/> : null}
                     <Menu.Item as={Link} to='/' onClick={ () => { setNewView('Inbox'); }}> <Icon name='remove' /> </Menu.Item>
                     
-                    </Table.HeaderCell>
-                    </Table.Row>
-                    </Table.Header>
+                  </Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
                     
-                    <Table.Body>
-                    {<ReadMailEntry message={thread[0]} messageId={thread[0].message_id} />}
-                    <Table.Row>
-                    <Table.Cell colSpan='3' verticalAlign='top' style={{position:'relative', height:this.state.contentHeight}}>
+              <Table.Body>
+                {<ReadMailEntry message={thread[0]} messageId={thread[0].message_id} />}
+                <Table.Row>
+                  <Table.Cell colSpan='3' verticalAlign='top' style={{position:'relative', height:this.state.contentHeight}}>
                     <iframe 
                       style={{position:'absolute', width:'97.5%', height:'100%'}} 
                       ref={input => this.messageBody = input}
                       frameBorder='0'
                     ></iframe>
-                    </Table.Cell>
-                    </Table.Row>
-                    {thread.slice(1, thread.length).map((message, index) => {
-                      return <ReadMailEntry key={index} message={message} messageId={message.message_id} />;
-                    })}
+                  </Table.Cell>
+                </Table.Row>
+                {thread.slice(1, thread.length).map((message, index) => {
+                  return <ReadMailEntry key={index} message={message} messageId={message.message_id} />;
+                })}
 
-                    <Table.Row>
-                    <Reply message={currentMessage}/>
-                    </Table.Row>
-                    </Table.Body> 
-                    </Table>
-                  )}
-                  </div>
-                );
-              }
-            }
+                <Table.Row>
+                  <Reply message={currentMessage}/>
+                </Table.Row>
+              </Table.Body> 
+            </Table>
+          )}
+      </div>
+    );
+  }
+}
             
-            export default ReadEmail;
+export default ReadEmail;
