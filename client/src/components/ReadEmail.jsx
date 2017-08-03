@@ -35,11 +35,6 @@ class ReadEmail extends React.Component {
       console.log('getThreads error: ', error);
     });
   }
-
-  handleMessageClick() {
-    // placeholder for thread click
-    console.log("message clicked. not yet rigged");
-  }
   
   handleArrowClick(arrowDirection) {
     
@@ -53,14 +48,22 @@ class ReadEmail extends React.Component {
     // const { currentMessage } = this.props;
     // return {__html: currentMessage.body};
   }
+  
+  handleCloseClick() {
+
+  }
 
   render() {
     
-    const { currentMessage, thread, messages } = this.props;
-
+    const { currentMessage, thread, messages, view } = this.props;
+    
     return (
       
-        <div>
+      <div>
+        { view === 'Inbox' && (
+          <Redirect from={'/message'} push to={'/'}/>
+        )}
+
           <Divider hidden />
           {thread.length === 0 ? (
             <Image src={WAIT_IMAGE} centered size='small'/>            
@@ -74,7 +77,7 @@ class ReadEmail extends React.Component {
                   <Table.HeaderCell colSpan='1' textAlign='right'> 
                     {currentMessage.messageIndex > 0 ? <Icon name="chevron left" onClick={this.handleArrowClick.bind(this, -1)}/> : null}
                     {currentMessage.messageIndex < messages.length ? <Icon name="chevron right" onClick={this.handleArrowClick.bind(this, 1)}/> : null}
-                    <Menu.Item as={Link} to='/' > <Icon name='remove' /> </Menu.Item>
+                    <Menu.Item as={Link} to='/' onClick={ () => { setNewView('Inbox'); }}> <Icon name='remove' /> </Menu.Item>
                     
                     </Table.HeaderCell>
                     </Table.Row>
