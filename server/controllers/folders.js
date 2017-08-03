@@ -91,6 +91,7 @@ module.exports.filter = (req, res) => {
   models.Message.query(qb => {
     qb.innerJoin('sortedMessages', 'messages.message_id', 'sortedMessages.message_id');
     qb.where('sortedMessages.folder_id', '=', req.params.id);
+    qb.orderBy('messages.date_received', 'desc');
   }).fetchAll()
   .then(messages => {
     res.status(200).send(messages);// render to the page

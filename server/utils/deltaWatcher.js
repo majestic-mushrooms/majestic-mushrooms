@@ -24,6 +24,7 @@ module.exports = function(req) {
 
     console.log('Nylas stream started from cursor: ', cursor);
 
+    let newDeltas = {};
     stream.on('delta', function(delta) {
       console.log(`Received delta - cursor: ${delta.cursor}, id: ${delta.id}, and event: ${delta.event}.`);
 
@@ -63,7 +64,11 @@ module.exports = function(req) {
 
           //without db check:
           let saveObj = {};
-          if (delta.event === 'create') { { saveObj = {method: 'insert'}; } }
+          if (delta.event === 'create' && newDeltas[delta.id] === undefined) { 
+            //@TODO: prevent duplicates from stream, but errors if deltas come in at the same time
+            newDeltas[delta.id] === true;
+            saveObj = {method: 'insert'}; 
+          }
           models.Message.forge(createMessages([delta.attributes])[0]).save(null, saveObj)
           .catch( err => {
 
