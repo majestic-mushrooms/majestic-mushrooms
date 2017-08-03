@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { filterMessages, setFolders, setPage, setAreResults, setView } from '../actions';
+import { filterMessages, setFolders, setPage, setAreResults, setView, setCurrentFolder } from '../actions';
 import FolderList from '../components/FolderList.jsx';
 
 const mapStateToProps = (state) => {
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setNewView: (viewName) => {
       dispatch(setView(viewName));
+    },
+    setCurrentFolder: (folderId) => {
+      dispatch(setCurrentFolder(folderId));
     }
   };
 };

@@ -5,7 +5,7 @@ export const parseMessage = (messages, today) => {
   return messages.map((message) => {
     //message.date if youre using nylas calls
     const date = new Date(message.date_received || message.date * 1000);
-    let day = date.getMonth() + '/' + date.getDate() + '/' + ('' + date.getFullYear()).substr(-2);
+    let day = (date.getMonth() + 1) + '/' + date.getDate() + '/' + ('' + date.getFullYear()).substr(-2);
     day = day === today ? 'Today' : day;
     const time = date.getHours() + ':' + ('0' + date.getMinutes()).substr(-2);
     return {

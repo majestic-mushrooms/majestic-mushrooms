@@ -1,8 +1,9 @@
 const models = require('../../db/models');
-const createMessages = require('./messagesConstructor').createMessages;
+const { createMessages, createSortedMessages } = require('./messagesConstructor');
 const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
 const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
 const ee = require('../socket.js');
+const bookshelf = require('../../db');
 
 module.exports = function(req) {
   const Nylas = require('nylas').config({
@@ -23,12 +24,24 @@ module.exports = function(req) {
 
     console.log('Nylas stream started from cursor: ', cursor);
 
+    let newDeltas = {};
     stream.on('delta', function(delta) {
       console.log(`Received delta - cursor: ${delta.cursor}, id: ${delta.id}, and event: ${delta.event}.`);
 
       //update account delta
       new models.Account({ account_id: req.session.accountId }).save({ cursor: delta.cursor });
       req.session.cursorId = delta.cursor;
+
+      const saveSorted = function(delta) {
+        const SortedMessages = bookshelf.Collection.extend({
+          model: models.SortedMessage
+        });
+        let sortedMessages = SortedMessages.forge(createSortedMessages([delta.attributes]));
+        return sortedMessages.invokeThen('save', null, { method: 'insert' }).then( saved => {
+          console.log('Saved sorted message! Emitting delta.');
+          ee.emit('delta', { event: delta.event, attributes: saved, email: req.session.accountEmail });
+        })
+      }
 
       //if message, update message db
       if (delta.object === 'message') {
@@ -51,22 +64,25 @@ module.exports = function(req) {
 
           //without db check:
           let saveObj = {};
-          if (delta.event === 'create') { { saveObj = {method: 'insert'}; } }
+          if (delta.event === 'create' && newDeltas[delta.id] === undefined) { 
+            //@TODO: prevent duplicates from stream, but errors if deltas come in at the same time
+            newDeltas[delta.id] === true;
+            saveObj = {method: 'insert'}; 
+          }
           models.Message.forge(createMessages([delta.attributes])[0]).save(null, saveObj)
-          .then( saved => { 
-            console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id')); 
-            //emit delta event to socket.io
-            ee.emit('delta', { event: delta.event, attributes: saved, email: req.session.accountEmail });
-          })
           .catch( err => {
 
             //try inserting it if it's an error of the message not existing
-            console.log('FIRST TRY ERRORED. Trying again.')
+            console.log('FIRST TRY ERRORED. Trying again with insert.')
             return models.Message.forge(createMessages([delta.attributes])[0]).save(null, {method: 'insert'})
-            .then( saved => {
-              console.log('SECOND TRY SUCCESS. Emitting delta.');
+          })
+          .then( saved => { 
+            console.log('Message created/updated: SUBJECT', saved.get('subject'), 'at ID', saved.get('message_id'));
+            if (delta.event === 'create') {
+              return saveSorted(delta);
+            } else {
               ee.emit('delta', { event: delta.event, attributes: saved, email: req.session.accountEmail });
-            });
+            }
           })
           .catch( err => { console.log('ERROR: Message not successfully created/updated:', err); });
         }

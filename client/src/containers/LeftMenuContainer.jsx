@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import LeftMenu from '../components/LeftMenu.jsx';
-import { setView, setPage, setAreResults, filterMessages } from '../actions';
+import { setView, setPage, setAreResults, filterMessages, setCurrentFolder } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    view:  state.view
+    view:  state.view,
+    folders: state.folders
   };
 };
 
@@ -21,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setFilteredMessages: (newMessages) => {
       dispatch(filterMessages(newMessages));
+    },
+    setCurrentFolder: (folderId) => {
+      dispatch(setCurrentFolder(folderId));
     }
   };
 };

@@ -65,9 +65,9 @@ const createMessages = (messages) => {
   });
 };
 const createSortedMessages = (messages) => {
-  var sortedMessages = [];
+  let sortedMessages = [];
   messages.map(email => {
-    for (var i = 0; i < email.labels.length; i++) {
+    for (let i = 0; i < email.labels.length; i++) {
       sortedMessages.push({
         message_id: email.id,
         folder_id: email.labels[i].id,

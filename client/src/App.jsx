@@ -34,22 +34,23 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders, addMessage, modifyMessage } = this.props;
-    const getMessages = () => {
-      axios.get('/api/messages').then( messages => {
-        setRetrievedMessages(parseMessage(messages.data, today));
-      })
-      .catch( err => {
-        console.log('Error getting messages: ', err)
-      });
-    };
+    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders, setInbox, addMessage, modifyMessage, setCurrentFolder } = this.props;
 
-    axios.get('/api/folders').then(response => {
+    axios.get('/api/folders').then( response => {
       setRetrievedFolders(response.data);
+      let inboxId = null;
+      response.data.forEach(folder => {
+        if (folder.display_name === 'Inbox') { inboxId = folder.folder_id; }
+      });
+      setCurrentFolder(inboxId);
+      setInbox(inboxId);
     })
-    .then(() => { getMessages(); });
+    .then(() => axios.get('/api/messages'))
+    .then(() => axios.get('/api/folders/' + this.props.folders.inboxId))
+    .then( response => { 
+      setRetrievedMessages(parseMessage(response.data, today));
+    });
 
-    let newDeltas = {};
     socket.on('connect', () => {
       //do account call - start server listening to deltas
       axios.get('/api/account').then( userAccount => { 
@@ -68,10 +69,9 @@ class App extends React.Component {
         //refresh messages
         const parsedMessage = parseMessage([delta.attributes], today)[0];
         if (delta.event === 'create') {
-          //@TODO: fix duplicates, workaround:
-          if (newDeltas[delta.attributes.message_id] === undefined) { addMessage(parsedMessage); }
-
-          newDeltas[delta.attributes.message_id] = true;
+          axios.get('/api/folders/' + this.props.folders.currentId).then( response => {
+            setRetrievedMessages(parseMessage(response.data, today));
+          });
         } else if (delta.event === 'modify') {
           modifyMessage(parsedMessage);
         }

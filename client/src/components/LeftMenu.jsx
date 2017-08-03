@@ -3,6 +3,8 @@ import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui
 import { Redirect, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
+import { today } from './utils/dateTimeHelper';
+import { parseMessage } from './utils/messagesHelper';
 
 
 const onClickLogOut = (props) => {
@@ -19,11 +21,12 @@ const onClickLogOut = (props) => {
 };
 
 const onClickInbox = (props) => {
-  const {setFilteredMessages, setNewView, setPage, setAreResults} = props;
-  axios.get('/api/messages').then(response => {
-    setFilteredMessages(response.data);
-    setNewView('Inbox'); 
-    setPage(1); 
+  const { setFilteredMessages, setNewView, setPage, setAreResults, setCurrentFolder } = props;
+  setNewView('Inbox'); 
+  setPage(1);
+  setCurrentFolder(this.props.folders.inboxId);
+  axios.get('/api/folders/' + this.props.folders.inboxId).then(response => {
+    setFilteredMessages(parseMessage(response.data, today)); 
     setAreResults(true); 
   });
 };
@@ -37,7 +40,7 @@ const LeftMenu = (props) => {
       )}
 
     <Sidebar as={Menu} animation='push' visible={true} icon='labeled' vertical inverted fixed="left" className='sideBar'>
-      <Menu.Item as={Link} to='/' name='mail' onClick={onClickInbox.bind(this, props)} >
+      <Menu.Item as={Link} to='/' onClick={onClickInbox.bind(this)} name='mail' >
         <Icon name='inbox' />
         Inbox
       </Menu.Item>

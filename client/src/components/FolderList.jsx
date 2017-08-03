@@ -21,9 +21,10 @@ class FolderList extends React.Component {
   }
   
   filterMessages(labelId) {
-    const { setFilteredMessages, setPage, setAreResults, setNewView } = this.props;
+    const { setFilteredMessages, setPage, setAreResults, setNewView, setCurrentFolder } = this.props;
     setNewView('Inbox');
     setPage(1);
+    setCurrentFolder(labelId);
     axios.get('/api/folders/' + labelId)
       .then(response => {
         if (response.data.length > 0){
@@ -41,13 +42,13 @@ class FolderList extends React.Component {
     const { activeItem } = this.state || {};
     return (
       <div className='rightBar'>
-        {this.props.folders.length === 0 ? (
+        {this.props.folders.folders.length === 0 ? (
           <div></div>
         ) : (
           <div>
             <Divider hidden />
             <Menu fluid vertical>
-              {this.props.folders.map((folder, key) => {
+              {this.props.folders.folders.map((folder, key) => {
                 return <FolderListItem as={Link} to='/' folder={folder} filter={this.filterMessages} key={key} />;
               })}
             </Menu>
