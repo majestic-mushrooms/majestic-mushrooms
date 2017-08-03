@@ -4,7 +4,6 @@ import ContactContainer from '../containers/ContactContainer.jsx';
 import { Message, Divider, Table, Icon, Label, Image, Menu } from 'semantic-ui-react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
-import { WAIT_IMAGE } from './utils/stylesHelper.js';
 import ContactItem from './ContactItem.jsx';
 
 class Contacts extends React.Component {

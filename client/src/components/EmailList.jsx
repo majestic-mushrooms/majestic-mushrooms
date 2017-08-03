@@ -4,7 +4,6 @@ import EmailListItemContainer from '../containers/EmailListItemContainer.jsx';
 import { Table, Grid, Dimmer, Loader, Image, Icon, Segment, Divider } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { WAIT_IMAGE } from './utils/stylesHelper.js';
 import UserMessage from './UserMessage.jsx';
 
 

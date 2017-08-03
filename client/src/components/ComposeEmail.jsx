@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { Form, TextArea, Divider, Button, Segment, Container, Input, Label, Message, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import { createMessage } from './utils/messagesHelper.js';
-import { WAIT_IMAGE } from './utils/stylesHelper.js';
 import UserMessage from './UserMessage.jsx';
 
 
@@ -33,7 +32,11 @@ const ComposeEmail = (props) => {
       <div>
       { 
       view === 'Waiting' && 
-          <Image src={WAIT_IMAGE} centered size='small'/>
+          <div className="loader">
+              <div className="inner one"></div>
+              <div className="inner two"></div>
+              <div className="inner three"></div>
+            </div>
       }
 
       { 

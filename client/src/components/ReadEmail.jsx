@@ -7,7 +7,6 @@ import ReadMailEntry from './ReadMailEntry.jsx';
 import EmailListItemContainer from '../containers/EmailListItemContainer.jsx';
 import Reply from './Reply.jsx';
 import { queryMessageDetails } from './utils/messagesHelper.js';
-import { WAIT_IMAGE } from './utils/stylesHelper.js';
 import { parseMessage } from './utils/messagesHelper';
 import { today } from './utils/dateTimeHelper';
 
@@ -59,7 +58,11 @@ class ReadEmail extends React.Component {
 
           <Divider hidden />
           {thread.length === 0 ? (
-            <Image src={WAIT_IMAGE} centered size='small'/>            
+            <div className="loader">
+              <div className="inner one"></div>
+              <div className="inner two"></div>
+              <div className="inner three"></div>
+            </div>           
             ) : (
             <Table fixed>
               <Table.Header>
