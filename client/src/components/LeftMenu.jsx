@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const onClickLogOut = (props) => {
   const { setNewView } = props;
-
+  
   axios.get('/logout')
   .then( res => {
     window.token = null;
@@ -15,6 +15,16 @@ const onClickLogOut = (props) => {
   })
   .catch( err => {
     console.log('Error calling /logout from LeftMenu.jsx', err);
+  });
+};
+
+const onClickInbox = (props) => {
+  const {setFilteredMessages, setNewView, setPage, setAreResults} = props;
+  axios.get('/api/messages').then(response => {
+    setFilteredMessages(response.data);
+    setNewView('Inbox'); 
+    setPage(1); 
+    setAreResults(true); 
   });
 };
 
@@ -27,7 +37,7 @@ const LeftMenu = (props) => {
       )}
 
     <Sidebar as={Menu} animation='push' visible={true} icon='labeled' vertical inverted fixed="left" className='sideBar'>
-      <Menu.Item as={Link} to='/' name='mail'onClick={ () => { setNewView('Inbox'); setPage(1); setAreResults(true); }} >
+      <Menu.Item as={Link} to='/' name='mail' onClick={onClickInbox.bind(this, props)} >
         <Icon name='inbox' />
         Inbox
       </Menu.Item>

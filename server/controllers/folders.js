@@ -3,6 +3,7 @@ const axios = require('axios');
 const Promise = require('bluebird');
 const bookshelf = require('../../db');
 const throttledQueue = require('throttled-queue');
+const {createMessages} = require('../utils/messagesConstructor');
 
 module.exports.getAll = (req, res) => {
   let arr = [];
@@ -44,7 +45,7 @@ module.exports.getAll = (req, res) => {
             }
           })
           .then(() => {
-            let throttle = throttledQueue(1, 350);
+            let throttle = throttledQueue(1, 400);
             return Promise.each(arr, (folder, i) => {
               throttle(function() {
                 getCount(folder);
@@ -53,7 +54,7 @@ module.exports.getAll = (req, res) => {
               const Folders = bookshelf.Collection.extend({
                 model: models.Folder
               });
-              delay(arr.length * 400).then( () => {
+              delay(arr.length * 450).then( () => {
                 folders = Folders.forge(arr);
                 return folders.invokeThen('save', null, { method: 'insert' });
               }).then((folders) => {
@@ -77,14 +78,27 @@ module.exports.getAll = (req, res) => {
 };
 
 module.exports.filter = (req, res) => {
-  const authString = 'Bearer ' + req.session.nylasToken;
-  axios.get(`https://api.nylas.com/messages?in=${req.params.id}&limit=50`, {
-    headers: { Authorization: authString }
-  }).then(response => {
-    res.status(200).send(response.data);
-  }).catch(err => {
-    res.send(err);
-  });
+  // const authString = 'Bearer ' + req.session.nylasToken;
+  // axios.get(`https://api.nylas.com/messages?in=${req.params.id}&limit=50`, {
+  //   headers: { Authorization: authString }
+  // }).then(response => {
+  //   let filteredEmails = createMessages(response.data);
+  //   res.status(200).send(filteredEmails);
+  // }).catch(err => {
+  //   res.send(err);
+  // });
+
+  models.Message.query(qb => {
+    qb.innerJoin('sortedMessages', 'messages.message_id', 'sortedMessages.message_id');
+    qb.where('sortedMessages.folder_id', '=', req.params.id);
+  }).fetchAll()
+  .then(messages => {
+    res.status(200).send(messages);// render to the page
+  })
+  .catch(err => {
+    console.log('Unable to retrieve sorted messages');
+    console.log(err)
+  })
 };
 
 module.exports.create = (req, res) => {
