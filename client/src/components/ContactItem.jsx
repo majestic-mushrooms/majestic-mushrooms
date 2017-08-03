@@ -11,24 +11,23 @@ class ContactsItem extends React.Component {
     }
   }
 
-
-  handleContactClick(email) {
-    this.props.setNewView('compose');
-  }
-
-
   render() {
-    // TODO: email click makes email go to compose
-    var str = `mailto:${this.props.contact.email}`
+    const { view, setNewView } = this.props;
+    
     return (
       
-      <Table.Row> 
+      <Table.Row>
+
+        { view === 'Compose' && (
+          <Redirect from={'/contacts'} push to={'/compose'}/>
+        )}
+
         <Table.Cell>
-          <span onClick={ () => { this.handleContactClick(this.props.contact.email); }}>{this.props.contact.name}</span>     
+          <span>{this.props.contact.name}</span>     
         </Table.Cell>
         
         <Table.Cell>
-          <a href={str}>{this.props.contact.email}</a>
+          <Menu.Item as={Link} to='/compose' onClick={ () => { setNewView('Compose'); }}>{this.props.contact.email}</Menu.Item>
         </Table.Cell>
         
         <Table.Cell textAlign="right">
@@ -40,4 +39,3 @@ class ContactsItem extends React.Component {
 }
 
 export default ContactsItem;
-
