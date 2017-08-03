@@ -274,7 +274,7 @@ exports.seed = function (knex, Promise) {
       console.log('ERROR: failed to save to join table', err);
     })
     .then(contact => {
-      console.log('saving contact for abcdefghijkl1234567890 !');
+      console.log('saving contact for abcdefghijkl1234567890!');
       return models.Contact.forge({
         account_id: 'abcdefghijkl1234567890',
         contact_id: 'contactid001',
