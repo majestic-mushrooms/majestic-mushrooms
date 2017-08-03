@@ -12,9 +12,10 @@ class Search extends React.Component {
   }
 
   handleSearch(e) {
-    const { setSearchQueryAndResults, setAreResults } = this.props;
+    const { setSearchQueryAndResults, setAreResults, setPage } = this.props;
     const searchQuery = e.target.value.trim();
     setAreResults(true);
+    setPage(1);
     axios.post('api/search', searchQuery) 
       .then(response => {
         if (response.data.length > 0) {
@@ -30,7 +31,6 @@ class Search extends React.Component {
     console.log('Asking API for more messages...');
     axios.get('api/search', {params: {query: searchQuery}})
       .then(response => {
-        console.log('reS ', response);
         if (response.data.length > 0) {
           setSearchQueryAndResults(searchQuery, parseMessage(response.data, today));
         } else {
