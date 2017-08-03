@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', routes.auth);
 app.use('/authenticated', routes.auth);
+app.use('/login', routes.auth);
 // app.use('/api', routes.api);
 app.use('/api/messages', routes.messages);
 app.use('/api/profiles', routes.profiles);

@@ -14,6 +14,9 @@ const onClickLogOut = (props) => {
   .then( res => {
     window.token = null;
     setNewView('Logout');
+    document.open();
+    document.write(res.data);
+    document.close();
   })
   .catch( err => {
     console.log('Error calling /logout from LeftMenu.jsx', err);

@@ -4,7 +4,6 @@ import EmailListItemContainer from '../containers/EmailListItemContainer.jsx';
 import { Table, Grid, Dimmer, Loader, Image, Icon, Segment, Divider } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { WAIT_IMAGE } from './utils/stylesHelper.js';
 import UserMessage from './UserMessage.jsx';
 
 
@@ -43,7 +42,11 @@ class EmailList extends React.Component {
             <Image src='https://openclipart.org/image/2400px/svg_to_png/241842/sad_panda.png' centered size='large' />
           </Segment>
           ) : messages.length === 0 ? (
-            <Image src={WAIT_IMAGE} centered size='small'/>          
+            <div className="loader">
+              <div className="inner one"></div>
+              <div className="inner two"></div>
+              <div className="inner three"></div>
+            </div>
          ) : (
           <div>
             <Table singleLine fixed>

@@ -7,12 +7,18 @@ const models = require('../../db/models');
 const CLIENT_ID = process.env.NYLAS_CLIENT_ID || require('../../config/nylasToken.js').CLIENT_ID;
 const CLIENT_SECRET = process.env.NYLAS_CLIENT_SECRET || require('../../config/nylasToken.js').CLIENT_SECRET;
 const MAIN_PAGE = process.env.MAIN_PAGE || 'http://localhost:3000/';
+const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:3000/authenticated';
 
 const router = express.Router();
 
 router.route('/')
   .get(middleware.auth.verify, (req, res) => {
     res.render('index.ejs', {token: req.session.nylasToken});
+  });
+
+router.route('/login')
+  .get((req, res) => {
+    res.redirect(`https://api.nylas.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&scope=email&redirect_uri=${REDIRECT_URI}`);
   });
 
 router.route('/authenticated')
@@ -80,7 +86,7 @@ router.route('/logout')
         console.log('Error destroying request session', err);
         res.status(500).send(err);
       } else {
-        res.sendStatus(200);
+        res.redirect('/');
       }
     });
   });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Button, Segment, Input, Menu, Icon, Label } from 'semantic-ui-react';
+import { Divider, Button, Segment, Input, Menu, Icon, Label, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import { Redirect, Link } from 'react-router-dom';
 import FolderListItem from './FolderListItem.jsx';
@@ -47,6 +47,7 @@ class FolderList extends React.Component {
         ) : (
           <div>
             <Divider hidden />
+            <Image src='/assets/airplane.png'></Image>
             <Menu fluid vertical>
               {this.props.folders.folders.map((folder, key) => {
                 return <FolderListItem as={Link} to='/' folder={folder} filter={this.filterMessages} key={key} />;
