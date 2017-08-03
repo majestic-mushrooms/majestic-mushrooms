@@ -19,10 +19,10 @@ const onClickLogOut = (props) => {
 };
 
 const onClickInbox = (props) => {
+  setNewView('Inbox'); 
   const {setFilteredMessages, setNewView, setPage, setAreResults} = props;
   axios.get('/api/messages').then(response => {
     setFilteredMessages(response.data);
-    setNewView('Inbox'); 
     setPage(1); 
     setAreResults(true); 
   });
