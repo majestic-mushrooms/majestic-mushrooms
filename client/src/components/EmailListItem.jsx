@@ -27,8 +27,6 @@ class EmailListItem extends React.Component {
   }
 
   render() {
-    console.log('emailListItem vview ======', this.props.view);
-
     const {view, messageIndex } = this.props;
     const messages = (view === 'Search') ? this.props.searchResults : this.props.messages;
 
