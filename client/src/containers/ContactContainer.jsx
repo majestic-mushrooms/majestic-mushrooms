@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
     setPage: (page) => {
       dispatch(setPage(page));
     },
+    setNewView: (viewName) => {
+      dispatch(setView(viewName));
+    },
     setRetrievedContacts: (newContacts) => {
       dispatch(setContacts(newContacts));
     },

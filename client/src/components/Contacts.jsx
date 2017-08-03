@@ -37,40 +37,29 @@ class Contacts extends React.Component {
 
   render() {
     const contacts = this.props.contacts.contacts;
+    const { setNewView } = this.props;
 
-    return (<div> 
+    return (
+      <div>
+      <Divider hidden />    
       <Table singleLine fixed>
         <Table.Header>
-        <Table.Row>
-        <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Email</Table.HeaderCell>
-        <Table.HeaderCell>Phone</Table.HeaderCell>
-        </Table.Row>
-        
+          <Table.Row>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Email</Table.HeaderCell>
+            <Table.HeaderCell>Phone</Table.HeaderCell>
+          </Table.Row>        
         </Table.Header>
-      
+
         <Table.Body>
-        {contacts.slice(1, contacts.length).map((contact, index) => {
-            return <ContactItem key={index} contact={contact} contactId={contact.contact_id} />;
-          })}
-      
-      
+          {contacts.slice(1, contacts.length).map((contact, index) => {
+              return <ContactItem key={index} contact={contact} contactId={contact.contact_id} setNewView={setNewView}/>;
+            })}
         </Table.Body>
-        </Table>
-
-
-        </div>);
-      }
-    }
+      </Table>
+      </div>
+    );
+  }
+}
     
-    export default Contacts;
-
-    // const contacts = this.props.contacts.contacts.slice(25 * (page - 1), 25 * page);
-    
-    // {contacts.map((contact, index) => {
-    //   return <ContactItem key={index} contact={contact} contactId={contact.contact_id} />;
-    // })}
-
-    // <Icon name="chevron left" onClick={() => { this.handlePageNav('back'); }} />
-    // {page} / {Math.ceil(this.props.contacts.length / 25)} 
-    // <Icon name="chevron right" onClick={() => { this.handlePageNav('forward'); }} />
+export default Contacts;
