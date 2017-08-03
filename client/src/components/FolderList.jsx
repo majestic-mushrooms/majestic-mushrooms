@@ -29,15 +29,7 @@ class FolderList extends React.Component {
       .then(response => {
         if (response.data.length > 0){
           setAreResults(true);
-<<<<<<< HEAD
-<<<<<<< HEAD
-          setFilteredMessages(parseMessage(response.data, today));
-=======
           setFilteredMessages(parseMessage(messages.data, today));
->>>>>>> date bug fix
-=======
-          setFilteredMessages(response.data);
->>>>>>> css styling for pages
         } else {
           console.log('No folder messages found');
           setNewView('Inbox');
