@@ -17,17 +17,18 @@ exports.seed = function (knex, Promise) {
         sync_state: 'running'
       }).save(null, saveObj);
     })
-    .error(err => {
-      console.error('ERROR: failed to create account');
+    .catch(err => {
+      console.error('ERROR: failed to create account', err);
       throw err;
     })
     .then(account => {
-      console.log('saving message for abcde12345', account.get('account_id') + '!')
+      console.log('saving message for', account.get('account_id') + '!')
       return models.Message.forge({
         message_id: 'abcde12345',
         account_id: account.get('account_id'),
         thread_id: 'placeholder',
         subject: 'this is a test',
+        color: 'red',
         from: '["test@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -39,6 +40,10 @@ exports.seed = function (knex, Promise) {
         body: 'This is still a test blah blah trail off end of body.',
         labels: '["labelid1", "labelid2"]'
       }).save(null, saveObj);
+    })
+    .catch(err => {
+      console.error('ERROR: failed to save message');
+      throw err;
     })
     .then(account => {
       console.log('saving message for', account.get('account_id') + '!')
@@ -47,6 +52,7 @@ exports.seed = function (knex, Promise) {
         account_id: account.get('account_id'),
         thread_id: 'placeholder',
         subject: 'this is a test',
+        color: 'yellow',        
         from: '["test@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -59,6 +65,10 @@ exports.seed = function (knex, Promise) {
         labels: '["labelid1", "labelid2"]'
       }).save(null, saveObj);
     })
+    .catch(err => {
+      console.error('ERROR: failed to save message', err);
+      throw err;
+    })
     .then(account => {
       console.log('saving message for', account.get('account_id') + '!')
       return models.Message.forge({
@@ -66,6 +76,7 @@ exports.seed = function (knex, Promise) {
         account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder',
         subject: 'this is a test2',
+        color: 'red',
         from: '["test1@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -78,13 +89,18 @@ exports.seed = function (knex, Promise) {
         labels: '["labelid1", "labelid2"]'
       }).save(null, saveObj);
     })
+    .catch(err => {
+      console.error('ERROR: failed to save message');
+      throw err;
+    })
     .then(account => {
       console.log('saving message for', account.get('account_id') + '!')
       return models.Message.forge({
         message_id: 'abcde12348',
-        account_id:'abcdefghijkl1234567890',
+        account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder',
         subject: 'this is a test3',
+        color: 'blue',
         from: '["test1@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -97,6 +113,10 @@ exports.seed = function (knex, Promise) {
         labels: '["labelid1", "labelid2"]'
       }).save(null, saveObj);
     })
+    .catch(err => {
+      console.error('ERROR: failed to save message');
+      throw err;
+    })
     .then(account => {
       console.log('saving message for', account.get('account_id') + '!')
       return models.Message.forge({
@@ -104,6 +124,7 @@ exports.seed = function (knex, Promise) {
         account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder1',
         subject: 'this is a test4',
+        color: 'green',
         from: '["test1@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -116,6 +137,10 @@ exports.seed = function (knex, Promise) {
         labels: '["labelid1", "labelid2"]'
       }).save(null, saveObj);
     })
+    .catch(err => {
+      console.error('ERROR: failed to save message');
+      throw err;
+    })
     .then(account => {
       console.log('saving message for', account.get('account_id') + '!')
       return models.Message.forge({
@@ -123,6 +148,7 @@ exports.seed = function (knex, Promise) {
         account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder1',
         subject: 'this is a test5',
+        color: 'blue',        
         from: '["test@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -135,6 +161,10 @@ exports.seed = function (knex, Promise) {
         labels: '["labelid1", "labelid2"]'
       }).save(null, saveObj);
     })
+    .catch(err => {
+      console.error('ERROR: failed to save message');
+      throw err;
+    })
     .then(account => {
       console.log('saving message for', account.get('account_id') + '!')
       return models.Message.forge({
@@ -142,6 +172,7 @@ exports.seed = function (knex, Promise) {
         account_id: 'abcdefghijkl1234567890',
         thread_id: 'placeholder1',
         subject: 'this is a test6',
+        color: 'purple',        
         from: '["test@gmail.com"]',
         to: '["janedoe@gmail.com"]',
         cc: '["kirkrohani@gmail.com"]',
@@ -154,86 +185,115 @@ exports.seed = function (knex, Promise) {
         labels: '["labelid1", "labelid2"]'
       }).save(null, saveObj);
     })
-    .error(err => {
-      console.error('ERROR: failed to create message');
+    .catch(err => {
+      console.error('ERROR: failed to create message', err);
     })
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
         folder_id: 'abcd1234',
         account_id: message.get('account_id'),
-        name: 'inbox',
+        // name: 'inbox',
+        color: 'blue',
+        count: 30,
         display_name: 'inbox'
       }).save(null, saveObj);
+    })
+    .catch(err => {
+      console.error('ERROR: failed to save folder');
+      throw err;
     })
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
         folder_id: 'abcd1236',
         account_id: 'abcdefghijkl1234567890',
-        name: 'sent',
+        // name: 'sent',
+        color: 'red',
+        count: 99,
         display_name: 'sent'
       }).save(null, saveObj);
+    })
+    .catch(err => {
+      console.error('ERROR: failed to save folder');
+      throw err;
     })
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
         folder_id: 'abcd1237',
-        account_id:'abcdefghijkl1234567890',
-        name: 'null',
+        account_id: 'abcdefghijkl1234567890',
+        // name: 'null',
+        color: 'purple',
+        count: 10,
         display_name: 'mymail'
       }).save(null, saveObj);
+    })
+    .catch(err => {
+      console.error('ERROR: failed to save folder');
+      throw err;
     })
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
         folder_id: 'abcd1235',
         account_id: 'abcdefghijkl1234567890',
-        name: 'null',
+        // name: 'null',
+        color: 'green',
+        count: 22,
         display_name: 'mymail2'
       }).save(null, saveObj);
+    })
+    .catch(err => {
+      console.error('ERROR: failed to save folder');
+      throw err;
     })
     .then(message => {
       console.log('saving folder for', message.get('account_id') + '!')
       return models.Folder.forge({
         folder_id: 'abcd1238',
         account_id: 'abcdefghijkl1234567890',
-        name: 'trash',
+        // name: 'trash',
+        color: 'orange',
+        count: 4,
         display_name: 'trashbin'
       }).save(null, saveObj);
     })
-    .error(err => {
-      console.error('ERROR: failed to create folder!');
+    .catch(err => {
+      console.error('ERROR: failed to create folder!', err);
     })
     .then(folder => {
-      return models.sortedMessage.where({ folder_id: folder.get('folder_id') }).fetch();
+      console.log('saving sortedMessage');
+      return models.SortedMessage.where({ folder_id: folder.get('folder_id') }).fetch();
     }).then(sortedMessage => {
       if (sortedMessage === null) {
         console.log('saving message and folder in join table!');
-        return models.sortedMessage.forge({
+        return models.SortedMessage.forge({
           message_id: 'abcde12345',
           folder_id: 'abcd1234'
         }).save(null, saveObj);
       }
       return;
     })
-    .error(err => {
-      console.error('ERROR: failed to save to join table');
+    .catch(err => {
+      console.log('ERROR: failed to save to join table', err);
     })
-    .then(contact => {
-      console.log('saving contact for', contact.get('contact_id') + '!')
-      return models.Folder.forge({
-        contact_id: 'contactid001',
-        email: 'abd@abd.com',
-        name: 'Abrahm Bad Dog',
-        phone_numbers: '[{mobile: "1-000-000-0000"}]'
-      }).save(null, saveObj);
-    })
-    .error(err => {
-      console.error('ERROR: failed to create contact!');
-    })
-    .catch(() => {
-      console.log('WARNING: potential save issues encountered.');
+    // .then(contact => {
+    //   console.log('--contact', contact);
+    //   console.log('saving contact for', contact.get('account_id') + '!')
+    //   return models.Contact.forge({
+    //     account_id: contact.get('account_id'),
+    //     contact_id: 'contactid001',
+    //     email: 'abd@abd.com',
+    //     name: 'Abrahm Bad Dog',
+    //     phone_numbers: '[{mobile: "1-000-000-0000"}]'
+    //   }).save(null, saveObj);
+    // })
+    // .catch(err => {
+    //   console.error('ERROR: failed to create contact!', err);
+    // })
+    .catch(err => {
+      console.log('WARNING: potential save issues encountered.', err);
     });
 
 };

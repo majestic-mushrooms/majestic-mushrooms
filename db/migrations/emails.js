@@ -47,14 +47,16 @@ exports.up = function (knex, Promise) {
       table.varchar('folder_id');
       table.foreign('message_id').references('messages.message_id');
       table.foreign('folder_id').references('folders.folder_id');
-    }),
-    knex.schema.createTableIfNotExists('contacts', function(table) {
-      table.varchar('contact_id').primary();
-      table.unique('contact_id');
-      table.varchar('email').nullable();
-      table.varchar('name').nullable();
-      table.json('phone_numbers').nullable();
-    }),
+    })
+    // knex.schema.createTableIfNotExists('contacts', function(table) {
+    //   // table.increments('id').unsigned().primary();
+    //   table.varchar('account_id').references('accounts.account_id');
+    //   table.varchar('contact_id').primary();
+    //   table.unique('contact_id');
+    //   table.varchar('email').nullable();
+    //   table.varchar('name').nullable();
+    //   table.json('phone_numbers').nullable();
+    // }),
   ]);
 };
 
@@ -63,7 +65,7 @@ exports.down = function (knex, Promise) {
     knex.raw('DROP TABLE accounts CASCADE'),
     knex.raw('DROP TABLE folders CASCADE'),
     knex.raw('DROP TABLE messages CASCADE'),
-    knex.raw('DROP TABLE "sortedMessages" CASCADE'),
-    knex.raw('DROP TABLE contacts CASCADE')
+    knex.raw('DROP TABLE "sortedMessages" CASCADE')
+    // knex.raw('DROP TABLE contacts CASCADE')
   ]);
 };
