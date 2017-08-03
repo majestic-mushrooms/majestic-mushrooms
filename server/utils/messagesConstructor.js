@@ -1,3 +1,6 @@
+const sanitizeHtml = require('sanitize-html');
+const allowedTags = ['<a>','<abbr>','<acronym>','<address>','<area>','<b>','<bdo>','<big>','<blockquote>','<br>','<button>','<caption>','<center>','<cite>','<code>','<col>','<colgroup>','<dd>','<del>','<dfn>','<dir>','<div>','<dl>','<dt>','<em>','<fieldset>','<form>','<h1>','<h2>','<h3>','<h4>','<h5>','<h6>','<hr>','<i>','<img>','<input>','<ins>','<kbd>','<legend>','<li>','<map>','<menu>','<ol>','<optgroup>','<option>','<p>','<pre>','<q>','<s>','<samp>','<select>','<small>','<span>','<strike>','<strong>','<sub>','<sup>','<table>','<tbody>','<td>','<textarea>','<tfoot>','<th>','<thead>','<u>','<tr>','<tt>','<u>','<ul>','<var>']
+
 const colors = {
   A: '#D81B60',
   B: '#E91E63',
@@ -49,7 +52,11 @@ const createMessages = (messages) => {
       unread: email.unread,
       starred: email.starred,
       snippet: email.snippet,
-      body: email.body,
+      body: sanitizeHtml(email.body, { 
+        allowedTags: false,
+        allowedAttributes: false,
+        allowedClasses: false
+      }),
       files: JSON.stringify(email.files),
       events: JSON.stringify(email.events),
       folders: JSON.stringify(email.folder),

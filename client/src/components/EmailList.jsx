@@ -56,7 +56,7 @@ class EmailList extends React.Component {
             </Table>
 
             <Icon name="chevron left" onClick={() => { this.handlePageNav('back'); }} />
-              {page} / {Math.ceil(this.props.messages.length / 25)} 
+              {25 * (page - 1) + 1} - {25 * page} 
             <Icon name="chevron right" onClick={() => { this.handlePageNav('forward'); }} />
           </div>
           )
