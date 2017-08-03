@@ -23,12 +23,15 @@ class ReadMailEntry extends React.Component {
   }
 
   render() {
-    const { message, messageId, show, onClick } = this.props;
+    const { message, messageId, show, onClick, messageIndex, view } = this.props;
     const fromStr = message.from.reduce((fromStr, sender) => fromStr + sender.name, '');
     const weight = message.unread === true ? 'bold' : 'regular';
 
     return (
-      <Table.Row>
+      <Table.Row
+      onClick={ () => { this.handleMessageClick(message.message_id, messageIndex, message.unread); }}
+      onMouseEnter={() => { this.setState({ showButton: true }); }}
+      onMouseLeave={() => { this.setState({ showButton: false }); }}>
         <Table.Cell width="4">
           <Label circular style={{marginRight:'8px', background:message.color, color:'white'}}>
             { fromStr.charAt(0).toUpperCase() }
@@ -41,6 +44,14 @@ class ReadMailEntry extends React.Component {
           <span style={{fontWeight: weight}}>{message.subject}</span>
         </Table.Cell>
         <Table.Cell width="3" textAlign="right">
+          {this.state.showButton === true ? 
+            ( 
+              <div>
+                <Icon name="reply" onClick={ (e) => { onClick(e, message.message_id); }}/>
+              </div>
+            ) : (
+              <span>{message.timestamp}</span>
+            )}
         </Table.Cell>
       </Table.Row>
     );
