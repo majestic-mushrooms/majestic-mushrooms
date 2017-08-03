@@ -49,7 +49,7 @@ exports.up = function (knex, Promise) {
       table.foreign('folder_id').references('folders.folder_id');
     }),
     knex.schema.createTableIfNotExists('contacts', function(table) {
-      table.increments('id').unsigned().primary();
+      table.varchar('contact_id').primary();
       table.unique('contact_id');
       table.varchar('email').nullable();
       table.varchar('name').nullable();
