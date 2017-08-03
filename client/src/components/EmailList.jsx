@@ -43,7 +43,11 @@ class EmailList extends React.Component {
             <Image src='https://openclipart.org/image/2400px/svg_to_png/241842/sad_panda.png' centered size='large' />
           </Segment>
           ) : messages.length === 0 ? (
-            <Image src={WAIT_IMAGE} centered size='small'/>          
+            <div className="loader">
+              <div className="inner one"></div>
+              <div className="inner two"></div>
+              <div className="inner three"></div>
+            </div>
          ) : (
           <div>
             <Table singleLine fixed>

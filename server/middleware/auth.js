@@ -15,7 +15,12 @@ module.exports.verify = (req, res, next) => {
   if (req.session.isAuthenticated()) {
     return next();
   }
-  res.redirect(`https://api.nylas.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&scope=email&redirect_uri=${REDIRECT_URI}`);
+
+  console.log('failed authentication in verify')
+  res.render('launch.ejs', (err, html) => {
+    res.send(html);
+  });
+  // res.redirect(`https://api.nylas.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&scope=email&redirect_uri=${REDIRECT_URI}`);
 };
 
 
