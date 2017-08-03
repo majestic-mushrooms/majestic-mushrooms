@@ -67,9 +67,9 @@ class ReadEmail extends React.Component {
                   <Table.HeaderCell colSpan='2' style={{wordWrap: 'normal'}}>
                     <h2>{currentMessage.subject}</h2>
                   </Table.HeaderCell>
-                  <Table.HeaderCell colSpan='1' textAlign='right'> 
+                  <Table.HeaderCell colSpan='1' textAlign='right'>
                     {currentMessage.messageIndex > 0 ? <Icon name="chevron left" onClick={this.handleArrowClick.bind(this, -1)}/> : null}
-                    {currentMessage.messageIndex < messages.length ? <Icon name="chevron right" onClick={this.handleArrowClick.bind(this, 1)}/> : null}
+                    {currentMessage.message_id !== messages[messages.length-1].message_id ? <Icon name="chevron right" onClick={this.handleArrowClick.bind(this, 1)}/> : null}
                     <Menu.Item as={Link} to='/' onClick={ () => { setNewView('Inbox'); }}> <Icon name='remove' /> </Menu.Item>
                     
                   </Table.HeaderCell>
