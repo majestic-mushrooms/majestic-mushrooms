@@ -12,8 +12,6 @@ env:
   DB=redis
 
 before_install:
-  - nvm install X && npm install -g grunt
-
   
 install:
   - yarn
