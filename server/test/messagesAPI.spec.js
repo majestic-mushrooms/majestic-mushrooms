@@ -23,11 +23,12 @@ describe('Messages API', function () {
     request(app)
       .get('/api/messages/read/abcde12345')
       .expect(res => {
+
         res.attributes = {
           from: ['test@gmail.com']
         };
       })
-      .expect(302)
+      .expect(200)
       .end(done);
   });
 
