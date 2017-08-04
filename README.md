@@ -1,6 +1,6 @@
-# Time Box
+# Timebox
 
-The project description
+Seamless email client compatible with Gmail
 
 ## Team
 
@@ -28,23 +28,22 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Usage
 
-To use the application simply double-click on the (APP_NAME) icon from the location on your computer. After opening the application you will be asked for your username (email address) and password.
+Click this [link](http://timebox-dev.us-west-1.elasticbeanstalk.com) and login with your Gmail acount to get started!
 
 ## Requirements
 
 - Node 6.9.x
 - Postgresql 9.6.x
-- Nylas Emal API
-- pgAdmin
-- Knex
-- ElectronJS
-- Material UI
-- Bookshelf ORM or Sequelize ORM
-- React
 - Redis
-- Authentication (Google) using Passport
-- Heroku/Heroku Pipelin OR Digital Ocean
-
+- Knex
+- Semantic UI React
+- Bookshelf ORM
+- React
+- Redux
+- React Router
+- Nylas Emal API
+- Nylas Authentication
+- Amazon Web Services
 
 
 ## Development
@@ -56,7 +55,7 @@ brew install yarn
 brew install postgresql
 ```
 
-Yarn is a replacement for npm. It's faster and *guarantees* consistency -- as you deploy your code in various environments, you won't run the risk of slight variations in what gets installed.
+We chose to use Yarn as a replacement for npm. It's faster and *guarantees* consistency -- as we deploy in various environments, we don't run the risk of slight variations in what gets installed.
 
 ### Install Project Dependencies
 
@@ -64,14 +63,6 @@ Yarn is a replacement for npm. It's faster and *guarantees* consistency -- as yo
 yarn global add grunt-cli knex eslint
 ```
 
-## App Configuration
-
-Override settings `config/default.json` in any environment by making a copy of `config/ENV.example.json` and naming it `config/ENV.json` and setting the appropriate variable. 
-
-For environments that require use of environment variables, you can supply variables as defined in `config/custom-environment-variables.json`.
-
-See https://www.npmjs.com/package/config
-And https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables
 
 ## Database Initialization
 
@@ -79,11 +70,10 @@ IMPORTANT: ensure `postgres` is running before performing these steps.
 
 ### Database Creation:
 
-Use grunt to create a new database for your development and test environments:
+Use grunt to create a new database for development and test environments:
 
 Development envronment: `grunt pgcreatedb:default`
 
-Other environments, specify like so: `NODE_ENV=test grunt pgcreatedb:default`
 
 ### Run Migrations & Data Seeds
 
@@ -91,25 +81,25 @@ In terminal, from the root directory:
 
 To migrate to the latest version, run:
 
-`knex migrate:latest --env NODE_ENV`
+`yarn migrate`
 
 To rollback a version, run:
 
-`knex migrate:rollback --env NODE_ENV`
+`yarn rollback`
 
 To populate the database with seed data, run:
 
-`knex seed:run --env NODE_ENV`
+`yarn seed`
 
-Note: `--env NODE_ENV` may be omitted for development. For example, `knex migrate:latest` will run all migrations in the development environment, while `knex migrate:latest --env test` will migrate in the test environment.
+Note: scripts are set up in package.json for these knex commands.
 
 ## Running the App
 
-To run webpack build: `yarn run build`
+To run webpack build: `yarn build`
 
-To run server: `yarn run start`
+To run server: `yarn start`
 
-To run tests: `yarn run test`
+To run tests: `yarn test`
 
 To run your redis server for the session store `redis-server`
 

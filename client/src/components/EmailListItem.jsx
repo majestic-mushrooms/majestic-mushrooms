@@ -42,7 +42,7 @@ class EmailListItem extends React.Component {
           onMouseLeave={() => { this.setState({ showButton: false }); }}>
 
           <Table.Cell width="4">
-            <Label circular style={{marginRight:'8px', background: message.color, color:'white'}}>
+            <Label circular style={{marginRight: '8px', background: message.color, color: 'white'}}>
               { fromStr.charAt(0).toUpperCase() }
             </Label>
             <span style={{fontWeight: weight}}>
