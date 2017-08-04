@@ -19,7 +19,14 @@ class ReadEmail extends React.Component {
     };
   }
 
+  addContent() {
+    const iframedoc = this.messageBody.contentDocument || this.messageBody.contentWindow.document;
+    iframedoc.body.innerHTML = this.props.currentMessage.body;
+    this.setState({ contentHeight: iframedoc.body.scrollHeight + 'px' });
+  }
+
   componentDidMount() {
+    const app = this;
     const { currentMessage, setThread } = this.props;
     var messageId = currentMessage.message_id;
     var threadId = currentMessage.thread_id;
@@ -27,9 +34,7 @@ class ReadEmail extends React.Component {
       axios.get(`api/threads/${threadId}`)
       .then(response => {
         setThread(parseMessage(response.data, today));
-        let iframedoc = this.messageBody.contentDocument || this.messageBody.contentWindow.document;
-        iframedoc.body.innerHTML = currentMessage.body;
-        this.setState({ contentHeight: iframedoc.body.scrollHeight + 50 + 'px' });
+        app.addContent();
       })
       .catch(error => {
         console.log('getThreads error: ', error);
@@ -38,11 +43,29 @@ class ReadEmail extends React.Component {
   }
   
   handleArrowClick(arrowDirection) {
-    
+    const app = this;
     const newMessageIndex = this.props.currentMessage.messageIndex + arrowDirection;
-    const { messages, setCurrentMessage } = this.props;
-    queryMessageDetails(messages[newMessageIndex].message_id, newMessageIndex, messages[newMessageIndex].unread, setCurrentMessage );
+    const { messages, setCurrentMessage, setThread } = this.props;
 
+    const messageId = messages[newMessageIndex].message_id;
+    const threadId = messages[newMessageIndex].thread_id;
+    const messageIndex = newMessageIndex;
+    const messageUnread = messages[newMessageIndex].unread;
+    const readMessage = [
+      () => { return axios.get(`/api/messages/read/${messageId}`); },
+      () => { if (messageUnread === true) { return axios.put(`/api/messages/${messageId}/read/null`); } },
+      () => { return axios.get(`api/threads/${threadId}`); }
+    ];
+
+    axios.all(readMessage.map(axiosCall => axiosCall()))
+    .then(axios.spread((res1, res2, res3) => {
+      setCurrentMessage(res1.data, messageIndex);
+      setThread(parseMessage(res3.data, today));
+      app.addContent();
+    }))
+    .catch(err => {
+      console.log('ERROR getting messages: ', err);
+    });
   }
 
   render() {
