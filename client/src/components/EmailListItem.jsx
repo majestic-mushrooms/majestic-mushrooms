@@ -20,7 +20,7 @@ class EmailListItem extends React.Component {
   deleteMessage(e, messageId) {
     e.stopPropagation();
 
-    //@TODO: replace number string with real trash folder id, from state + add type
+    //@TODO: fix server's nylas call
     axios.put(`/api/messages/${messageId}/trash/${this.props.folders.trashId}`).then(response => { 
       return;
     });
