@@ -1,7 +1,6 @@
 # Project specific
 config/development.json
 config/staging.json
-config/test.json
 config/nylasToken.js
 config/default.json
 secret.sh
