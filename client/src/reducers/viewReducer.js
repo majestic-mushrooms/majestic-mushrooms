@@ -29,7 +29,7 @@ export const viewReducer = (state = 'Inbox', action) => {
     return action.view;
 
   default:
-    return 'Inbox';
+    return state;
   }
 
 };

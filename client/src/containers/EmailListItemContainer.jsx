@@ -6,7 +6,8 @@ const mapStateToProps = (state) => {
   return {
     messages:       state.messages,
     view:           state.view,
-    searchResults:  state.search.searchResults
+    searchResults:  state.search.searchResults,
+    folders:        state.folders
   };
 };
 

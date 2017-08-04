@@ -111,7 +111,8 @@ module.exports.update = (req, res) => {
   const authString = 'Bearer ' + req.session.nylasToken;
   let actionObj = {}; //set depending on type, e.g. trash vs. read email
   if (req.params.type === 'trash') {
-    actionObj = { 'label_ids': 1 }; //@TODO: wait for folder routes, to pass in folder id
+    // actionObj = { 'label_ids': [String(req.params.typeid)] }; //@TODO: fix nylas call
+    res.status(200).send('No action taken.');
   } else if (req.params.type === 'read') {
     actionObj = { 'unread': false };
   }
@@ -119,10 +120,10 @@ module.exports.update = (req, res) => {
   axios.put('https://api.nylas.com/messages/' + req.params.id, actionObj, {
     headers: { Authorization: authString }
   }).then(response => {
-    return new models.Message({ message_id: req.params.id }).save(actionObj);
+    return new models.Message({ message_id: req.params.id }).save(actionObj); 
   }).catch(err => { 
-    console.log(`Error updating email ${req.params.id}.`);
-    res.status(400).send();
+    console.log(`Error updating email ${req.params.id}:`, err);
+    res.status(500).send();
   }).then(message => {
     console.log('Message updated!');
     res.status(200).send(); 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setAccount, setMessages, setFolders, addMessage, modifyMessage, setInbox, setCurrentFolder } from '../actions';
+import { setAccount, setMessages, setFolders, addMessage, modifyMessage, setInbox, setTrash, setCurrentFolder } from '../actions';
 import App from '../App.jsx';
 
 const mapStateToProps = (state) => {
@@ -24,6 +24,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setInbox: (inboxId) => {
       dispatch(setInbox(inboxId));
+    },
+    setTrash: (trashId) => {
+      dispatch(setTrash(trashId));
     },
     addMessage: (message) => {
       dispatch(addMessage(message));

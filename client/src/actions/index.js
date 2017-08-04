@@ -203,6 +203,13 @@ export const setInbox = (inboxId) => {
   };
 };
 
+export const setTrash = (trashId) => {
+  return {
+    type:       'SET_TRASH',
+    trashId:     trashId
+  };
+};
+
 export const setCurrentFolder = (currentId) => {
   return {
     type:       'SET_CURRENT_FOLDER',
