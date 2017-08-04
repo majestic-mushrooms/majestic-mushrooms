@@ -74,6 +74,8 @@ Use grunt to create a new database for development and test environments:
 
 Development envronment: `grunt pgcreatedb:default`
 
+Other environments, specify like so: NODE_ENV=test grunt pgcreatedb:default
+
 
 ### Run Migrations & Data Seeds
 
@@ -81,17 +83,17 @@ In terminal, from the root directory:
 
 To migrate to the latest version, run:
 
-`yarn migrate`
+`knex migrate:latest --env NODE_ENV`
 
 To rollback a version, run:
 
-`yarn rollback`
+`knex migrate:rollback --env NODE_ENV`
 
 To populate the database with seed data, run:
 
-`yarn seed`
+`knex seed:run --env NODE_ENV`
 
-Note: scripts are set up in package.json for these knex commands.
+Note: scripts are set up in package.json for these knex commands during development. Omit --env NODE_ENV for development
 
 ## Running the App
 
