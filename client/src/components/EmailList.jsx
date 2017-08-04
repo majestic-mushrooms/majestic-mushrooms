@@ -37,9 +37,12 @@ class EmailList extends React.Component {
 
         {areResults === false ? (
           <Segment size ='big' textAlign='center'>
-            No messages found.
             <Divider hidden />
-            <Image src='https://openclipart.org/image/2400px/svg_to_png/241842/sad_panda.png' centered size='large' />
+            <Divider hidden />
+            <Image src='/assets/nomessage.png' centered size='medium' />
+            <Divider hidden />
+            <Divider hidden />
+
           </Segment>
           ) : messages.length === 0 ? (
             <div className="loader">
