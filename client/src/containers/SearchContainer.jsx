@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Search from '../components/Search.jsx';
-import { setSearchQueryAndResults, setAreResults } from '../actions';
+import { setSearchQueryAndResults, setAreResults, setPage } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setAreResults: (boolean) => {
       dispatch(setAreResults(boolean));
+    },
+    setPage: (page) => {
+      dispatch(setPage(page));
     }
   };
 };
