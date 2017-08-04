@@ -4,12 +4,12 @@ const dbUtils = require('../../db/lib/utils.js');
 
 describe('SortedMessages model tests', function () {
   // Deletes all tables, creates new tables, and seeds tables with test data
-  beforeEach(function (done) {
+  before(function (done) {
     dbUtils.rollbackMigrate(done);
   });
 
   // Resets database back to original settings
-  afterEach(function (done) {
+  after(function (done) {
     dbUtils.rollback(done);
   });
 
@@ -21,23 +21,6 @@ describe('SortedMessages model tests', function () {
         done();
       })
       .catch(err => { done(err); });
-  });
-
-  it('Should be able to delete a record', function (done) {
-    // Inserts a user
-    SortedMessages.where({ id: 1 }).destroy()
-      // verifies that the user has been inserted
-      .then(function () {
-        return SortedMessages.where({ id: 1 }).fetch();
-      })
-      .then(function (result) {
-        expect(result).to.equal(null);
-        done();
-      })
-      .catch(function (err) {
-        console.log(err);
-        done(err);
-      });
   });
 
   it('Should be able to update an already existing record', function (done) {
@@ -61,6 +44,24 @@ describe('SortedMessages model tests', function () {
         done(err);
       });
   });
+
+  it('Should be able to delete a record', function (done) {
+    // Inserts a user
+    SortedMessages.where({ id: 1 }).destroy()
+      // verifies that the user has been inserted
+      .then(function () {
+        return SortedMessages.where({ id: 1 }).fetch();
+      })
+      .then(function (result) {
+        expect(result).to.equal(null);
+        done();
+      })
+      .catch(function (err) {
+        console.log(err);
+        done(err);
+      });
+  });
+
 
 });
 
