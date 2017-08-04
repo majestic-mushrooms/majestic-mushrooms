@@ -10,12 +10,12 @@ const Messages = require('../../db/models/messages.js');
 
 describe('Messages API', function () {
 
-  beforeEach(function (done) {
+  before(function (done) {
     dbUtils.rollbackMigrate(done);
   });
 
   // Resets database back to original settings
-  afterEach(function (done) {
+  after(function (done) {
     dbUtils.rollback(done);
   });
 

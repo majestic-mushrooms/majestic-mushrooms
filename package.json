@@ -31,7 +31,7 @@
     "global": "^4.3.2",
     "grunt-pg": "https://github.com/watsoncj/grunt-pg.git",
     "jquery": "^3.2.1",
-    "knex": "^0.12.9",
+    "knex": "^0.13.0",
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
     "nylas": "^3.1.0",
