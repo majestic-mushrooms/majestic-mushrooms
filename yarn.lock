@@ -5619,10 +5619,6 @@ sanitize-html@^1.14.1:
     regexp-quote "0.0.0"
     xtend "^4.0.0"
 
-sass@^1.0.0-beta.2:
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.0.0-beta.2.tgz#910071f16ddcde0b946392aadfa12d347128eb5d"
-
 sax@^1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
