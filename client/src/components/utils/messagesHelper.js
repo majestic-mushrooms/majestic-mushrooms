@@ -15,6 +15,7 @@ export const parseMessage = (messages, today) => {
       unread: message.unread,
       timestamp: day + ' ' + time,
       message_id: message.message_id,
+      thread_id: message.thread_id,
       color: message.color
     };
   });
