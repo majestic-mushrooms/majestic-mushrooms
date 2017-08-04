@@ -21,8 +21,8 @@ class EmailListItem extends React.Component {
     e.stopPropagation();
 
     //@TODO: replace number string with real trash folder id, from state + add type
-    axios.put(`/api/messages/${messageId}/trash/'3948384545'`).then(response => { 
-      console.log('message deleted!', response);
+    axios.put(`/api/messages/${messageId}/trash/${this.props.folders.trashId}`).then(response => { 
+      return;
     });
   }
 
@@ -58,7 +58,7 @@ class EmailListItem extends React.Component {
             {this.state.showButton === true ? 
             ( 
               <div>
-                <Icon name="reply" onClick={ (e) => { onClick(e, message.message_id); }}/>
+                <Icon name="reply" onClick={ (e) => { handleMessageClick(e, message.message_id); }}/>
                 <Icon name="trash outline" onClick={ (e) => { this.deleteMessage(e, message.message_id); }}/>
               </div>
             ) : (

@@ -34,16 +34,20 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders, setInbox, addMessage, modifyMessage, setCurrentFolder } = this.props;
+    const { setAccountDetails, setRetrievedMessages, setRetrievedFolders, setInbox, setTrash, 
+      addMessage, modifyMessage, setCurrentFolder } = this.props;
 
     axios.get('/api/folders').then( response => {
       setRetrievedFolders(response.data);
       let inboxId = null;
+      let trashId = null;
       response.data.forEach(folder => {
         if (folder.display_name === 'Inbox') { inboxId = folder.folder_id; }
+        if (folder.display_name === 'Trash') { trashId = folder.folder_id; }
       });
       setCurrentFolder(inboxId);
       setInbox(inboxId);
+      setTrash(trashId);
     })
     .then(() => axios.get('/api/messages'))
     .then(() => axios.get('/api/folders/' + this.props.folders.inboxId))
