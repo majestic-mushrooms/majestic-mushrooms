@@ -23,7 +23,7 @@ exports.up = function (knex, Promise) {
       table.varchar('message_id').primary();
       table.unique('message_id');
       table.varchar('account_id').references('accounts.account_id');
-      table.varchar('thread_id').nullable(); //foreign key to threads if we import threads
+      table.varchar('thread_id').nullable();
       table.varchar('subject').nullable();
       table.string('color', 7).notNullable();
       table.json('from').notNullable(); //arrays need to be JSON.stringified 

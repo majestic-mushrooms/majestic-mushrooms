@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, Button, Segment, Input, Menu, Icon, Label, Image } from 'semantic-ui-react';
 import axios from 'axios';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FolderListItem from './FolderListItem.jsx';
 import { today } from './utils/dateTimeHelper';
 import { parseMessage } from './utils/messagesHelper';
@@ -27,7 +27,7 @@ class FolderList extends React.Component {
     setCurrentFolder(labelId);
     axios.get('/api/folders/' + labelId)
       .then(response => {
-        if (response.data.length > 0){
+        if (response.data.length > 0) {
           setAreResults(true);
           setFilteredMessages(parseMessage(response.data, today));
         } else {

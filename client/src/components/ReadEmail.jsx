@@ -16,7 +16,7 @@ class ReadEmail extends React.Component {
     super(props);
     this.state = {
       contentHeight: '0px'
-    }
+    };
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class ReadEmail extends React.Component {
         setThread(parseMessage(response.data, today));
         let iframedoc = this.messageBody.contentDocument || this.messageBody.contentWindow.document;
         iframedoc.body.innerHTML = currentMessage.body;
-        this.setState({ contentHeight: iframedoc.body.scrollHeight + 50 + 'px' })
+        this.setState({ contentHeight: iframedoc.body.scrollHeight + 50 + 'px' });
       })
       .catch(error => {
         console.log('getThreads error: ', error);
